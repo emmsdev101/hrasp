@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Header from "./components/header/Header";
+import Sidepanel from "./components/sidepanel/Sidepanel";
+import { useState } from "react";
+import DashBoard from "./pages/dashboard/DashBoard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Application from "./pages/Applications/Application";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="MainContent d-flex justify-content-start m-0 p-0">
+      <Sidepanel />
+      <div className="container-fluid m-0 p-0 Main">
+        <Header />
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<DashBoard />} />
+            <Route exact path="/dashboard" element={<DashBoard />} />
+            <Route exact path="/applications" element={<Application />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }

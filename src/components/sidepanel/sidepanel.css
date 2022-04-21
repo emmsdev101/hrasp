@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+:root{
+    /* ===== Colors ===== */
+    --body-color: #E4E9F7;
+    --sidebar-color: #FFF;
+    --primary-color: #695CFE;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDD;
+    --text-color: #707070;
+
+    /* ====== Transition ====== */
+    --tran-01: all 0.1s ease;
+    --tran-03: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
+    --tran-06: all 0.4s ease;
+    --tran-07: all 0.7s ease;
+}
+*{
+    font-family: 'Poppins', sans-serif;
+}
+li{
+    list-style-type: none;
+}
+.bg-blue{
+    background-color:rgb(1, 80, 153);
+}
+.bg-green{
+    background-color: rgb(8, 168, 93);
+    color: white;
+}
+.bg-light{
+    color: rgb(83, 83, 83);
+    background-color: #00bb06;
+}
+.SidePanel{
+    height: 100vh;
+    display: flex;
+    align-items: start;
+    transition: var(--tran-05);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+.toggle{
+    font-size: x-large;
+    position: relative;
+    top: 5%;
+    right: -75px;
+    transform: translateY(-50%) rotate(180deg);
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: var(--tran-05);
+}
+.ToggleIcon{
+    color: #00bb06;
+    width: 30px;
+    height: 30px;
+}
+.show{
+    width: 250px;
+}
+.BrandName{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 0 5px;
+}
+.BrandText{
+    transition: var(--tran-05);
+}
+.LogoWrapper{
+    background-color: rgb(255, 255, 255);
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    margin: 10px;
+}
+.NavBar{
+    margin-top: 24px;
+    
+}
+.SideNavs{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+    width: 100%;
+}
+.Menu-Links{
+    padding: 10px;
+    width: 100%;
+}
+.SidePanel li a{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 10px 0;
+    text-decoration: none;
+    color:rgb(83, 83, 83);
+}
+.SidePanel .text, .SidePanel .NavIcon{
+    transition: var(--tran-01);
+}
+.NavIcon{
+    width: 20px;
+    height: 20px;
+}
+.nav-text{
+    margin-left: 20px;
+    font-size: small;
+    font-weight: 500;
+    word-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.close{
+    width: 80px;
+    height: 100vh;
+
+}
+.close .toggle{
+    right: 90px;
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.close .nav-text{
+    opacity: 0;
+    width: 0;
+}
+.close .BrandText{
+    opacity: 0;
+
+}
+.close .NavLink{
+    width: 60px;
+}
+.SidePanel li a:hover{
+    background-color: #00bb06;
+    color: white;
+}
+.active{
+    background-color:#00bb061c;
+}

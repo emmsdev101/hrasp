@@ -1,0 +1,73 @@
+.Header{
+    background-color: #00bb06fb;
+    padding: 3px 10px;
+    margin-left: 15px;
+    margin-right: 10px;
+    margin-top: 5px;
+    width: 96%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    color: rgb(255, 255, 255);
+
+}
+.AccountAction{
+    width:30px;
+    height:30px;
+    color: white;
+    font-size: large;
+    display: grid;
+    display: -ms-grid;
+    place-items: center;
+}
+.Account{
+    font-size: small;
+    font-weight: 500;
+}
+.AccountPicture{
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+.StatusIcon{
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+.DropDown{
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    background-color: rgb(252, 252, 252);
+    z-index: 2;
+    border: 1px solid rgb(212, 212, 212);
+    color: rgb(104, 104, 104);
+    padding: 10px;
+    border-radius: 3px;
+    min-width: 150px;
+    margin: 0;
+    padding: 10px 0;
+}
+.DropDown div{
+    margin: 5px 0;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: smaller;
+}
+.DropDown .icon{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+.AccountAction:hover{
+    color: white;
+}
+.DropDown div:hover{
+    background-color: #00bb06;
+    color: white;
+}
