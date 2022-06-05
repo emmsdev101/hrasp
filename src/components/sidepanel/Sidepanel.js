@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "./sidepanel.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -51,20 +50,8 @@ export default function Sidepanel() {
           </li>
           <li className="NavLink">
             <a href="#">
-              <FontAwesomeIcon icon={faVideo} className="NavIcon" />
-              <span className="text nav-text">Interview</span>
-            </a>
-          </li>
-          <li className="NavLink">
-            <a href="#">
               <FontAwesomeIcon icon={faHouseLaptop} className="NavIcon" />
               <span className="text nav-text">Hiring</span>
-            </a>
-          </li>
-          <li className="NavLink">
-            <a href="#">
-              <FontAwesomeIcon icon={faVials} className="NavIcon" />
-              <span className="text nav-text">Evaluation</span>
             </a>
           </li>
           <li className="NavLink">
@@ -73,7 +60,6 @@ export default function Sidepanel() {
               <span className="text nav-text">Account Management</span>
             </a>
           </li>
-          
         </ul>
       </div>
     </nav>

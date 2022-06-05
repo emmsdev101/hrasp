@@ -1,0 +1,23 @@
+.signin{
+    background-color: rgba(0, 175, 102, 0.356);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    min-height: 100vh;
+}
+.signin-box{
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+
+}
+.form-col{
+    margin-bottom: 20px;
+}
+.formRow{
+    display: flex;
+    justify-content: center;
+}

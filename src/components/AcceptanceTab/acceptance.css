@@ -1,0 +1,26 @@
+.applicantsListCol{
+    padding: 20px;
+    
+}
+.applicantsBox{
+    border-radius: 5px;
+    max-height: 90vh;
+}
+.listControl{
+    margin: 5px;
+}
+.applicantDetails{
+    
+}
+.forAcceptanceList{
+    overflow-y:auto;
+    overflow-x: hidden;
+    max-height: 60vh;
+    font-size: small;
+}
+
+.applicantDetails{
+    padding: 20px;
+    margin: 0;
+    
+}

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import logo from "./../../images/logo/wvsulogotransparent.png";
+
 import "./header.css";
-import { Button } from "react-bootstrap";
+import { Button, CloseButton, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDown,
@@ -8,54 +10,53 @@ import {
   faUserCog,
   faUserCircle,
   faPowerOff,
+  faChartLine,
+  faChevronCircleRight,
+  faHouseLaptop,
+  faUserGear,
+  faUsers,
+  faUserTie,
+  faVials,
+  faVideo,
+  faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
+import useHeader from "./useHeader";
 
-export default function Header() {
-  const [showMenu, setShowMenu] = useState(false);
+export default function Header({ logged }) {
+  const {isActive } = useHeader();
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-  const closeMenu = () => {
-    setShowMenu(false);
-  };
   return (
-    <div className="d-flex Header">
-      <h5 className="m-1 PageName">DashBoard</h5>
-      <div className="Account d-flex justify-content-center align-items-center">
-        <FontAwesomeIcon icon={faBell} className="StatusIcon"></FontAwesomeIcon>
-        <FontAwesomeIcon
-          icon={faUserCircle}
-          className="AccountPicture"
-        ></FontAwesomeIcon>
-        <p className="m-0">Admin</p>
-        <button
-          className="btn bg-transparent btn-sm AccountAction"
-          onClick={toggleMenu}
-          onBlur={closeMenu}
-        >
-          <FontAwesomeIcon
-            icon={faAngleDown}
-            className="AccountIcon"
-          ></FontAwesomeIcon>
-        </button>
-
-        {showMenu ? (
-          <div className="DropDown" tabIndex={1} onFocus={toggleMenu}>
-            <div>
-              {" "}
-              <FontAwesomeIcon icon={faUserCog} className = "icon"></FontAwesomeIcon>
-              Account Setting
-
-            </div>
-            <div>
-            <FontAwesomeIcon icon={faPowerOff} className = "icon"></FontAwesomeIcon>
-              Logout</div>
-          </div>
-        ) : (
-          ""
-        )}
+    <div className="header">
+      <div className="brand">
+        <img src={logo} width={40} className="Logo" alt="logo"></img>
+        <h4 className="brandText">HRASP</h4>
       </div>
+      <div className="navigation">
+          <ul className="menuLinks">
+            <li className="navLink">
+              <a href="/home" className={isActive("/home")}>
+                <span className=" navText">Home</span>
+              </a>
+            </li>
+            <li className="navLink">
+              <a href="/hiring" className={isActive("/home/hiring")}>
+                <span className=" navText">Ob Offers</span>
+              </a>
+            </li>
+
+            <li className="navLink">
+              <a href="/faqs" className={isActive("/home/faqs")}>
+                <span className=" navText">FAQs</span>
+              </a>
+            </li>
+          </ul>
+      </div>
+      <div className="accountNav">
+        <Button className = "btn-primary" size = "sm" href="/signup">Sign up</Button>
+        &nbsp;
+        <Button className = "btn-secondary" size = "sm" href="/login">Sign in</Button>
+        </div>
+ 
     </div>
   );
 }
