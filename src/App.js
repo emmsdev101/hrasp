@@ -2,28 +2,25 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Header from "./components/header/Header";
-import Sidepanel from "./components/sidepanel/Sidepanel";
 import { useState } from "react";
-import DashBoard from "./pages/dashboard/DashBoard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Application from "./pages/Applications/Application";
+import { Container } from "react-bootstrap";
+import AdminPortal from "./pages/Admin/AdminPortal";
+import PortalHome from "./pages/Portal/Home/PortalHome";
+import SignIn from "./pages/SignIn/signIn";
+import SignUp from "./pages/Signup/Signup";
 
 function App() {
   return (
-    <div className="MainContent d-flex justify-content-start m-0 p-0">
-      <Sidepanel />
-      <div className="container-fluid m-0 p-0 Main">
-        <Header />
-        <BrowserRouter>
+      <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<DashBoard />} />
-            <Route exact path="/dashboard" element={<DashBoard />} />
-            <Route exact path="/applications" element={<Application />} />
+            <Route exact path = "/admin/*" element = {<AdminPortal/>}/>
+            <Route exact path = "/home" element = {<PortalHome/>}/>
+            <Route exact path = "/signup" element = {<SignUp/>}/>
+            <Route exact path = "/login" element = {<SignIn/>}/>
+
           </Routes>
         </BrowserRouter>
-      </div>
-    </div>
   );
 }
-
 export default App;

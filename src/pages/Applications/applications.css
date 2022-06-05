@@ -1,0 +1,43 @@
+.sortDiv{
+    max-width: 200px;
+}
+.tabContainer{
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-left: auto;
+
+}
+.tabLink{
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    border-radius: 5px;
+}
+#tabActive{
+    background-color: rgb(0, 90, 175);
+    color: white;
+}
+.tabIcon{
+    margin: 5px;
+}
+
+.applicantsBox{
+    background-color: white;
+    border-radius: 5px;
+}
+.cardTtle{
+    text-align: left;
+}
+.applicantsListBox{
+}
+
+.tabLink:hover{
+    color: rgb(0, 90, 175);
+    cursor: pointer;
+}
