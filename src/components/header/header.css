@@ -1,30 +1,57 @@
-.Header{
-    background-color: #00bb06fb;
-    padding: 3px 10px;
-    margin-left: 15px;
-    margin-right: 10px;
-    margin-top: 5px;
-    width: 96%;
-    border-radius: 5px;
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.header{
+    background-color:whitesmoke;
+    padding: 10px;
+    width: 100%;
+    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
-    color: rgb(255, 255, 255);
-
+    color: rgb(59, 59, 59);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
-.AccountAction{
+.brand{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 0 5px;
+}
+.brandText{
+    padding: 0;
+    margin: 0;
+    margin-left: 4px;
+    /* color: #00bb06; */
+    /* color: #1768aa; */
+}
+.LogoWrapper{
+    background-color: rgb(255, 255, 255);
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    margin: 10px;
+}
+.accountAction{
     width:30px;
     height:30px;
-    color: white;
+    color: inherit;
     font-size: large;
     display: grid;
     display: -ms-grid;
     place-items: center;
 }
-.Account{
+.accountNav{
     font-size: small;
     font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .AccountPicture{
     width: 25px;
@@ -49,6 +76,7 @@
     min-width: 150px;
     margin: 0;
     padding: 10px 0;
+    
 }
 .DropDown div{
     margin: 5px 0;
@@ -64,10 +92,52 @@
     height: 15px;
     margin-right: 5px;
 }
+
 .AccountAction:hover{
     color: white;
 }
-.DropDown div:hover{
+
+.navigation{ 
+    height: 100%;
+}
+.NavBar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.menuLinks{
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navLink{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.navLink a{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+.navText{
+    margin-left: 4px ;
+    font-size: small;
+
+}
+
+.navIcon{
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    padding: 0;
+}
+.DropDown div:hover, .navLink a:hover{
     background-color: #00bb06;
     color: white;
 }

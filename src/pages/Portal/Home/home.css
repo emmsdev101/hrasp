@@ -1,0 +1,50 @@
+.banner{
+    height: 500px;
+    background-image: url("./../../../images//sampleImages/wvsuccbg.JPG");
+    background-position: 100% 10%;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+}
+.banner-text-wrapper{
+    background-color: rgba(0, 0, 0, 0.432);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding-top: 40px;
+
+}
+.offering{
+    margin-bottom: 10px;
+}
+.banner-text{
+    padding: 10px;
+    color: whitesmoke;
+    
+}
+.portion{
+    background-color: white;
+    margin: 0;
+    margin-top: 10px;
+}
+.portion-title{
+    padding:15px;
+    border-bottom: 1px  solid rgb(170, 170, 170);
+    text-align: left;
+}
+.portion-title h5{
+    margin: 0;
+}
+.portion-body{
+    padding: 10px;
+}
+.footer{
+    background-color: rgb(41, 41, 41);
+    color:white;
+    padding: 20px;
+}
