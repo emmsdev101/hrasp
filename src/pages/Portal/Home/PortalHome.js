@@ -3,8 +3,6 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import JobPost from "../../../components/JobPost/JobPost";
-import JobOffers from "./components/JobOffers/JobOffers";
-
 import "./home.css";
 export default function PortalHome() {
   return (
@@ -35,6 +33,7 @@ export default function PortalHome() {
           <JobPost/>
           <JobPost/>
           <JobPost/>
+
       </Row>
       </Container>
       <Footer/>
