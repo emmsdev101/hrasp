@@ -1,19 +1,24 @@
 import { faPlus, faUserCircle, faUserTie } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import CardSecondary from '../../components/dashCardSecondary/CardSecondary'
+import NewPostingModal from '../../components/NewPostingModal/NewPostingModal'
+import useHiring from './useHiring'
 
 export default function Hiring() {
+  const {show, handleClose, handleShow} = useHiring()
   return (
     <Container fluid className="p-3 applications">
+            <NewPostingModal show = {show} handleClose = {handleClose}/>
+
     <Row>
       <Col md={4}>
-        <h4 className="pageTitle mt-2 mb-4">Hiring Positions</h4>
+        <h4 className="pageTitle mt-2 mb-4">Job Posting</h4>
       </Col>
       <Col className = "d-flex justify-content-end">
           <div>
-          <Button size = "sm" className = "btn"><FontAwesomeIcon icon = {faPlus}></FontAwesomeIcon> Add Hiring</Button>
+          <Button onClick  = {handleShow} size = "sm" className = "btn"><FontAwesomeIcon icon = {faPlus}></FontAwesomeIcon> New Posting</Button>
           </div>
       </Col>
 
@@ -28,6 +33,6 @@ export default function Hiring() {
       </Row>
       </Container>
     </Row>
-  </Container>
+  </Container>  
   )
 }
