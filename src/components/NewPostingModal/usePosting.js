@@ -7,7 +7,7 @@ export default function usePosting(handleClose) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [poster, setPoster] = useState("");
-  const [jobtype, setJobtype] = useState("");
+  const [jobtype, setJobtype] = useState("Administrative Staff");
   const [numPersons, setNumPersons] = useState(1);
 
   const handleTitle = (input) => setTitle(input.target.value);
@@ -26,6 +26,7 @@ export default function usePosting(handleClose) {
         numPersons:numPersons
       };
 
+      console.log(postingData)
     if (poster) {
       let data = new FormData();
       data.append("file", poster, poster.name);
@@ -53,7 +54,7 @@ export default function usePosting(handleClose) {
     if (savePosting.status === 200) alert("Post saved");
     else alert("Error saving post");
     handleClose()
-  };
+   };
   return {
       jobtype,
       handleJobtype,

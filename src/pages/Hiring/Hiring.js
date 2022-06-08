@@ -2,12 +2,12 @@ import { faPlus, faUserCircle, faUserTie } from '@fortawesome/free-solid-svg-ico
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
-import CardSecondary from '../../components/dashCardSecondary/CardSecondary'
+import JobPostCard from '../../components/JobPostCard/JobPostCard'
 import NewPostingModal from '../../components/NewPostingModal/NewPostingModal'
 import useHiring from './useHiring'
 
 export default function Hiring() {
-  const {show, handleClose, handleShow} = useHiring()
+  const {show, handleClose, handleShow, jobPosts} = useHiring()
   return (
     <Container fluid className="p-3 applications">
             <NewPostingModal show = {show} handleClose = {handleClose}/>
@@ -25,11 +25,13 @@ export default function Hiring() {
     </Row>
     <Row>
       <Container fluid>
-      <Row>
-          <CardSecondary dashIcon = {faUserTie} title = "Registrar Clerk" body={5} footer = "Staff"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Accountant" body={2} footer = "Staff"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Statistics Instructor" body={2} footer = "Faculty"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Programming Instructor" body={3} footer = "Faculty"/>
+      <Row className='d-flex justify-content-center'>
+        <Col md = {6}>
+            {jobPosts.map((jobPost, index)=>(
+              <JobPostCard data={jobPost} key = {index}/>
+            ))}
+
+        </Col>
       </Row>
       </Container>
     </Row>

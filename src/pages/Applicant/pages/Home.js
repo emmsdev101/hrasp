@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import JobPost from "../../../components/JobPost/JobPost";
+import useHome from "./useHome";
 
 export default function Home() {
+
+  const {jobPosts} = useHome();
   return (
     <div>
       <div className="top-control">
@@ -17,18 +20,15 @@ export default function Home() {
         </div>
       </div>
       <div className="p-2"></div>
-      <Container fluid className = "d-flex justify-content-center ">
-         
-           <Row>
-           <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
-            <JobPost />
-           </Row>
-          
+      <Container fluid>
+        <Row className="d-flex justify-content-center ">
+          <Col md={9} className="">
+            {jobPosts.map((post, index)=>(
+              <JobPost data = {post} key = {index} />
+            ))}
+            
+          </Col>
+        </Row>
       </Container>
     </div>
   );
