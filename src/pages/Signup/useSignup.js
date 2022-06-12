@@ -1,33 +1,57 @@
-import {useState, useEffect } from 'react'
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { apiBaseUrl } from "../../config";
 
 export default function useSignup() {
-    const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
 
-    const [registration, setRegistration] = useState({})
+  const [registration, setRegistration] = useState({});
 
-useEffect(()=>{
-  console.log(registration)
-},[registration])
-    const savePrimary = (data)=>{
-        setStep(step+1);
-        setRegistration(data)
-        console.log(data)
+  useEffect(() => {
+    console.log(registration);
+
+    if(step === 4){
+      console.log("registring")
+      registerRequest(registration);
     }
-    const savePassword = (data)=>{
-      setStep(step+1);
-      setRegistration({...registration, password:data})
-  }
-  const next = ()=>{
+  }, [registration, step]);
+
+  const savePrimary = (data) => {
+    setRegistration(data);
     setStep(step + 1);
-  }
-    const back = () => {
-        setStep(step - 1);
+    console.log(data);
+  };
+  const savePassword = (data) => {
+    setRegistration({ ...registration, password: data });
+    setStep(step + 1);
+  };
+  const next = () => {
+    setStep(step + 1);
+  };
+  const back = () => {
+    setStep(step - 1);
+  };
+
+  const registerRequest = async(userData) => {
+    const registration = await axios.post(apiBaseUrl + "/applicant/register", {
+      userData,
+    });
+    console.log(registration)
+    if(registration.status === 200){
+      const registrationData = registration.data
+      if(registrationData.success){
+        setStep(0);
+      }
     }
+  }
+
   return {
     step,
     next,
     savePrimary,
     savePassword,
     back,
-  }
+  };
 }
+
+

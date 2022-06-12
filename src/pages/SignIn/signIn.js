@@ -16,8 +16,9 @@ export default function signIn() {
         <Row className="formRow"></Row>
         <Form>
         <Form.Group>
-                <Form.Label htmlFor="username">Username</Form.Label>
+                <Form.Label htmlFor="username">Email</Form.Label>
                 <Form.Control type="text" id="username"></Form.Control>
+              
               </Form.Group>
               <br></br>
               <Form.Group>
