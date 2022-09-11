@@ -12,7 +12,12 @@ export default function JobPost({data}) {
   const  jobType = data.jobType
   const date = data.date
   const image = apiBaseUrl + "/" + data.poster
+
+  const apply = () => {
+    window.location.href = `/applicant/apply/${data.id}/${data.title}`  }
   return (
+
+  
     <Card className="mb-4 ">
       <Row className="no-gutters">
 
@@ -29,7 +34,7 @@ export default function JobPost({data}) {
               <Card.Text className="text-muted">Posted: {date}</Card.Text>
             </div>
             <div className="mt-2">
-              <Button className="">
+              <Button className="" onClick={apply}>
                 Apply
               </Button>
             </div>

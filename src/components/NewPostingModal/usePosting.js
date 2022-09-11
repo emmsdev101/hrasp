@@ -35,11 +35,12 @@ export default function usePosting(handleClose) {
         accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
         "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        
       };
       const uploadRequest = await axios.post(
         apiBaseUrl + "/admin/upload",
         data,
-        headers
+        {withCredentials:true, headers:headers}
       );
       if (uploadRequest.status !== 200) {
         throw uploadRequest;
@@ -49,7 +50,8 @@ export default function usePosting(handleClose) {
     }
 
     const savePosting = await axios.post(apiBaseUrl + "/admin/postJob", {
-      postingData,
+      postingData},
+      {withCredentials:true
     });
     if (savePosting.status === 200) alert("Post saved");
     else alert("Error saving post");

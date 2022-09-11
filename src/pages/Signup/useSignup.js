@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { apiBaseUrl } from "../../config";
 
 export default function useSignup() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1);
 
   const [registration, setRegistration] = useState({});
 
@@ -39,7 +39,7 @@ export default function useSignup() {
     console.log(registration)
     if(registration.status === 200){
       const registrationData = registration.data
-      if(registrationData.success){
+      if(registrationData.status === "success"){
         setStep(0);
       }
     }
