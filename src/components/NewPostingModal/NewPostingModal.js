@@ -20,8 +20,8 @@ export default function NewPostingModal({ show, handleClose }) {
             <Form.Group className = "mb-3">
             <Form.Label htmlFor="#jotype">Type</Form.Label>
             <Form.Select onChange = {handleJobtype} id = "jobtype" value={jobtype}>
-              <option value="faculty">Faculty Member</option>
-              <option value="staff">Staff Member</option>
+              <option value="Administrative Staff">Administrative Staff</option>
+              <option value="Faculty Member">Faculty Member</option>
             </Form.Select>
           </Form.Group>
           </Col>

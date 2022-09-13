@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import AdminPortal from "./pages/Admin/AdminPortal";
 import PortalHome from "./pages/Portal/Home/PortalHome";
-import SignIn from "./pages/SignIn/signIn";
+import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/Signup/Signup";
 import Applicant from "./pages/Applicant/Applicant";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
@@ -25,7 +25,7 @@ function App() {
 
         <Route exact path="/signup/" element={<SignUp />} />
         <Route exact path="/login/" element={<SignIn />} />
-        <Route exact path="/applicant/" element={<Applicant />} />
+        <Route exact path="/applicant/*" element={<Applicant />} />
 
         <Route exact path="/panel/" element = {<Panel/>}/>
       </Routes>
