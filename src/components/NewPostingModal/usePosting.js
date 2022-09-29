@@ -7,7 +7,7 @@ export default function usePosting(handleClose) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [poster, setPoster] = useState("");
-  const [jobtype, setJobtype] = useState("");
+  const [jobtype, setJobtype] = useState("Administrative Staff");
   const [numPersons, setNumPersons] = useState(1);
 
   const handleTitle = (input) => setTitle(input.target.value);
@@ -26,6 +26,7 @@ export default function usePosting(handleClose) {
         numPersons:numPersons
       };
 
+      console.log(postingData)
     if (poster) {
       let data = new FormData();
       data.append("file", poster, poster.name);
@@ -34,11 +35,12 @@ export default function usePosting(handleClose) {
         accept: "application/json",
         "Accept-Language": "en-US,en;q=0.8",
         "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        
       };
       const uploadRequest = await axios.post(
         apiBaseUrl + "/admin/upload",
         data,
-        headers
+        {withCredentials:true, headers:headers}
       );
       if (uploadRequest.status !== 200) {
         throw uploadRequest;
@@ -48,12 +50,13 @@ export default function usePosting(handleClose) {
     }
 
     const savePosting = await axios.post(apiBaseUrl + "/admin/postJob", {
-      postingData,
+      postingData},
+      {withCredentials:true
     });
     if (savePosting.status === 200) alert("Post saved");
     else alert("Error saving post");
     handleClose()
-  };
+   };
   return {
       jobtype,
       handleJobtype,

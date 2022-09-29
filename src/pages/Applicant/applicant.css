@@ -1,6 +1,9 @@
 .applicant{ 
      background-color: rgba(0, 175, 102, 0.158);
      min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
 }
 .top-control{
     width: 100%;

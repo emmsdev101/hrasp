@@ -3,8 +3,11 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import Footer from "../../../components/footer/Footer";
 import Header from "../../../components/header/Header";
 import JobPost from "../../../components/JobPost/JobPost";
+import usePortalHome from './usePortalHome'
 import "./home.css";
 export default function PortalHome() {
+
+  const {jobPosts} = usePortalHome();
   return (
     <Container fluid className="p-0 m-0">
       <Header logged={false} />
@@ -27,13 +30,12 @@ export default function PortalHome() {
       </Container>
       <Container fluid>
       <h4 className="portion-title">Job offerings</h4>
-      <Row>
-          <JobPost/>
-          <JobPost/>
-          <JobPost/>
-          <JobPost/>
-          <JobPost/>
-
+      <Row className = "d-flex justify-content-center">
+        <Col md = {9}>
+        {jobPosts.map((data,index)=>(
+          <JobPost data = {data} key = {index}/>
+        ))}
+        </Col>
       </Row>
       </Container>
       <Footer/>

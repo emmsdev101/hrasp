@@ -6,16 +6,17 @@ import ConfirmEmail from "./ConfirmEmail";
 import "./signup.css";
 import AddPassword from "./AddPassword";
 import useSignup from "./useSignup";
+import Registered from "./Registered";
 export default function Signup() {
-  const {step, next, back} = useSignup();
+  const { step, next, savePrimary, savePassword, back,
+        
+  } = useSignup();
   return (
     <Container fluid className="signup">
-      {step === 1? 
-      <Registration step = {step} back = {back} next = {next}/>:''}
-     {step === 2?
-     <ConfirmEmail step = {step} back = {back} next = {next}/>: ''}
-      {step === 3?
-      <AddPassword step = {step} back = {back} next = {next}/>:''}
+      {step === 0 ? <Registered /> : ""}
+      {step === 1 ? <Registration step={step} back={back} next={savePrimary}   /> : ""}
+      {step === 2 ? <ConfirmEmail step={step} back={back} next={next} /> : ""}
+      {step === 3 ? <AddPassword step={step} back={back} next={savePassword} /> : ""}
     </Container>
   );
 }

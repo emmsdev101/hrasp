@@ -39,12 +39,6 @@ export default function Header({ logged }) {
               </a>
             </li>
             <li className="navLink">
-              <a href="/hiring" className={isActive("/home/hiring")}>
-                <span className=" navText">Ob Offers</span>
-              </a>
-            </li>
-
-            <li className="navLink">
               <a href="/faqs" className={isActive("/home/faqs")}>
                 <span className=" navText">FAQs</span>
               </a>
