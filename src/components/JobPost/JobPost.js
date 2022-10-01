@@ -19,12 +19,9 @@ export default function JobPost({data}) {
 
   
     <Card className="mb-4 ">
-      <Row className="no-gutters">
-
-        
+      <Row className="no-gutters">        
           <Col md={5}>
           <Card.Body>
-
             <div>
               <Card.Title>{title}</Card.Title>
               <Card.Text className="text-muted">{jobType}</Card.Text>
