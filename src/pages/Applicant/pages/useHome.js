@@ -9,7 +9,7 @@ export default function useHome() {
     useEffect(() => {
       
         async function fetchPostsRequest(){
-          const fetchPosts = await axios.get(apiBaseUrl+"/admin/getJobPosts",{withCredentials:true})
+          const fetchPosts = await axios.get(apiBaseUrl+"/applicant/getJobPosts",{withCredentials:true})
           if(fetchPosts.status === 200){
             setJobPosts(fetchPosts.data)
           }

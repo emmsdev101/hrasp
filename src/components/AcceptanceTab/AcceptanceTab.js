@@ -1,33 +1,60 @@
-import React from "react";
-import { Button, Col, Form, Row, Table } from "react-bootstrap";
-import Applicant from "../Applicant/Applicant";
-
-import "./acceptance.css";
+import axios from 'axios';
+import React,{useEffect, useState} from 'react'
+import { Col, Container, Form, Row, Table,Button } from "react-bootstrap";
+import { apiBaseUrl } from '../../config';
+import useApplication from '../../pages/Applications/useApplication';
 
 export default function AcceptanceTab() {
+    const [applications, setApplications] = useState([])
+
+    useEffect(()=>{
+      const requestApplications = async()=>{
+        const request = await axios(apiBaseUrl+"/admin/getApplicants",{withCredentials:true})
+        try{
+          const reqData = request.data
+          setApplications(reqData)
+
+        }catch(err){
+          console.log(err);
+      }
+    }
+    requestApplications();
+    },[])
+  const TableRow = ({data})=> {
+    return(
+      <tr key = {data.account_id}>
+      <td>{data.account_id}</td>
+      <td>{data.firstname}</td>
+      <td>{data.middlename}</td>
+      <td>{data.lastname}</td>
+      <td>{data.title}</td>
+      <td><Button size = "sm" className = "m-e-2">Accept</Button><Button size = "sm" variant = "secondary" >Reject</Button></td>
+    </tr>
+    )
+  }
   return (
-    <div className="applicantsBox p-0">
-      <Row>
-        <Col md={5}>
-          <div className="applicantsListCol">
-            <h4 className="cardTtle">Applicants</h4>
-            <div className="applicants">
-              <div className="d-flex justify-content-start">
-                <div className="listControl">
+    <div className="applicantsBox m-1 p-3">
+            <Row>
+              <Col md={4}>
+                <h4 className="cardTtle">Applicants</h4>
+              </Col>
+              <Col className="d-flex justify-content-evenly">
+              
+                <div className="sortDiv">
                   <Form.Select aria-label="Default select example" size="sm">
                     <option>Position</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                   </Form.Select>
                 </div>
-                <div className="listControl">
+                <div className="sortDiv">
                   <Form.Select aria-label="Default select example" size="sm">
                     <option>Type</option>
                     <option value="1">Faculty</option>
                     <option value="2">Staff</option>
                   </Form.Select>
                 </div>
-                <div className="listControl">
+                <div className="sortDiv">
                   <div className="d-flex justify-content-center align-items-center">
                     <Form.Label htmlFor="search">Search</Form.Label>&nbsp;
                     <Form.Control
@@ -39,45 +66,29 @@ export default function AcceptanceTab() {
                     ></Form.Control>
                   </div>
                 </div>
-              </div>
-              <br></br>
-              <Row>
-                <Col md={8} className="d-flex justify-content-start">
-                  Name
-                </Col>
-                <Col className="d-flex justify-content-start">Position</Col>
-              </Row>
-              <hr className="mt-0"></hr>
-              <div className="forAcceptanceList">
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-                <Applicant />
-              </div>
-            </div>
-          </div>
-        </Col>
-        <Col>
-          <div className="applicantDetails">
-            <Row>
-              <Col>
-                <h4 className="cardTtle">Details</h4>
-              </Col>
-              <Col>
-                <div className="d-flex justify-content-end">
-                <Button>Accept</Button>
-                </div>
               </Col>
             </Row>
+            <br></br>
+            <div className="applicantsList">
+              <Table hover responsive>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Lastname</th>
+                    <th>Applying for</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {applications.map((data, index)=>(
+                    <TableRow data = {data} key = {data.account_id}/>
+                  ))}
+
+                </tbody>
+              </Table>
+            </div>
           </div>
-        </Col>
-      </Row>
-    </div>
-  );
+  )
 }

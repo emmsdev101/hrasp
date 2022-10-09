@@ -1,9 +1,37 @@
-import React from 'react'
+import axios from 'axios';
+import React,{useEffect, useState} from 'react'
 import { Col, Container, Form, Row, Table } from "react-bootstrap";
+import { apiBaseUrl } from '../../config';
 import useApplication from '../../pages/Applications/useApplication';
 
 export default function ApplicantsTab() {
-    
+    const [applications, setApplications] = useState([])
+
+    useEffect(()=>{
+      const requestApplications = async()=>{
+        const request = await axios(apiBaseUrl+"/admin/getApplicants",{withCredentials:true})
+        try{
+          const reqData = request.data
+          setApplications(reqData)
+
+        }catch(err){
+          console.log(err);
+      }
+    }
+    requestApplications();
+    },[])
+  const TableRow = ({data})=> {
+    return(
+      <tr key = {data.account_id}>
+      <td>{data.account_id}</td>
+      <td>{data.firstname}</td>
+      <td>{data.middlename}</td>
+      <td>{data.lastname}</td>
+      <td>{data.title}</td>
+      <td>{data.status}</td>
+    </tr>
+    )
+  }
   return (
     <div className="applicantsBox m-1 p-3">
             <Row>
@@ -61,30 +89,9 @@ export default function ApplicantsTab() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Aroyo</td>
-                    <td>Accountant</td>
-                    <td>For Acceptance</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Aroyo</td>
-                    <td>Accountant</td>
-                    <td>For Acceptance</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>Aroyo</td>
-                    <td>Accountant</td>
-                    <td>For Acceptance</td>
-                  </tr>
+                  {applications.map((data, index)=>(
+                    <TableRow data = {data} key = {data.account_id}/>
+                  ))}
 
                 </tbody>
               </Table>

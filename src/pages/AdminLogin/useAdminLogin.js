@@ -14,7 +14,7 @@ export default function useAdminLogin() {
     }
 
     const submit = async() => {
-        const loginReq = await axios.post(apiBaseUrl+"/admin/login",{
+        const loginReq = await axios.post(apiBaseUrl+"/admin-login",{
           username, password
         }, {withCredentials:true})
         if(loginReq.status === 200){

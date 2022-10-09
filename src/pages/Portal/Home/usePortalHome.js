@@ -8,7 +8,7 @@ export default function usePortalHome() {
     useEffect(() => {
       
         async function fetchPostsRequest(){
-          const fetchPosts = await axios.get(apiBaseUrl+"/admin/getJobPosts")
+          const fetchPosts = await axios.get(apiBaseUrl+"/getJobPosts")
           if(fetchPosts.status === 200){
             setJobPosts(fetchPosts.data)
           }
