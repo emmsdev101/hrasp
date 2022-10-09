@@ -1,0 +1,12 @@
+*{
+    font-size: medium;
+}
+.p-info{
+    font-weight: 600;
+    margin:0;
+    border-bottom: 1px solid grey;
+    text-align: left;
+}
+.p-info-label{
+    text-align: left;
+}

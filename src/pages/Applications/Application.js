@@ -2,6 +2,8 @@ import React from "react";
 import { Col, Container, Form, Row, Table } from "react-bootstrap";
 import AcceptanceTab from "../../components/AcceptanceTab/AcceptanceTab";
 import ApplicantsTab from "../../components/applicantsTab/ApplicantsTab";
+import ForInterviewTab from "../../components/ForInterviewTab/ForInterviewTab";
+import PrequalificationTab from "../../components/PrequalificationTab/PrequalificationTab";
 import TabNavigation from "../../components/tabNavigation/TabNavigation";
 import useTabNavigation from "../../components/tabNavigation/useTabNavigation";
 import "./applications.css";
@@ -21,6 +23,8 @@ export default function Application() {
         <Container fluid>
           {tab === "applicants"?<ApplicantsTab/>:''}
           {tab === "for-acceptance"? <AcceptanceTab/>:''}
+          {tab === "for-prequalification"?<PrequalificationTab/>:""}
+          {tab === "for-interview"?<ForInterviewTab/>:''}
         </Container>
       </Row>
     </Container>

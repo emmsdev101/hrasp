@@ -36,7 +36,9 @@
 }
 .applicantsListBox{
 }
-
+.for-interview-tab{
+    font-size: small;
+}
 .tabLink:hover{
     color: rgb(0, 90, 175);
     cursor: pointer;
