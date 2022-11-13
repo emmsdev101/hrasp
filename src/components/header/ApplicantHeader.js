@@ -58,21 +58,7 @@ export default function ApplicantHeader() {
                 <span className=" navText">Your Profile</span>
               </a>
             </li>
-            <li className="navLink">
-              <a
-                href="/admin/schedules"
-                className={isActive("/admin/shedules")}
-              >
-                <FontAwesomeIcon icon={faCalendar} className="navIcon" />
-                <span className=" navText"></span>
-              </a>
-            </li>
-            <li className="navLink">
-              <a href="/admin/accounts" className={isActive("/admin/accounts")}>
-                <FontAwesomeIcon icon={faUserGear} className="navIcon" />
-                <span className=" navText">Panel</span>
-              </a>
-            </li>
+
           </ul>
 
       </div>
