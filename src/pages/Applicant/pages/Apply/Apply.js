@@ -22,10 +22,10 @@ export default function Apply({match}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="firstname">Application Letter</Form.Label>
-                <Form.Control type="file" id="letter" onChange={handleLetter}></Form.Control>
-                <Form.Text className="text-muted">
+                <Form.Control type="file" id="letter" onChange={handleLetter} multiple></Form.Control>
+                {/* <Form.Text className="text-muted">
                 Should be in a document format with e-signature.
-                </Form.Text>
+                </Form.Text> */}
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">
@@ -33,7 +33,7 @@ export default function Apply({match}) {
                 <Form.Label htmlFor="Middle Name">
                   Persoanl Data Sheet
                 </Form.Label>
-                <Form.Control type="file" id="pds" onChange = {handlePds}></Form.Control>
+                <Form.Control type="file" id="pds" onChange = {handlePds} multiple></Form.Control>
                 <Form.Text className="text-muted">
                 Personal Data Sheet {"(CS FORM 212)"}  can be downloaded <a style={{color:"green"}} href="http://csc.gov.ph">here</a>
                 </Form.Text>
@@ -42,7 +42,7 @@ export default function Apply({match}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="lastname">Transcrip of Records</Form.Label>
-                <Form.Control type="file" id="tor" onChange = {handleTor}></Form.Control>
+                <Form.Control type="file" id="tor" onChange = {handleTor} multiple></Form.Control>
               </Form.Group>
             </Col>
           </Row>

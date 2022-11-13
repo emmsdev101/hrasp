@@ -4,8 +4,8 @@ import { apiBaseUrl } from '../../../../config'
 import {useParams} from 'react-router-dom'
 export default function useApply() {
     const [letter, setLetter] = useState("")
-    const [tor, setTor] = useState("")
-    const [pds, setPds] = useState("")
+    const [tor, setTor] = useState([])
+    const [pds, setPds] = useState([])
     const [certs, setCerts] = useState([])
 
     const {id} = useParams()
@@ -15,10 +15,10 @@ export default function useApply() {
         setLetter(e.target.files[0])
     }
     const handleTor = (e) => {
-        setTor(e.target.files[0])
+        setTor(e.target.files)
     }
     const handlePds = (e) => {
-        setPds(e.target.files[0])
+        setPds(e.target.files)
     }
     const handleCerts = (e) => {
         setCerts(e.target.files)
@@ -61,9 +61,9 @@ const multiUpload = async(toUpload, path) => {
 }
     const submit = async() => {
         const letterPath = await singleUpload(letter, "/applicant/upload-letter")
-        const torPath = await singleUpload(tor, "/applicant/upload-tor")
-        const pdsPath = await singleUpload(pds, "/applicant/upload-pds")
 
+        const torPath = await multiUpload(tor, "/applicant/upload-tor")
+        const pdsPath = await multiUpload(pds, "/applicant/upload-pds")
         const certsPath = await multiUpload(certs, "/applicant/upload-certs")
         
         const saveApplication = await axios.post(apiBaseUrl+"/applicant/apply",{
@@ -75,6 +75,7 @@ const multiUpload = async(toUpload, path) => {
         },{withCredentials:true})
         console.log(saveApplication)
         if(saveApplication.status !== 200)return alert("Something went Wrong")
+        if(saveApplication.data)window.location.replace("/applicant")
         console.log(saveApplication.data)
 
     }

@@ -5,7 +5,7 @@ import { apiBaseUrl } from "../../config";
 import sampleImage from "./../../images/sampleImages/hiring-job.jpg";
 
 import './JobPost.css'
-export default function JobPost({data}) {
+export default function JobPost({data, noAction}) {
 
   const title = data.title
   const description = data.description
@@ -31,7 +31,7 @@ export default function JobPost({data}) {
               <Card.Text className="text-muted">Posted: {date}</Card.Text>
             </div>
             <div className="mt-2">
-              <Button className="" onClick={apply}>
+              <Button className="" onClick={apply} disabled = {noAction}>
                 Apply
               </Button>
             </div>

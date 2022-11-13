@@ -7,8 +7,10 @@ import Sidepanel from "../../components/sidepanel/Sidepanel";
 import CardSecondary from "../../components/dashCardSecondary/CardSecondary";
 import "./dashboard.css";
 import logo from "./../../images/logo/wvsulogotransparent.png";
+import useDashboard from "./useDashboard";
 
 export default function DashBoard() {
+  const {jobPosts} = useDashboard()
   return (
     <Container fluid className="p-3 dashboard">
       <Row>
@@ -58,10 +60,9 @@ export default function DashBoard() {
         <h5 className="pageTitle">Vacant Positions</h5>
       </Row>
       <Row>
-          <CardSecondary dashIcon = {faUserTie} title = "Registrar Clerk" body={5} footer = "Staff"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Accountant" body={2} footer = "Staff"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Statistics Instructor" body={2} footer = "Faculty"/>
-          <CardSecondary dashIcon = {faUserTie} title = "Programming Instructor" body={3} footer = "Faculty"/>
+          {jobPosts.map((data, idx)=>(
+             <CardSecondary dashIcon = {faUserTie} title = {data.title} body={data.num_persons} footer = {data.jobtype}/>
+          ))}
       </Row>
       </Container>
     </Container>

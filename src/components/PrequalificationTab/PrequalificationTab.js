@@ -19,12 +19,12 @@ export default function PrequalificationTab() {
           <h4 className="cardTtle">For Pre-Qualification</h4>
         </Col>
         <Col >
-          <ApplicationsTableHeader/>  
+          <ApplicationsTableHeader status = "for-prequalification"/>  
         </Col>
       </Row>
       <br></br>
       <div className="applicantsList">
-       <ApplicantsTable status = "pending" view = {setViewDetails}/>
+       <ApplicantsTable status = "prequalification" view = {setViewDetails}/>
       </div>
     </div>
     )

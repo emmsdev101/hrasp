@@ -10,7 +10,7 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
 
   useEffect(() => {
     const requestApplications = async () => {
-      const request = await axios(apiBaseUrl + "/admin/getApplicants", {
+      const request = await axios(apiBaseUrl + "/admin/getApplicants/"+status, {
         withCredentials: true,
       });
       try {
@@ -23,6 +23,14 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
     requestApplications();
   }, []);
   const TableRow = ({ data }) => {
+
+    const accept = async(mode) => {
+      console.log(data)
+      const request = await axios.post(apiBaseUrl + "/admin/acceptApplication",{status:mode, id:data.application_id}, {
+        withCredentials: true,
+      });
+
+    }
     return status === "incoming-interview" ? (
         <tr>
       <td>{data.firstname + " " + data.middlename + " " + data.lastname}</td>
@@ -41,7 +49,7 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
         ) : status === "pending" ? (
           <React.Fragment>
             <td>
-              <Button size="sm" className="me-2" variant="success">
+              <Button size="sm" className="me-2" variant="success" onClick={()=>accept("prequalification")}>
                 Accept
               </Button>
               <Button size="sm" variant="warning">
@@ -49,7 +57,7 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
               </Button>
             </td>
             <td>
-              <Button size="sm" className="me-2" onClick={() => view(true)}>
+              <Button size="sm" className="me-2" onClick={()=>view(data.application_id)}>
                 View
               </Button>
             </td>
@@ -60,9 +68,16 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
               <FontAwesomeIcon icon={faCalendarPlus}/>
             </Button>
           </td>
-        ) : (
-          ""
-        )}
+        ) : status === "prequalification"? (
+          <td>
+          <Button size="sm" className="me-2" variant="success" onClick={()=>accept("for-interview")}>
+            Passed
+          </Button>
+          <Button size="sm" variant="warning">
+            Failed
+          </Button>
+          </td>
+        ):""}
       </tr>
     );
   };

@@ -9,7 +9,7 @@ import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
 export default function AcceptanceTab() {
     const [applications, setApplications] = useState([])
-    const [viewDetails, setViewDetails] = useState(false)
+    const [viewDetails, setViewDetails] = useState(0)
     
   const ApplicantsBox = () => {
     return(
@@ -19,7 +19,7 @@ export default function AcceptanceTab() {
           <h4 className="cardTtle">For Acceptance</h4>
         </Col>
         <Col >
-          <ApplicationsTableHeader/>  
+          <ApplicationsTableHeader status="pending"/>  
         </Col>
       </Row>
       <br></br>
@@ -29,7 +29,7 @@ export default function AcceptanceTab() {
     </div>
     )
   }
-  return viewDetails?<ApplicationDetails close = {setViewDetails}/>:<ApplicantsBox/>
+  return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicantsBox/>
 
 
 }

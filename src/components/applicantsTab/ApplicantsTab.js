@@ -11,7 +11,7 @@ export default function ApplicantsTab() {
 
     useEffect(()=>{
       const requestApplications = async()=>{
-        const request = await axios(apiBaseUrl+"/admin/getApplicants",{withCredentials:true})
+        const request = await axios(apiBaseUrl+"/admin/getApplicants/all",{withCredentials:true})
         try{
           const reqData = request.data
           setApplications(reqData)

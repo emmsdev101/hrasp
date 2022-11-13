@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,8 +6,32 @@ import {
   } from "@fortawesome/free-solid-svg-icons";
 
 import './style.css'
+import axios from "axios";
+import { apiBaseUrl } from "../../config";
 
-export default function ApplicationDetails({close}) {
+export default function ApplicationDetails({close, applicantionId}) {
+    const [pds, setPds] = useState([])
+    const [tors, setTors] = useState([])
+    const [certs, setCerts] = useState([])
+    
+
+    useEffect(()=>{
+        const fetch = async() => {
+            const getApplicationDetails = await axios.get(apiBaseUrl+"/admin/getApplicationDetails/"+applicantionId, {
+                withCredentials: true,
+              } )
+            const appdata = getApplicationDetails.data
+            
+            const pdsJson = JSON.parse(appdata.pds)
+            const torsJson = JSON.parse(appdata.tor)
+            const certsJson = JSON.parse(appdata.certificates)
+            console.log(certsJson)
+            setPds(pdsJson.pds)
+            setTors(torsJson.tors)
+            setCerts(certsJson.certificates)
+        }
+        fetch()
+    },[])
   return (
     <div className="applicantsBox m-1 p-3">
       <Row>
@@ -22,122 +46,28 @@ export default function ApplicationDetails({close}) {
       </Row>
       <br></br>
       <div className="ps-4 pe-4 pb-4">        
-
-        <h6 className = "mb-3">Personal Information:</h6>
+        <h6 className = "mb-3">Personal Data Sheet:</h6>
         <hr></hr>
         <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Emmanuel</p>
-                <p className="p-info-label">Firstname</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Despi</p>
-                <p className="p-info-label">Middlename</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Katipunan</p>
-                <p className="p-info-label">Lastname</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Male</p>
-                <p className="p-info-label">Gender</p>
-            </Col>
+            {pds.map((path, idx)=>(
+               <Col md = {4} className = "p-2"> <img className="imgs" src={apiBaseUrl+'/'+path} alt = ""/></Col>
+            ))}
+            
         </Row>
-        <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">October 30 1998</p>
-                <p className="p-info-label">Birthday</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">23</p>
-                <p className="p-info-label">Age </p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Single</p>
-                <p className="p-info-label">Status</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Filipino</p>
-                <p className="p-info-label">Citizenship</p>
-            </Col>
-        </Row>       
-
-        <h6 className = "mb-3 mt-3">Home Address:</h6>
+        <h6 className = "mb-3 mt-3">Transcript of Records:</h6>
         <hr></hr>
         <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Malitbog</p>
-                <p className="p-info-label">Barangay</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Tapaz</p>
-                <p className="p-info-label">Municipality </p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Capiz</p>
-                <p className="p-info-label">Province/City</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Filipino</p>
-                <p className="p-info-label">Citizenship</p>
-            </Col>
+        {tors.map((path, idx)=>(
+               <Col md = {4} className = "p-2"> <img src={apiBaseUrl+'/'+path} className="imgs" alt = ""/></Col>
+            ))}
         </Row>
       
-        <h6 className = "mb-3 mt-3">Permanent Address:</h6>
+        <h6 className = "mb-3 mt-3">Seminar/Training Certificates:</h6>
           <hr/>
         <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Malitbog</p>
-                <p className="p-info-label">Barangay</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Tapaz</p>
-                <p className="p-info-label">Municipality </p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Capiz</p>
-                <p className="p-info-label">Province/City</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Filipino</p>
-                <p className="p-info-label">Citizenship</p>
-            </Col>
-        </Row>
-       
-        <h6 className = "mb-3 mt-3">Contact Information:</h6>
-        <hr/>
-        <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">09988004567</p>
-                <p className="p-info-label">Contact Number</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Tapaz</p>
-                <p className="p-info-label">Email Address </p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Nida Katipunan</p>
-                <p className="p-info-label">Contact Person Name</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">09876543123</p>
-                <p className="p-info-label">Contact Person Number</p>
-            </Col>
-        </Row>
-        <h6 className = "mb-3 mt-3">Files:</h6>
-        <hr/>
-        <Row>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Personal Data Sheet</p>
-
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Application Letter</p>
-            </Col>
-            <Col md={3} sm = {6}>
-                <p className="p-info">Certificates of Seminars/Trainings</p>
-            </Col>
-
+        {certs.map((path, idx)=>(
+               <Col md = {4} className = "p-2"> <img src={apiBaseUrl+'/'+path} className="imgs" alt = ""/></Col>
+            ))}
         </Row>
       </div>
     </div>

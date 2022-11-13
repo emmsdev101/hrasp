@@ -5,7 +5,7 @@ import useHome from "./useHome";
 
 export default function Home() {
 
-  const {jobPosts} = useHome();
+  const {jobPosts, application} = useHome();
   return (
     <div>
       <div className="top-control">
@@ -20,18 +20,30 @@ export default function Home() {
         </div>
       </div>
       <div className="p-2"></div>
-      <Container fluid>
-        <Row>
-        <Container>
-        <Card>
-          <Card.Header>Application Status</Card.Header>
-        </Card>
-        </Container>
+      <Row className="d-flex justify-content-center">
+       {application?(
+         <Col md = {9}>
+         <Container className="mb-5">
+         <Card>
+           <Card.Header>
+             <h5>Your Application </h5>
+           </Card.Header>
+           <Card.Body className = "d-flex flex-direction-row justify-content-between">
+           <p>Position Applied: <span className="status-text">{application.title}</span></p>
+           <p>Status: <span className="status-text">{application.status}</span></p>
+         </Card.Body>
+         </Card>
+        
+         </Container>
+         </Col>
+       ):''}
         </Row>
+      <Container fluid>
+
         <Row className="d-flex justify-content-center ">
           <Col md={9} className="">
             {jobPosts.map((post, index)=>(
-              <JobPost data = {post} key = {index} />
+              <JobPost data = {post} key = {index} noAction = {application?true:false}/>
             ))}
             
           </Col>
