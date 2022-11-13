@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import JobPost from "../../../components/JobPost/JobPost";
 import useHome from "./useHome";
 
@@ -21,6 +21,13 @@ export default function Home() {
       </div>
       <div className="p-2"></div>
       <Container fluid>
+        <Row>
+        <Container>
+        <Card>
+          <Card.Header>Application Status</Card.Header>
+        </Card>
+        </Container>
+        </Row>
         <Row className="d-flex justify-content-center ">
           <Col md={9} className="">
             {jobPosts.map((post, index)=>(
