@@ -80,9 +80,9 @@ export default function FirstStep({next, back}) {
             </Col>
           </Row>
           <Container className="d-flex justify-content-between">
-            <Button onClick={submit}>Next</Button>
-            
-            <Button variant = "secondary">Signin</Button>
+          <Button variant = "secondary">Signin</Button>
+
+            <Button onClick={submit}>Next</Button>            
           </Container>
         </Form>
       </Container>

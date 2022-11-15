@@ -13,6 +13,7 @@ export default function ApplicationDetails({close, applicantionId}) {
     const [pds, setPds] = useState([])
     const [tors, setTors] = useState([])
     const [certs, setCerts] = useState([])
+    const [letters, setLetter] = useState([])
     
 
     useEffect(()=>{
@@ -22,13 +23,16 @@ export default function ApplicationDetails({close, applicantionId}) {
               } )
             const appdata = getApplicationDetails.data
             
+            const lettersJson = JSON.parse(appdata.letter)
             const pdsJson = JSON.parse(appdata.pds)
             const torsJson = JSON.parse(appdata.tor)
             const certsJson = JSON.parse(appdata.certificates)
-            console.log(certsJson)
+            
+            console.log(lettersJson)
             setPds(pdsJson.pds)
             setTors(torsJson.tors)
             setCerts(certsJson.certificates)
+            setLetter(lettersJson.letter)
         }
         fetch()
     },[])
@@ -45,7 +49,15 @@ export default function ApplicationDetails({close, applicantionId}) {
         </Col>
       </Row>
       <br></br>
-      <div className="ps-4 pe-4 pb-4">        
+      <div className="ps-4 pe-4 pb-4">  
+      <h6 className = "mb-3">Application Letter:</h6>
+        <hr></hr>
+        <Row>
+        {letters.map((path, idx)=>(
+               <Col md = {4} className = "p-2"> <img className="imgs" src={apiBaseUrl+'/'+path} alt = ""/></Col>
+            ))}
+            
+        </Row>      
         <h6 className = "mb-3">Personal Data Sheet:</h6>
         <hr></hr>
         <Row>

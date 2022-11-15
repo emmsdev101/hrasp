@@ -38,16 +38,18 @@ export default function Home() {
          </Col>
        ):''}
         </Row>
-      <Container fluid>
+      <Container fluid className="d-flex justify-content-center ">
 
-        <Row className="d-flex justify-content-center ">
           <Col md={9} className="">
+          <Row >
+
             {jobPosts.map((post, index)=>(
               <JobPost data = {post} key = {index} noAction = {application?true:false}/>
             ))}
+                    </Row>
+
             
           </Col>
-        </Row>
       </Container>
     </div>
   );

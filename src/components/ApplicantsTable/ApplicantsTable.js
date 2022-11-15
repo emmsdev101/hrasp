@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
 import { apiBaseUrl } from "../../config";
 
-export default function ApplicantsTable({ status, view, accept, deny }) {
+export default function ApplicantsTable({ status, view, setSchedule, deny, handleShow }) {
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -29,13 +29,17 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
       const request = await axios.post(apiBaseUrl + "/admin/acceptApplication",{status:mode, id:data.application_id}, {
         withCredentials: true,
       });
+      if(request.data)window.location.reload()
+      else alert("Error Occured")
 
     }
-    return status === "incoming-interview" ? (
+    return status === "to-interview" ? (
+   
         <tr>
+      {console.log(data)}
       <td>{data.firstname + " " + data.middlename + " " + data.lastname}</td>
       <td>{data.title}</td>
-      <td>Today 9:30 am</td>
+      <td>{data.date + ":"+data.time}</td>
       </tr>
     ) : (
       <tr key={data.account_id}>
@@ -45,7 +49,14 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
         <td>{data.lastname}</td>
         <td>{data.title}</td>
         {status === "all" ? (
-          <td>{data.status}</td>
+          <React.Fragment>
+            <td>{data.status}</td>
+            <td>
+            <Button size="sm" className="me-2" onClick={()=>view(data.application_id)}>
+                View
+              </Button>
+            </td>
+            </React.Fragment>
         ) : status === "pending" ? (
           <React.Fragment>
             <td>
@@ -64,8 +75,8 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
           </React.Fragment>
         ) : status === "for-interview" ? (
           <td>
-            <Button size="sm" className="me-2" variant="success">
-              <FontAwesomeIcon icon={faCalendarPlus}/>
+            <Button size="sm" className="me-2" variant="success" onClick = {()=>setSchedule(data)}>
+              <FontAwesomeIcon icon={faCalendarPlus} />
             </Button>
           </td>
         ) : status === "prequalification"? (
@@ -84,11 +95,11 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
   return (
     <Table hover responsive>
       <thead>
-        {status === "incoming-interview" ? (
+        {status === "to-interview" ? (
           <tr>
             <th>Fullname</th>
             <th>Applying for</th>
-            <th>Interview On</th>
+            <th>Interview Date</th>
           </tr>
         ) : (
           <tr>
@@ -98,7 +109,8 @@ export default function ApplicantsTable({ status, view, accept, deny }) {
             <th>Lastname</th>
             <th>Applying for</th>
             <th>{status === "all" ? "Status" : "Action"}</th>
-            {status === "pending" ? <th>Details</th> : ""}
+            {status === "pending" ? <th>Details</th> : status==="all"?<th>Action</th>:""}
+            
           </tr>
         )}
       </thead>

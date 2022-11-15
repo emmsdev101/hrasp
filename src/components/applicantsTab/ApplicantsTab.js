@@ -3,11 +3,13 @@ import React,{useEffect, useState} from 'react'
 import { Col, Container, Form, Row, Table } from "react-bootstrap";
 import { apiBaseUrl } from '../../config';
 import useApplication from '../../pages/Applications/useApplication';
+import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
 export default function ApplicantsTab() {
     const [applications, setApplications] = useState([])
+    const [viewDetails, setViewDetails] = useState(0)
 
     useEffect(()=>{
       const requestApplications = async()=>{
@@ -34,7 +36,8 @@ export default function ApplicantsTab() {
     </tr>
     )
   }
-  return (
+ const ApplicationsBox = ()=>{
+  return(
     <div className="applicantsBox m-1 p-3">
             <Row>
               <Col md={4}>
@@ -46,8 +49,11 @@ export default function ApplicantsTab() {
             </Row>
             <br></br>
             <div className="applicantsList">
-              <ApplicantsTable status = "all"/>
+              <ApplicantsTable status = "all" view={setViewDetails}/>
             </div>
           </div>
   )
+ }
+ return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicationsBox/>
+
 }

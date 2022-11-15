@@ -3,7 +3,7 @@ import axios from 'axios'
 import { apiBaseUrl } from '../../../../config'
 import {useParams} from 'react-router-dom'
 export default function useApply() {
-    const [letter, setLetter] = useState("")
+    const [letter, setLetter] = useState([])
     const [tor, setTor] = useState([])
     const [pds, setPds] = useState([])
     const [certs, setCerts] = useState([])
@@ -12,7 +12,7 @@ export default function useApply() {
 
 
     const handleLetter = (e) => {
-        setLetter(e.target.files[0])
+        setLetter(e.target.files)
     }
     const handleTor = (e) => {
         setTor(e.target.files)
@@ -60,8 +60,8 @@ const multiUpload = async(toUpload, path) => {
         return upload(path, data)
 }
     const submit = async() => {
-        const letterPath = await singleUpload(letter, "/applicant/upload-letter")
-
+        
+        const letterPath = await multiUpload(letter, "/applicant/upload-letter")
         const torPath = await multiUpload(tor, "/applicant/upload-tor")
         const pdsPath = await multiUpload(pds, "/applicant/upload-pds")
         const certsPath = await multiUpload(certs, "/applicant/upload-certs")

@@ -17,10 +17,8 @@ export default function JobPost({data, noAction}) {
     window.location.href = `/applicant/apply/${data.id}/${data.title}`  }
   return (
 
-  
-    <Card className="mb-4 ">
-      <Row className="no-gutters">        
-          <Col md={5}>
+    <Col md={4}>
+    <Card className="mb-4">
           <Card.Body>
             <div>
               <Card.Title>{title}</Card.Title>
@@ -35,12 +33,10 @@ export default function JobPost({data, noAction}) {
                 Apply
               </Button>
             </div>
+            <a  href = {image}><Card.Img variant="bottom" src={image} /></a>
             </Card.Body>
-          </Col>
-          <Col md={7}>
-            <Card.Img variant="bottom" src={image} />
-          </Col>
-        </Row>
     </Card>
+    </Col>
+
   );
 }

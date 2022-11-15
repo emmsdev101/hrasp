@@ -8,6 +8,7 @@ import Hiring from "../Hiring/Hiring";
 import AdminLogin from "../AdminLogin/AdminLogin";
 import axios from "axios";
 import { apiBaseUrl } from "../../config";
+import Conference from "../Conference/Conference";
 
 export default function AdminPortal() {
 
@@ -36,6 +37,7 @@ export default function AdminPortal() {
         <Route exact path="/dashboard" element={<DashBoard />} />
         <Route exact path="/applications" element={<Application />} />
         <Route exact path="/hiring" element={<Hiring />} />
+        <Route exact path="/Interview" element={<Conference/>}/>
       </Routes>
       </Container>
 

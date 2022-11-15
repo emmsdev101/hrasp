@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import PanelHeader from '../../components/header/PanelHeader'
 
 export default function Panel() {
@@ -7,7 +7,9 @@ export default function Panel() {
     <>
     <PanelHeader/>
     <Container fluid m={0} p={0} className = "Main">
-
+     <Row>
+        <h4 className="pageTitle">Panel</h4>
+      </Row>
     </Container>
     </>
   )
