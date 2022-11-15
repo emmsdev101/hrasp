@@ -17,7 +17,7 @@ export default function JobPost({data, noAction}) {
     window.location.href = `/applicant/apply/${data.id}/${data.title}`  }
   return (
 
-    <Col md={4}>
+    <Col md={4} sm = {12}>
     <Card className="mb-4">
           <Card.Body>
             <div>

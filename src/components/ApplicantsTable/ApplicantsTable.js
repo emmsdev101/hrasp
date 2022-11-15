@@ -15,6 +15,7 @@ export default function ApplicantsTable({ status, view, setSchedule, deny, handl
       });
       try {
         const reqData = request.data;
+        console.log(reqData)
         setApplications(reqData);
       } catch (err) {
         console.log(err);
@@ -115,9 +116,9 @@ export default function ApplicantsTable({ status, view, setSchedule, deny, handl
         )}
       </thead>
       <tbody>
-        {applications.map((data, index) => (
+        {applications ? applications.map((data, index) => (
           <TableRow data={data} key={data.account_id} />
-        ))}
+        )):''}
       </tbody>
     </Table>
   );
