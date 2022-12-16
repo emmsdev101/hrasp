@@ -18,38 +18,38 @@ export default function DashBoard() {
       </Row>
       <Row>
         <Col sm={12} md={6} lg={4}>
-          <div class="card-counter info">
+          <div className="card-counter info">
             <FontAwesomeIcon
               icon={faCodeFork}
               className="icon"
             ></FontAwesomeIcon>
             <div className="count-info">
-              <span class="count-numbers">12</span>
-              <span class="count-name">Applicants</span>
+              <span className="count-numbers">12</span>
+              <span className="count-name">Applicants</span>
             </div>
           </div>
         </Col>
         <Col sm={12} md={6} lg={4}>
-          <div class="card-counter success">
+          <div className="card-counter success">
             <FontAwesomeIcon
               icon={faCodeFork}
               className="icon"
             ></FontAwesomeIcon>
             <div className="count-info">
-              <span class="count-numbers">5</span>
-              <span class="count-name">Accepted</span>
+              <span className="count-numbers">5</span>
+              <span className="count-name">Accepted</span>
             </div>
           </div>
         </Col>
         <Col sm={12} md={6} lg={4}>
-          <div class="card-counter danger">
+          <div className="card-counter danger">
             <FontAwesomeIcon
               icon={faCodeFork}
               className="icon"
             ></FontAwesomeIcon>
             <div className="count-info">
-              <span class="count-numbers">3</span>
-              <span class="count-name">Rejected</span>
+              <span className="count-numbers">3</span>
+              <span className="count-name">Rejected</span>
             </div>
           </div>
         </Col>
@@ -61,7 +61,7 @@ export default function DashBoard() {
       </Row>
       <Row>
           {jobPosts.map((data, idx)=>(
-             <CardSecondary dashIcon = {faUserTie} title = {data.title} body={data.num_persons} footer = {data.jobtype}/>
+             <CardSecondary dashIcon = {faUserTie} title = {data.title} body={data.num_persons} footer = {data.jobtype} key = {idx}/>
           ))}
       </Row>
       </Container>

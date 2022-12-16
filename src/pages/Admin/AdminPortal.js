@@ -1,54 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "../../components/header/AdminHeader";
 import DashBoard from "../dashboard/DashBoard";
 import Application from "../Applications/Application";
 import Hiring from "../Hiring/Hiring";
-import AdminLogin from "../AdminLogin/AdminLogin";
 import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import Conference from "../Conference/Conference";
 
 export default function AdminPortal() {
 
+  const [render, setRender] = useState(false) 
 
-  const MainRoute=()=>{
-    useEffect(()=>{
-      const auth = async()=>{
-        let authReq
-        try{
-          authReq = await axios.get(apiBaseUrl+"/admin/",{withCredentials:true});
-        }
-        catch(e){
-          console.log(e)
-          e.code === "ERR_BAD_REQUEST"?window.location.replace("/admin/login"):console.log("logged in")
-        }
-        
+  useEffect(()=>{
+    const auth = async()=>{
+      let authReq
+      try{
+        authReq = await axios.get(apiBaseUrl+"/admin/",{withCredentials:true});
+        setRender(true)
+
       }
-      auth()
-    },[])
-    return(
-      <>
-      <Header logged = {true} />
-      <Container fluid m={0} p={0} className = "Main">
-      <Routes>
-        <Route exact path="/" element={<DashBoard />} />
-        <Route exact path="/dashboard" element={<DashBoard />} />
-        <Route exact path="/applications" element={<Application />} />
-        <Route exact path="/hiring" element={<Hiring />} />
-        <Route exact path="/Interview" element={<Conference/>}/>
-      </Routes>
-      </Container>
-
-    </>
-    )
-  }
-  return (
- //   <MainRoute/>
+      catch(e){
+        setRender(true)
+        console.log(e)
+        e.code === "ERR_BAD_REQUEST"?window.location.replace("/admin-login"):console.log("logged in")
+      }        
+    }
+    auth()
+  },[])
+  return render?(
+    <>
+    <Header logged = {true} />
+    <Container fluid m={0} p={0} className = "Main">
     <Routes>
-      <Route exact path="/login" element={<AdminLogin/>}/>
-      <Route exact path="/*" element={<MainRoute />} />
+      <Route exact path="/" element={<DashBoard />} />
+      <Route exact path="/dashboard" element={<DashBoard />} />
+      <Route exact path="/applications" element={<Application />} />
+      <Route exact path="/hiring" element={<Hiring />} />
+      <Route exact path="/Interview" element={<Conference/>}/>
     </Routes>
-  );
-}
+    </Container>
+
+  </>
+  ):""
+} 
