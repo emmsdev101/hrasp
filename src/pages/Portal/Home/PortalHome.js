@@ -19,7 +19,7 @@ export default function PortalHome() {
           </h2>
           <Container className="text-center">
             <h4 className="banner-text">
-              Human Resource Applicant Screening Portal
+              Applicant Screening Portal
             </h4>
             <p>
               WVSU Calinog as a center of excellence in agriculture and resource
@@ -31,10 +31,12 @@ export default function PortalHome() {
       <Container fluid>
       <h4 className="portion-title">Job offerings</h4>
       <Row className = "d-flex justify-content-center">
-        <Col md = {9}>
+        <Col md = {10}>
+          <Row>
         {jobPosts.map((data,index)=>(
           <JobPost data = {data} key = {index}/>
         ))}
+        </Row>
         </Col>
       </Row>
       </Container>

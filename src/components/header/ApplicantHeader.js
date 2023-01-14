@@ -24,13 +24,13 @@ import logo from "./../../images/logo/wvsulogotransparent.png";
 
 import useHeader from './useHeader';
 export default function ApplicantHeader() {
-  const { showMenu, toggleMenu, closeMenu, isActive } = useHeader();
+  const { showMenu, toggleMenu, closeMenu, isActive,logout } = useHeader();
 
   return (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
-        <h4 className="brandText">HRASP</h4>
+        <h4 className="brandText">AHP</h4>
       </div>
       <div className="navigation">
           <ul className="menuLinks">
@@ -68,7 +68,7 @@ export default function ApplicantHeader() {
         icon={faUserCircle}
         className="AccountPicture"
       ></FontAwesomeIcon>
-      <p className="m-0">Admin</p>
+      <p className="m-0">Applicant</p>
       <button
         className="btn bg-transparent btn-sm accountAction"
         onClick={toggleMenu}
@@ -90,7 +90,7 @@ export default function ApplicantHeader() {
         ></FontAwesomeIcon>
         Account Setting
       </div>
-      <div>
+      <div onClick={logout}>
         <FontAwesomeIcon
           icon={faPowerOff}
           className="icon"

@@ -5,9 +5,9 @@ import useHome from "./useHome";
 
 export default function Home() {
 
-  const {jobPosts} = useHome();
+  const {jobPosts, application, interviewDate} = useHome();
   return (
-    <div>
+    <Container fluid>
       <div className="top-control">
         <h5 className="m-0">Hiring Positions</h5>
         <div className="d-flex justify-content-center align-items-center">
@@ -20,23 +20,47 @@ export default function Home() {
         </div>
       </div>
       <div className="p-2"></div>
-      <Container fluid>
-        <Row>
-        <Container>
-        <Card>
-          <Card.Header>Application Status</Card.Header>
-        </Card>
-        </Container>
-        </Row>
-        <Row className="d-flex justify-content-center ">
-          <Col md={9} className="">
-            {jobPosts.map((post, index)=>(
-              <JobPost data = {post} key = {index} />
-            ))}
+      <Row className="d-flex justify-content-center">
+       {application?(
+         <Col md = {9}>
+         <Container className="mb-5">
+         <Card className="alert alert-warning">
+           <Card.Header>
+             <h5>Your Application </h5>
+           </Card.Header>
+           <Card.Body>
+            <Container className = "d-flex flex-direction-row justify-content-between">
+            <p>Position Applied: <span className="status-text">{application.title}</span></p>
+           <p>Status: <span className="status-text">{application.status}</span></p>
+
+            </Container>
+
+           {application.status === 'to-interview'?
+           <Container className = "d-flex flex-direction-row">
+            <p>Date of Interview: </p>
+            <p className = "text-danger fw-bold ms-2"> {interviewDate.date + " "+ interviewDate.time}</p>
             
-          </Col>
+            </Container>
+           :""}
+
+         </Card.Body>
+         </Card>
+        
+         </Container>
+         </Col>
+       ):''}
         </Row>
+      <Container fluid className="d-flex justify-content-center ">
+
+          <Col md={9} className="">
+          <Row >
+
+            {jobPosts.map((post, index)=>(
+              <JobPost data = {post} key = {index} noAction = {application?true:false}/>
+            ))}
+                    </Row>
+          </Col>
       </Container>
-    </div>
+    </Container>
   );
 }

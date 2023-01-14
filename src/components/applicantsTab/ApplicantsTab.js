@@ -3,13 +3,17 @@ import React,{useEffect, useState} from 'react'
 import { Col, Container, Form, Row, Table } from "react-bootstrap";
 import { apiBaseUrl } from '../../config';
 import useApplication from '../../pages/Applications/useApplication';
+import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
+import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
+import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
 export default function ApplicantsTab() {
     const [applications, setApplications] = useState([])
+    const [viewDetails, setViewDetails] = useState(0)
 
     useEffect(()=>{
       const requestApplications = async()=>{
-        const request = await axios(apiBaseUrl+"/admin/getApplicants",{withCredentials:true})
+        const request = await axios(apiBaseUrl+"/admin/getApplicants/all",{withCredentials:true})
         try{
           const reqData = request.data
           setApplications(reqData)
@@ -32,70 +36,24 @@ export default function ApplicantsTab() {
     </tr>
     )
   }
-  return (
+ const ApplicationsBox = ()=>{
+  return(
     <div className="applicantsBox m-1 p-3">
             <Row>
               <Col md={4}>
                 <h4 className="cardTtle">Applicants</h4>
               </Col>
-              <Col className="d-flex justify-content-evenly">
-                <div className="sortDiv">
-                  <Form.Select aria-label="Default select example" size="sm">
-                    <option>Status</option>
-                    <option value="1">Accepted</option>
-                    <option value="2">Pending</option>
-                    <option value="2">Rejected</option>
-                  </Form.Select>
-                </div>
-                <div className="sortDiv">
-                  <Form.Select aria-label="Default select example" size="sm">
-                    <option>Position</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                  </Form.Select>
-                </div>
-                <div className="sortDiv">
-                  <Form.Select aria-label="Default select example" size="sm">
-                    <option>Type</option>
-                    <option value="1">Faculty</option>
-                    <option value="2">Staff</option>
-                  </Form.Select>
-                </div>
-                <div className="sortDiv">
-                  <div className="d-flex justify-content-center align-items-center">
-                    <Form.Label htmlFor="search">Search</Form.Label>&nbsp;
-                    <Form.Control
-                      aria-label="Search"
-                      id="search"
-                      size="sm"
-                      className="text-muted"
-                      type="text"
-                    ></Form.Control>
-                  </div>
-                </div>
+              <Col>
+                <ApplicationsTableHeader status="all"/>
               </Col>
             </Row>
             <br></br>
             <div className="applicantsList">
-              <Table hover responsive>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Lastname</th>
-                    <th>Applying for</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applications.map((data, index)=>(
-                    <TableRow data = {data} key = {data.account_id}/>
-                  ))}
-
-                </tbody>
-              </Table>
+              <ApplicantsTable status = "all" view={setViewDetails}/>
             </div>
           </div>
   )
+ }
+ return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicationsBox/>
+
 }

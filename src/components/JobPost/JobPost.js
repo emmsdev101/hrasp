@@ -5,7 +5,7 @@ import { apiBaseUrl } from "../../config";
 import sampleImage from "./../../images/sampleImages/hiring-job.jpg";
 
 import './JobPost.css'
-export default function JobPost({data}) {
+export default function JobPost({data, noAction}) {
 
   const title = data.title
   const description = data.description
@@ -17,10 +17,8 @@ export default function JobPost({data}) {
     window.location.href = `/applicant/apply/${data.id}/${data.title}`  }
   return (
 
-  
-    <Card className="mb-4 ">
-      <Row className="no-gutters">        
-          <Col md={5}>
+    <Col md={4} sm = {12}>
+    <Card className="mb-4">
           <Card.Body>
             <div>
               <Card.Title>{title}</Card.Title>
@@ -31,16 +29,14 @@ export default function JobPost({data}) {
               <Card.Text className="text-muted">Posted: {date}</Card.Text>
             </div>
             <div className="mt-2">
-              <Button className="" onClick={apply}>
+              <Button className="" onClick={apply} disabled = {noAction}>
                 Apply
               </Button>
             </div>
+            <a  href = {image}><Card.Img variant="bottom" src={image} /></a>
             </Card.Body>
-          </Col>
-          <Col md={7}>
-            <Card.Img variant="bottom" src={image} />
-          </Col>
-        </Row>
     </Card>
+    </Col>
+
   );
 }

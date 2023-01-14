@@ -29,7 +29,7 @@ export default function Header({ logged }) {
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
-        <h4 className="brandText">HRASP</h4>
+        <h4 className="brandText">AHP</h4>
       </div>
       <div className="navigation">
           <ul className="menuLinks">

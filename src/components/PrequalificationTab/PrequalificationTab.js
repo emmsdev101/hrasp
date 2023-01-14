@@ -7,29 +7,29 @@ import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
-export default function AcceptanceTab() {
+export default function PrequalificationTab() {
     const [applications, setApplications] = useState([])
-    const [viewDetails, setViewDetails] = useState(0)
-    
+    const [viewDetails, setViewDetails] = useState(false)
+
   const ApplicantsBox = () => {
     return(
       <div className="applicantsBox m-1 p-3">
       <Row>
         <Col md={4}>
-          <h4 className="cardTtle">For Acceptance</h4>
+          <h4 className="cardTtle">For Pre-Qualification</h4>
         </Col>
         <Col >
-          <ApplicationsTableHeader status="pending"/>  
+          <ApplicationsTableHeader status = "for-prequalification"/>  
         </Col>
       </Row>
       <br></br>
       <div className="applicantsList">
-       <ApplicantsTable status = "pending" view = {setViewDetails}/>
+       <ApplicantsTable status = "prequalification" view = {setViewDetails}/>
       </div>
     </div>
     )
   }
-  return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicantsBox/>
+  return viewDetails?<ApplicationDetails close = {setViewDetails}/>:<ApplicantsBox/>
 
 
 }
