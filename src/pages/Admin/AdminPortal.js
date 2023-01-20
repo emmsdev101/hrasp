@@ -9,6 +9,7 @@ import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import Conference from "../Conference/Conference";
 import Panel from "../Panels/Panels"
+import ScreeningComittee from "../ScreeningComittee/ScreeningComittee";
 
 export default function AdminPortal() {
 
@@ -41,6 +42,7 @@ export default function AdminPortal() {
       <Route exact path="/hiring" element={<Hiring />} />
       <Route exact path="/Interview" element={<Conference/>}/>
       <Route exact path="/panels" element={<Panel/>}/>
+      <Route exact path="/boards" element={<ScreeningComittee />} />
     </Routes>
     </Container>
 
