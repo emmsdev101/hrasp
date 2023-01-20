@@ -7,26 +7,47 @@ import ApplicationDetails from "../ApplicaitonDetails/ApplicationDetails";
 import ApplicationsTableHeader from "../ApplicantionsTableHeader/ApplicationsTableHeader";
 import ApplicantsTable from "../ApplicantsTable/ApplicantsTable";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
+import ConfirmModal from "../././ConfirmModal/ConfirmModal"
 
-export default function ForInterviewTab() {
+export default function ForInterviewTab({panel}) {
   const [applications, setApplications] = useState([]);
   const [viewDetails, setViewDetails] = useState(false);
+  const [renderTable, setRenderTable] = useState(true)
+  const [resetSchedule, setResetSchedule] = useState(false)
+  const [toReset, setToReset] = useState(0)
 
   const [show, setShow] = useState(false);
   const [selected, setSelected] = useState({})
-
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
 
   const setSchedule = (applicantData) => {
     handleShow(true)
     setSelected(applicantData)
-    console.log(applicantData)
+  }
+  const refresh = () => {
+    // to refresh the table once schedule is set.
+    setRenderTable(false)
+    setRenderTable(true)
+  }
+  const handleResetSchedule = () => {
+    setResetSchedule(!resetSchedule)
+  }
+  const openResetSchedule = (apliId) =>{
+    setToReset(apliId)
+    handleResetSchedule()
+  }
+
+  const confirmResetSchedule = async() => {
+    console.log(toReset)
+    const scheduleReq = await axios.post(apiBaseUrl+"/admin/resetSchedule", {application_id:toReset},{withCredentials:true})
+     if(scheduleReq.data)refresh()
+     handleResetSchedule()
   }
   const ApplicantsBox = () => {
     return (
       <div className="applicantsBox m-1 p-3">
-        <ScheduleModal show={show} handleClose = {handleClose} data = {selected}/>
+        <ScheduleModal show={show} handleClose = {handleClose} refresh = {refresh} data = {selected}  />
         <Row>
           <Col md={4}>
             <h4 className="cardTtle">For Interview</h4>
@@ -37,7 +58,7 @@ export default function ForInterviewTab() {
         </Row>
         <br></br>
         <div className="applicantsList">
-          <ApplicantsTable status="for-interview" view={setViewDetails} handleShow = {handleShow} setSchedule = {setSchedule}  />
+          {renderTable?<ApplicantsTable status="for-interview" view={setViewDetails} handleShow = {handleShow} panel = {panel} setSchedule = {setSchedule}  />:""}
         
         </div>
       </div>
@@ -52,25 +73,24 @@ export default function ForInterviewTab() {
           </Col>
           <Col md={6}>
             <div className="d-flex justify-content-end">
-              <Button variant="success" className="btn-sm" size="sm" onClick={()=>window.location.replace("/admin/nterview")}>
-                Start Now
-              </Button>
+              
             </div>
           </Col>
         </Row>
         <br></br>
         <div className="applicantsList">
-          <ApplicantsTable status="to-interview" view={setViewDetails} />
+          <ApplicantsTable status="to-interview" view={setViewDetails} panel = {panel} resetSchedule = {openResetSchedule}/>
         </div>
       </div>
     );
   };
   return (
     <Row className="for-interview-tab">
-      <Col md={7}>
+      <ConfirmModal title={"Reset Schedule?"} message = "Are you sure to reset this schedule?" show={resetSchedule} confirm = {confirmResetSchedule} handleClose = {handleResetSchedule}/>
+      <Col md={12}>
         <ApplicantsBox />
       </Col>
-      <Col md={5}>
+      <Col md={12}>
         <IncommingInterview />
       </Col>
     </Row>

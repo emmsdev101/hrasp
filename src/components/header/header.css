@@ -141,3 +141,9 @@ a{
     background-color: #00bb06;
     color: white;
 }
+
+.position-text{
+    font-size: x-small;
+    margin: 0;
+    padding: 0;
+}

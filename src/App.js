@@ -12,6 +12,7 @@ import SignUp from "./pages/Signup/Signup";
 import Applicant from "./pages/Applicant/Applicant";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Panel from "./pages/Panel/Panel";
+import PanelLogin from "./pages/PanelLogin/PanelLogin";
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
         <Route exact path="/login/" element={<SignIn />} />
         <Route exact path="/applicant/*" element={<Applicant />} />
 
-        <Route exact path="/panel/" element = {<Panel/>}/>
+        <Route exact path="/panel-login" element = {<PanelLogin/>}/>
+        <Route exact path="/panel/*" element = {<Panel/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -2,15 +2,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeFork, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import Header from "../../components/header/AdminHeader";
-import Sidepanel from "../../components/sidepanel/Sidepanel";
+
 import CardSecondary from "../../components/dashCardSecondary/CardSecondary";
 import "./dashboard.css";
-import logo from "./../../images/logo/wvsulogotransparent.png";
-import useDashboard from "./useDashboard";
+import usePanelDashboard from "./usePanelDashboard";
 
-export default function DashBoard() {
-  const {jobPosts} = useDashboard()
+export default function PanelDashboard() {
+
+    const {jobPosts} = usePanelDashboard()
   return (
     <Container fluid className="p-3 dashboard">
       <Row>
@@ -61,10 +60,10 @@ export default function DashBoard() {
       </Row>
       <Row>
           {jobPosts.map((data, idx)=>(
-             <CardSecondary dashIcon = {faUserTie} data = {data} body={data.num_persons} footer = {data.jobtype} key = {idx}/>
+             <CardSecondary dashIcon = {faUserTie} data = {data} footer = {data.jobtype} key = {idx}/>
           ))}
       </Row>
       </Container>
     </Container>
-  );
+  )
 }

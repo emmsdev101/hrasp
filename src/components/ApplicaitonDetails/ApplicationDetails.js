@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Form, Pagination, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Pagination, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Document, Page, pdfjs } from "react-pdf/dist/esm/entry.webpack5";
 
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faDownload,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./style.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -13,12 +17,14 @@ import axios from "axios";
 
 import { apiBaseUrl } from "../../config";
 
-export default function ApplicationDetails({ close, applicantionId }) {
+export default function ApplicationDetails({ close, applicantionId, panel }) {
   const [pds, setPds] = useState();
   const [tors, setTors] = useState([]);
   const [certs, setCerts] = useState([]);
   const [letter, setLetter] = useState(null);
-  const [LetterPages, setLetterPages] = useState(null)
+  const [applicationData, setApplicationData] = useState({});
+
+  const [LetterPages, setLetterPages] = useState(null);
 
   function letterLoaded({ numPages }) {
     setLetterPages(numPages);
@@ -26,20 +32,22 @@ export default function ApplicationDetails({ close, applicantionId }) {
 
   useEffect(() => {
     const fetch = async () => {
-      const getApplicationDetails = await axios.get(
-        apiBaseUrl + "/admin/getApplicationDetails/" + applicantionId,
-        {
-          withCredentials: true,
-        }
-      );
+      let url;
+      if (panel)
+        url = apiBaseUrl + "/panel/getApplicationDetails/" + applicantionId;
+      else url = apiBaseUrl + "/admin/getApplicationDetails/" + applicantionId;
+      const getApplicationDetails = await axios.get(url, {
+        withCredentials: true,
+      });
       const appdata = getApplicationDetails.data;
+      console.log(appdata);
+      setApplicationData(appdata);
 
-      const lettersJson = JSON.parse(appdata.letter);
-      const pdsJson = JSON.parse(appdata.pds);
-      const torsJson = JSON.parse(appdata.tor);
-      const certsJson = JSON.parse(appdata.certificates);
+      const lettersJson = await JSON.parse(appdata.letter);
+      const pdsJson = await JSON.parse(appdata.pds);
+      const torsJson = await JSON.parse(appdata.tor);
+      const certsJson = await JSON.parse(appdata.certificates);
 
-      console.log(lettersJson);
       setPds(pdsJson.pds[0]);
       setTors(torsJson.tors);
       setCerts(certsJson.certificates);
@@ -48,7 +56,7 @@ export default function ApplicationDetails({ close, applicantionId }) {
     fetch();
   }, []);
   return (
-    <div className="applicantsBox m-1 p-3">
+    <div className="m-1 p-3">
       <Row>
         <Col md={4} className="d-flex flex-direction-row align-items-center">
           <button className="btn bg-transparent" onClick={() => close(false)}>
@@ -71,62 +79,129 @@ export default function ApplicationDetails({ close, applicantionId }) {
         </Col>
       </Row>
       <br></br>
+      <div className="ps-4 pe-4 pb-4 d-flex justify-content-center">
+        <Card className="p-5">
+          <h6 className="mb-1">Personal Information:</h6>
+          <hr></hr>
+          <div className="d-flex flex-direction-row ">
+            <div className="card p-3 me-3">
+              <FontAwesomeIcon icon={faUserCircle} size="8x" />
+            </div>
+            <div>
+              <div className="d-flex flex-direction-row">
+                <div className="me-5">
+                  <p className="m-0">Fullname</p>
+                  <p className="m-0">Gender</p>
+                  <p className="m-0">Age</p>
+                </div>
+                <div>
+                  <h6>
+                    {" "}
+                    {applicationData.firstname +
+                      " " +
+                      applicationData.middlename +
+                      " " +
+                      applicationData.lastname}
+                  </h6>
+                  <h6> {applicationData.gender}</h6>
+                  <h6> {applicationData.age} years old</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
       <div className="ps-4 pe-4 pb-4">
-        <h6 className="mb-3">Application Letter:</h6>
-        <hr></hr>
         <Row>
-            <Col md={12} className="p-2 d-flex align-items-center flex-column">
-              <div className="documentContainer" >
-                {letter?<Document
+          <Col md={12} className="p-2 d-flex align-items-center flex-column">
+            <div className="card bg-white">
+              <h6 className="m-3">Application Letter:</h6>
+              <hr className="m-0"></hr>
+              {letter ? (
+                <Document
                   className="imgs"
                   file={apiBaseUrl + "/" + letter}
                   onLoadSuccess={letterLoaded}
                   onLoadError={(err) => console.log(err)}
                 >
                   <Page pageNumber={1} />
-                </Document>:""}
-              </div>
+                </Document>
+              ) : (
+                ""
+              )}
               <div className="p-2">
-                <Button href={apiBaseUrl + "/" + letter} className = "btn btn-primary" download={apiBaseUrl + "/" + letter}>Download</Button>
+                <Button
+                  href={apiBaseUrl + "/" + letter}
+                  className="btn btn-light btn-sm"
+                  download={apiBaseUrl + "/" + letter}
+                >
+                  <FontAwesomeIcon
+                    icon={faDownload}
+                    className="me-1"
+                  ></FontAwesomeIcon>
+                  Download
+                </Button>
               </div>
-            </Col>
+            </div>
+          </Col>
         </Row>
-        <h6 className="mb-3">Personal Data Sheet:</h6>
-        <hr></hr>
         <Row>
-          <Col md = {12} className = "p-2 d-flex flex-column align-items-center"  >
-          <div className="documentContainer">
-                {pds?<Document
+          <Col md={12} className="p-2 d-flex flex-column align-items-center">
+            <div className="card">
+              <h6 className="m-3">Personal Data Sheet:</h6>
+              <hr className="m-0"></hr>
+              {pds ? (
+                <Document
                   className="imgs"
                   file={apiBaseUrl + "/" + pds}
                   onLoadSuccess={letterLoaded}
                   onLoadError={(err) => console.log(err)}
                 >
                   <Page pageNumber={1} />
-                </Document>:""}
-              </div>
+                </Document>
+              ) : (
+                ""
+              )}
+            </div>
           </Col>
         </Row>
-        <h6 className="mb-3 mt-3">Transcript of Records:</h6>
-        <hr></hr>
         <Row>
-          {tors.map((path, idx) => (
-            <Col md={4} className="p-2">
-              {" "}
-              <img src={apiBaseUrl + "/" + path} className="imgs" alt="" />
-            </Col>
-          ))}
+          <div className="card">
+            <h6 className="m-3">Transcript of Records:</h6>
+            <hr className="m-0"></hr>
+            <div className="d-flex flex-direction-row justify-content-center">
+              {tors.map((path, idx) => (
+                <div md={4} className="p-2" key={idx}>
+                  {" "}
+                  <img
+                    src={apiBaseUrl + "/" + path}
+                    width="500"
+                    className="imgs"
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </Row>
-
-        <h6 className="mb-3 mt-3">Seminar/Training Certificates:</h6>
-        <hr />
         <Row>
-          {certs.map((path, idx) => (
-            <Col md={4} className="p-2">
-              {" "}
-              <img src={apiBaseUrl + "/" + path} className="imgs" alt="" />
-            </Col>
-          ))}
+          <div className="card">
+            <h6 className="m-3">Certificates of Trainings and Seminars:</h6>
+            <hr className="m-0"></hr>
+            <div className="d-flex flex-direction-row justify-content-center">
+              {certs.map((path, idx) => (
+                <div className="p-2" key={idx}>
+                  {" "}
+                  <img
+                    src={apiBaseUrl + "/" + path}
+                    width="500"
+                    className="imgs"
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </Row>
       </div>
     </div>

@@ -1,15 +1,47 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { Container, Row } from 'react-bootstrap'
+import { Route, Routes } from 'react-router-dom'
 import PanelHeader from '../../components/header/PanelHeader'
+import { apiBaseUrl } from '../../config'
+import PanelDashboard from '../PanelDashboard/PanelDashboard'
+import PanelHiring from '../PanelHiring/PanelHiring'
+import RequestHiring from '../RequestHiring/RequestHiring'
 
+import Application from './../Applications/Application'
 export default function Panel() {
+
+  const [profileDetails, setProfileDetails] = useState("")
+  useEffect(()=>{
+    const auth = async()=>{
+      let authReq
+      try{
+        authReq = await axios.get(apiBaseUrl+"/panel",{withCredentials:true});
+        const authData = authReq.data
+        console.log(authData)
+        setProfileDetails(authData)
+
+      }
+      catch(e){
+        console.log(e)
+        e.code === "ERR_BAD_REQUEST"?window.location.replace("/panel-login"):console.log("logged in")
+      }        
+    }
+    auth()
+  },[])
   return (
     <>
-    <PanelHeader/>
+    <PanelHeader profileDetails = {profileDetails}/>
     <Container fluid m={0} p={0} className = "Main">
-     <Row>
-        <h4 className="pageTitle">Panel</h4>
-      </Row>
+    <Routes>
+      <Route exact path="/" element={<PanelDashboard />} />
+      <Route exact path="/dashboard" element={<PanelDashboard />} />
+      <Route exact path='/hiring' element={<PanelHiring/>}/>
+      <Route exact path='/request-hiring' element={<RequestHiring/>}/>
+      <Route exact path='/edit-hiring/:id' element={<RequestHiring edit = {true}/>}/>
+      <Route exact path="/applicants" element = {<Application panel = {true}/>}/>
+
+    </Routes>
     </Container>
     </>
   )

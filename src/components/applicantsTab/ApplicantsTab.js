@@ -7,35 +7,9 @@ import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
-export default function ApplicantsTab() {
-    const [applications, setApplications] = useState([])
+export default function ApplicantsTab({panel}) {
     const [viewDetails, setViewDetails] = useState(0)
 
-    useEffect(()=>{
-      const requestApplications = async()=>{
-        const request = await axios(apiBaseUrl+"/admin/getApplicants/all",{withCredentials:true})
-        try{
-          const reqData = request.data
-          setApplications(reqData)
-
-        }catch(err){
-          console.log(err);
-      }
-    }
-    requestApplications();
-    },[])
-  const TableRow = ({data})=> {
-    return(
-      <tr key = {data.account_id}>
-      <td>{data.account_id}</td>
-      <td>{data.firstname}</td>
-      <td>{data.middlename}</td>
-      <td>{data.lastname}</td>
-      <td>{data.title}</td>
-      <td>{data.status}</td>
-    </tr>
-    )
-  }
  const ApplicationsBox = ()=>{
   return(
     <div className="applicantsBox m-1 p-3">
@@ -49,11 +23,11 @@ export default function ApplicantsTab() {
             </Row>
             <br></br>
             <div className="applicantsList">
-              <ApplicantsTable status = "all" view={setViewDetails}/>
+              <ApplicantsTable status = "all" view={setViewDetails} panel = {panel}/>
             </div>
           </div>
   )
  }
- return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicationsBox/>
+ return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails} panel = {panel}/>:<ApplicationsBox/>
 
 }

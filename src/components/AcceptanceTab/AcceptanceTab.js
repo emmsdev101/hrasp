@@ -7,8 +7,7 @@ import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
-export default function AcceptanceTab() {
-    const [applications, setApplications] = useState([])
+export default function AcceptanceTab({panel}) {
     const [viewDetails, setViewDetails] = useState(0)
     
   const ApplicantsBox = () => {
@@ -24,12 +23,12 @@ export default function AcceptanceTab() {
       </Row>
       <br></br>
       <div className="applicantsList">
-       <ApplicantsTable status = "pending" view = {setViewDetails}/>
+       <ApplicantsTable status = "pending" view = {setViewDetails} panel = {panel}/>
       </div>
     </div>
     )
   }
-  return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails}/>:<ApplicantsBox/>
+  return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails} panel = {panel}/>:<ApplicantsBox/>
 
 
 }

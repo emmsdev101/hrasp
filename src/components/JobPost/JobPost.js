@@ -1,42 +1,96 @@
-import React from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { faDotCircle, faSuitcase } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import { apiBaseUrl } from "../../config";
 
 import sampleImage from "./../../images/sampleImages/hiring-job.jpg";
 
-import './JobPost.css'
-export default function JobPost({data, noAction}) {
+import "./JobPost.css";
+export default function JobPost({ data, noAction }) {
+  const title = data.title;
+  const department = data.department;
+  const departmentType = data.departmentType;
+  const description = data.description;
+  const jobType = data.jobType;
+  const date = data.date;
+  const numPersons = data.num_persons
+  const image = apiBaseUrl + "/" + data.poster;
 
-  const title = data.title
-  const description = data.description
-  const  jobType = data.jobType
-  const date = data.date
-  const image = apiBaseUrl + "/" + data.poster
+
+  const [qualifications, setQualifications] = useState([])
+
+  useEffect(()=>{
+    const parseQuals = async()=>{
+      setQualifications(await JSON.parse(data.qualifications).qualifications)
+    }
+    parseQuals()
+  },[])
 
   const apply = () => {
-    window.location.href = `/applicant/apply/${data.id}/${data.title}`  }
+    window.location.href = `/applicant/apply/${data.id}/${data.title}`;
+  };
+
+  const QualificationItem = ({ label, id }) => {
+    return (
+      <div className="d-flex flex-direction-row justify-content-left align-items-center">
+        <FontAwesomeIcon
+          icon={faDotCircle}
+          color="orange"
+          size="xs"
+          className="me-1"
+        />
+        <p className="p-0 m-0">{label}</p>
+      </div>
+    );
+  };
   return (
-
-    <Col md={4} sm = {12}>
-    <Card className="mb-4">
-          <Card.Body>
+    <Col md={12} sm={12}>
+      <Card className="mb-4">
+        <Card.Body>
+          <div>
+            <div className="d-flex flex-direction-row justify-content-between">
+              <Card.Title>
+                <Badge bg="warning" className="me-1">
+                  {department}
+                </Badge>
+                {title}
+              </Card.Title>
+              <div>
+                <Button
+                  className="btn btn-sm btn-light"
+                  onClick={apply}
+                  disabled={noAction}
+                >
+                  <FontAwesomeIcon icon={faSuitcase} className="me-1" />
+                  Apply
+                </Button>
+              </div>
+            </div>
+            <h6>
+              <Badge bg="info">{departmentType}</Badge>
+            </h6>
+            <h6>
+                Person/s Needed:
+                <Badge bg="info" className="me-1">
+                  {numPersons}
+                </Badge>
+              </h6>
+            <Card.Text className="text-muted">{jobType}</Card.Text>
             <div>
-              <Card.Title>{title}</Card.Title>
-              <Card.Text className="text-muted">{jobType}</Card.Text>
-              <Card.Text>
-                {description}
-              </Card.Text>
-              <Card.Text className="text-muted">Posted: {date}</Card.Text>
+              <p>{description}</p>
+              <h6>Qualifications:</h6>
+              <div className="ps-5 ">
+                {qualifications.map((quals, idx) => (
+                  <QualificationItem label={quals} id={idx} key = {idx} />
+                ))}
+              </div>
             </div>
-            <div className="mt-2">
-              <Button className="" onClick={apply} disabled = {noAction}>
-                Apply
-              </Button>
-            </div>
-            <a  href = {image}><Card.Img variant="bottom" src={image} /></a>
-            </Card.Body>
-    </Card>
+            <Card.Text className="text-muted">Posted: {date}</Card.Text>
+          </div>
+          
+        </Card.Body>
+      </Card>
     </Col>
-
   );
 }

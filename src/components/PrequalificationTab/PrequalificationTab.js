@@ -7,8 +7,7 @@ import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
-export default function PrequalificationTab() {
-    const [applications, setApplications] = useState([])
+export default function PrequalificationTab({panel}) {
     const [viewDetails, setViewDetails] = useState(false)
 
   const ApplicantsBox = () => {
@@ -24,12 +23,12 @@ export default function PrequalificationTab() {
       </Row>
       <br></br>
       <div className="applicantsList">
-       <ApplicantsTable status = "prequalification" view = {setViewDetails}/>
+       <ApplicantsTable status = "prequalification" view = {setViewDetails} panel = {panel}/>
       </div>
     </div>
     )
   }
-  return viewDetails?<ApplicationDetails close = {setViewDetails}/>:<ApplicantsBox/>
+  return viewDetails?<ApplicationDetails close = {setViewDetails} applicantionId = {viewDetails} panel = {panel}  />:<ApplicantsBox/>
 
 
 }

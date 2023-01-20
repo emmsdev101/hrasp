@@ -18,7 +18,7 @@ export default function Hiring() {
       </Col>
       <Col className = "d-flex justify-content-end">
           <div>
-          <Button onClick  = {handleShow} size = "sm" className = "btn"><FontAwesomeIcon icon = {faPlus}></FontAwesomeIcon> New Posting</Button>
+          {/* <Button onClick  = {handleShow} size = "sm" className = "btn"><FontAwesomeIcon icon = {faPlus}></FontAwesomeIcon> New Posting</Button> */}
           </div>
       </Col>
 
@@ -26,9 +26,9 @@ export default function Hiring() {
     <Row>
       <Container fluid>
       <Row className='d-flex justify-content-center'>
-        <Col md = {6}>
+        <Col md = {8}>
             {jobPosts.map((jobPost, index)=>(
-              <JobPostCard data={jobPost} key = {index}/>
+              <JobPostCard data={jobPost} key = {index} admin = {true}/>
             ))}
 
         </Col>

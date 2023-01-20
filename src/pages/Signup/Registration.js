@@ -1,3 +1,5 @@
+import { faSign, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import { Button, Col, Container, Form, Nav, Row } from "react-bootstrap";
 import useRegistration from './useRegistration';
@@ -80,7 +82,7 @@ export default function FirstStep({next, back}) {
             </Col>
           </Row>
           <Container className="d-flex justify-content-between">
-          <Button variant = "secondary">Signin</Button>
+          <Button variant = "light">Signin <FontAwesomeIcon icon={faSignIn} className = "ms-2"/></Button>
 
             <Button onClick={submit}>Next</Button>            
           </Container>

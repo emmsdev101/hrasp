@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { apiBaseUrl } from "../../config";
 
-export default function ScheduleModal({ data,show, handleClose, applId }) {
+export default function ScheduleModal({ data,show, refresh, handleClose, applId }) {
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
 
@@ -16,7 +16,8 @@ export default function ScheduleModal({ data,show, handleClose, applId }) {
     }
     const scheduleReq = await axios.post(apiBaseUrl+"/admin/setSchedule", appldata,{withCredentials:true})
     console.log(scheduleReq)
-     if(scheduleReq.data)window.location.reload()
+     if(scheduleReq.data)refresh()
+     handleClose()
   };
 
   return (

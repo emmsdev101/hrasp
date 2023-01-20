@@ -19,17 +19,20 @@ import {
   faVials,
   faVideo,
   faCalendar,
+  faTimes,
+  faUniversity,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
+import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 export default function Header({ logged }) {
-  const { showMenu, toggleMenu, closeMenu, isActive } = useHeader();
+  const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout } = useHeader("admin");
 
   return (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
-        <h4 className="brandText">AHP</h4>
+        <h4 className="brandText">AHP | HRMO</h4>
       </div>
       <div className="navigation">
           <ul className="menuLinks">
@@ -69,7 +72,13 @@ export default function Header({ logged }) {
             <li className="navLink">
               <a href="/admin/panels" className={isActive("/admin/panels")}>
                 <FontAwesomeIcon icon={faUserGear} className="navIcon" />
-                <span className=" navText">Panel</span>
+                <span className=" navText">Departments</span>
+              </a>
+            </li>
+            <li className="navLink">
+              <a href="/admin/boards" className={isActive("/admin/boards")}>
+                <FontAwesomeIcon icon={faUniversity} className="navIcon" />
+                <span className=" navText">Screening Comittee</span>
               </a>
             </li>
           </ul>
@@ -85,7 +94,7 @@ export default function Header({ logged }) {
       <button
         className="btn bg-transparent btn-sm accountAction"
         onClick={toggleMenu}
-        onBlur={closeMenu}
+        // onBlur={closeMenu}
       >
         <FontAwesomeIcon
           icon={faAngleDown}
@@ -94,7 +103,7 @@ export default function Header({ logged }) {
       </button>
     </div>
       {showMenu?
-      <div className="DropDown" tabIndex={1} onFocus={toggleMenu}>
+      <div className="DropDown" tabIndex={1}>
       <div>
         {" "}
         <FontAwesomeIcon
@@ -103,12 +112,21 @@ export default function Header({ logged }) {
         ></FontAwesomeIcon>
         Account Setting
       </div>
-      <div>
+      <div onClick={confirmLogout}
+>
         <FontAwesomeIcon
           icon={faPowerOff}
           className="icon"
         ></FontAwesomeIcon>
         Logout
+      </div>
+      <div onClick={closeMenu}
+>
+        <FontAwesomeIcon
+          icon={faTimes}
+          className="icon"
+        ></FontAwesomeIcon>
+        Close
       </div>
     </div>:""}
     </div>

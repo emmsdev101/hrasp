@@ -7,7 +7,7 @@ import PrequalificationTab from "../../components/PrequalificationTab/Prequalifi
 import TabNavigation from "../../components/tabNavigation/TabNavigation";
 import useTabNavigation from "../../components/tabNavigation/useTabNavigation";
 import "./applications.css";
-export default function Application() {
+export default function Application({panel}) {
   const {tab,gotoTab} = useTabNavigation()
   return (
     <Container fluid className="p-3 applications">
@@ -21,10 +21,10 @@ export default function Application() {
       </Row>
       <Row>
         <Container fluid>
-          {tab === "applicants"?<ApplicantsTab/>:''}
-          {tab === "for-acceptance"? <AcceptanceTab/>:''}
-          {tab === "for-prequalification"?<PrequalificationTab/>:""}
-          {tab === "for-interview"?<ForInterviewTab/>:''}
+          {tab === "applicants"?<ApplicantsTab panel = {panel}/>:''}
+          {tab === "for-acceptance"? <AcceptanceTab panel = {panel}/>:''}
+          {tab === "for-prequalification"?<PrequalificationTab panel = {panel}/>:""}
+          {tab === "for-interview"?<ForInterviewTab panel = {panel}/>:''}
         </Container>
       </Row>
     </Container>
