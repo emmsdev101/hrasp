@@ -3,7 +3,7 @@ import axios from "axios";
 import { apiBaseUrl } from "../../config";
 
 export default function useNewAccount(handleClose, payload, refresh) {
-  const [departmentType, setDeparmentType] = useState("Administrative Staff")
+  const [departmentType, setDeparmentType] = useState("Teaching")
   const [department, setDepartment] = useState("SICT")
   const [position, setPosition] = useState("Department Head");
   const [firstname, setFirstname] = useState("");
@@ -13,7 +13,7 @@ export default function useNewAccount(handleClose, payload, refresh) {
 
 
   useEffect(() => {
-        setDeparmentType(payload? payload.departmentType:"Administrative Staff")
+        setDeparmentType(payload? payload.departmentType:"Teaching")
         setDepartment(payload? payload.department:"SICT")
         setPosition(payload? payload.position:"Director")
         setFirstname(payload? payload.firstname:"")

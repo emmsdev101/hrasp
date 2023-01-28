@@ -1,5 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faCalendarPlus, faCalendarTimes, faPlay, faVideo } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendar,
+  faCalendarPlus,
+  faCalendarTimes,
+  faPlay,
+  faVideo,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Table } from "react-bootstrap";
@@ -12,10 +18,11 @@ export default function ApplicantsTable({
   deny,
   handleShow,
   panel,
-  resetSchedule
+  resetSchedule,
+  head,
+  committee,
 }) {
   const [applications, setApplications] = useState([]);
-
 
   useEffect(() => {
     requestApplications();
@@ -23,52 +30,56 @@ export default function ApplicantsTable({
 
   const requestApplications = async () => {
     let request;
-    if (panel)
-      request = await axios(apiBaseUrl + "/panel/getApplicants/" + status, {
-        withCredentials: true,
-      });
-    else
-      request = await axios(apiBaseUrl + "/admin/getApplicants/" + status, {
-        withCredentials: true,
-      });
+    let requestUrl = "";
+
+    if (head)
+      requestUrl =
+        apiBaseUrl + "/panel/getApplicantsForCommitteeHead/" + status;
+    else if (committee)
+      requestUrl =
+        apiBaseUrl + "/panel/getApplicantsForCommitteeMember/" + status;
+    else if (panel) requestUrl = apiBaseUrl + "/panel/getApplicants/" + status;
+    else requestUrl = apiBaseUrl + "/admin/getApplicants/" + status;
+
+    console.log("Request Url",requestUrl)
+    request = await axios(requestUrl, { withCredentials: true });
+
     try {
       const reqData = request.data;
-      console.log(reqData);
       setApplications(reqData);
     } catch (err) {
       console.log(err);
     }
   };
+  const accept = async (data, mode) => {
+    let request;
+    if (panel)
+      request = await axios.post(
+        apiBaseUrl + "/panel/acceptApplication",
+        { status: mode, id: data.application_id },
+        {
+          withCredentials: true,
+        }
+      );
+    else
+      request = await axios.post(
+        apiBaseUrl + "/admin/acceptApplication",
+        { status: mode, id: data.application_id },
+        {
+          withCredentials: true,
+        }
+      );
+    if (request.data) requestApplications();
+    else alert("Error Occured");
+  };
   const TableRow = ({ data }) => {
-    let dateDiff
-    if(status === 'to-interview'){
-      const dateNow = new Date()
-      const scheduleDate = new Date(data.date + " "+data.time)
+    let dateDiff;
+    if (status === "to-interview") {
+      const dateNow = new Date();
+      const scheduleDate = new Date(data.date + " " + data.time);
 
-      dateDiff = scheduleDate.getTime() - dateNow.getTime() 
-      }
-    const accept = async (mode) => {
-      console.log(data);
-      let request;
-      if (panel)
-        request = await axios.post(
-          apiBaseUrl + "/panel/acceptApplication",
-          { status: mode, id: data.application_id },
-          {
-            withCredentials: true,
-          }
-        );
-      else
-        request = await axios.post(
-          apiBaseUrl + "/admin/acceptApplication",
-          { status: mode, id: data.application_id },
-          {
-            withCredentials: true,
-          }
-        );
-      if (request.data) requestApplications();
-      else alert("Error Occured");
-    };
+      dateDiff = scheduleDate.getTime() - dateNow.getTime();
+    }
     return status === "to-interview" ? (
       <tr>
         {console.log(data)}
@@ -77,7 +88,27 @@ export default function ApplicantsTable({
         <td>{data.department}</td>
         <td>{data.title}</td>
         <td>{data.date + ":" + data.time}</td>
-        <td><Button size="sm" className="me-1" variant="danger" onClick={()=>resetSchedule(data.application_id)}><FontAwesomeIcon icon={faCalendarTimes}/></Button>{dateDiff < 18000?(<Button size="sm" variant="success"><FontAwesomeIcon icon={faVideo}/></Button>):""}</td>
+        <td>
+          {!committee?(<Button
+            size="sm"
+            className="me-1"
+            variant="danger"
+            onClick={() => resetSchedule(data.application_id)}
+          >
+            <FontAwesomeIcon icon={faCalendarTimes} />
+          </Button>):""}
+          {dateDiff < 18000 ? (
+            <Button size="sm" variant="success" className = "me-1" href="/conference">
+              <FontAwesomeIcon icon={faVideo} />
+              Join
+            </Button>
+          ) : (
+            <Button size="sm" variant="success" disabled>
+              <FontAwesomeIcon icon={faVideo} className = "me-1" />
+              Join
+            </Button>
+          )}
+        </td>
       </tr>
     ) : (
       <tr key={data.account_id}>
@@ -108,7 +139,7 @@ export default function ApplicantsTable({
                 size="sm"
                 className="me-2"
                 variant="success"
-                onClick={() => accept("prequalification")}
+                onClick={() => accept(data, "prequalification")}
               >
                 Accept
               </Button>
@@ -134,7 +165,7 @@ export default function ApplicantsTable({
               variant="success"
               onClick={() => setSchedule(data)}
             >
-              <FontAwesomeIcon icon={faCalendarPlus} className = "me-1"/>
+              <FontAwesomeIcon icon={faCalendarPlus} className="me-1" />
               Schedule
             </Button>
           </td>
@@ -155,7 +186,7 @@ export default function ApplicantsTable({
                 size="sm"
                 className="me-2"
                 variant="success"
-                onClick={() => accept("for-interview")}
+                onClick={() => accept(data, "for-interview")}
               >
                 Passed
               </Button>

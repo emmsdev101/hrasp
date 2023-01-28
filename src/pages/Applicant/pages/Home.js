@@ -4,8 +4,7 @@ import JobPost from "../../../components/JobPost/JobPost";
 import useHome from "./useHome";
 
 export default function Home() {
-
-  const {jobPosts, application, interviewDate} = useHome();
+  const { jobPosts, application, interviewDate } = useHome();
   return (
     <Container fluid>
       <div className="top-control">
@@ -21,45 +20,57 @@ export default function Home() {
       </div>
       <div className="p-2"></div>
       <Row className="d-flex justify-content-center">
-       {application?(
-         <Col md = {9}>
-         <Container className="mb-5">
-         <Card className="alert alert-warning">
-           <Card.Header>
-             <h5>Your Application </h5>
-           </Card.Header>
-           <Card.Body>
-            <Container className = "d-flex flex-direction-row justify-content-between">
-            <p>Position Applied: <span className="status-text">{application.title}</span></p>
-           <p>Status: <span className="status-text">{application.status}</span></p>
+        {application ? (
+          <Col md={9}>
+            <Container className="mb-5">
+              <Card className="alert alert-warning">
+                <Card.Header>
+                  <h5>Your Application </h5>
+                </Card.Header>
+                <Card.Body>
+                  <Container className="d-flex flex-direction-row justify-content-between">
+                    <p>
+                      Position Applied:{" "}
+                      <span className="status-text">{application.title}</span>
+                    </p>
+                    <p>
+                      Status:{" "}
+                      <span className="status-text">{application.status}</span>
+                    </p>
+                    {application.status === "to-interview"?(<Button size = "sm" href="/conference">Join</Button>):""}
+                  </Container>
 
+                  {application.status === "to-interview" ? (
+                    <Container className="d-flex flex-direction-row">
+                      <p>Date of Interview: </p>
+                      <p className="text-danger fw-bold ms-2">
+                        {" "}
+                        {interviewDate.date + " " + interviewDate.time}
+                      </p>
+                    </Container>
+                  ) : (
+                    ""
+                  )}
+                </Card.Body>
+              </Card>
             </Container>
-
-           {application.status === 'to-interview'?
-           <Container className = "d-flex flex-direction-row">
-            <p>Date of Interview: </p>
-            <p className = "text-danger fw-bold ms-2"> {interviewDate.date + " "+ interviewDate.time}</p>
-            
-            </Container>
-           :""}
-
-         </Card.Body>
-         </Card>
-        
-         </Container>
-         </Col>
-       ):''}
-        </Row>
-      <Container fluid className="d-flex justify-content-center ">
-
-          <Col md={9} className="">
-          <Row >
-
-            {jobPosts.map((post, index)=>(
-              <JobPost data = {post} key = {index} noAction = {application?true:false}/>
-            ))}
-                    </Row>
           </Col>
+        ) : (
+          ""
+        )}
+      </Row>
+      <Container fluid className="d-flex justify-content-center ">
+        <Col md={9} className="">
+          <Row>
+            {jobPosts.map((post, index) => (
+              <JobPost
+                data={post}
+                key={index}
+                noAction={application ? true : false}
+              />
+            ))}
+          </Row>
+        </Col>
       </Container>
     </Container>
   );

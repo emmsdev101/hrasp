@@ -12,7 +12,9 @@ import SignUp from "./pages/Signup/Signup";
 import Applicant from "./pages/Applicant/Applicant";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import Panel from "./pages/Panel/Panel";
+import Board from './pages/Board/Board'
 import PanelLogin from "./pages/PanelLogin/PanelLogin";
+import Conference from "./pages/Conference/Conference";
 
 function App() {
   return (
@@ -30,6 +32,9 @@ function App() {
 
         <Route exact path="/panel-login" element = {<PanelLogin/>}/>
         <Route exact path="/panel/*" element = {<Panel/>}/>
+        <Route exact path="/committee-member/*" element = {<Board committee = {true}/>}/>
+        <Route exact path="/committee-president/*" element = {<Board head = {true}/>}/>
+        <Route exact path="/conference" element ={<Conference/>}/>
       </Routes>
     </BrowserRouter>
   );

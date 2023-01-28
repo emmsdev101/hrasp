@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from "react";
+import logo from "./../../images/logo/wvsulogotransparent.png";
+
+import "./header.css";
 import { Button, CloseButton, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,68 +19,57 @@ import {
   faVials,
   faVideo,
   faCalendar,
-  faUser,
-  faHome,
 } from "@fortawesome/free-solid-svg-icons";
-
-import logo from "./../../images/logo/wvsulogotransparent.png";
-
-import useHeader from './useHeader';
-export default function ApplicantHeader() {
-  const { showMenu, toggleMenu, closeMenu, isActive,logout,confirmLogout } = useHeader();
+import useHeader from "./useHeader";
+export default function BoardHeader({profileDetails, page}) {
+    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout } = useHeader("panel");
 
   return (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
-        <h4 className="brandText">AHP</h4>
+        <h4 className="brandText">HRASP | HRMPSB - {profileDetails.position}</h4>
+
       </div>
       <div className="navigation">
           <ul className="menuLinks">
             <li className="navLink">
               <a
-                href="/applicant"
-                className={isActive("/applicant")}
+                href={"/"+page+"/"}
+                className={isActive("/"+page+"/")}
               >
-                <FontAwesomeIcon icon={faHome} className="navIcon" />
-                <span className=" navText">Home</span>
+                <FontAwesomeIcon icon={faChartLine} className="navIcon" />
+                <span className=" navText">Dashboard</span>
               </a>
             </li>
             <li className="navLink">
               <a
-                href="/applicant/applications"
-                className={isActive("/applicant/notifications")}
+                href={"/"+page+"/applicants"}
+                className={isActive("/"+page+"/applications")}
               >
+                <FontAwesomeIcon icon={faUserTie} className="navIcon" />
+                <span className=" navText">Applications</span>
+              </a>
+            </li>
+            <li className="navLink">
+              <a href={"/"+page+"/notification"} className={isActive("/"+page+"/notification")}>
                 <FontAwesomeIcon icon={faBell} className="navIcon" />
                 <span className=" navText">Notification</span>
               </a>
             </li>
-            <li className="navLink">
-              <a href="/applicant/hiring" className={isActive("/admin/hiring")}>
-                <FontAwesomeIcon icon={faUser} className="navIcon" />
-                <span className=" navText">Your Profile</span>
-              </a>
-            </li>
-
           </ul>
 
       </div>
 
     <div className="accountNav">
+    <p className="m-0 me-1">{profileDetails.firstname + " "+profileDetails.middlename +" "+ profileDetails.lastname}</p>
+  
       <FontAwesomeIcon
         icon={faUserCircle}
         className="AccountPicture"
-      ></FontAwesomeIcon>
-      <p className="m-0">Applicant</p>
-      <button
-        className="btn bg-transparent btn-sm accountAction"
         onClick={toggleMenu}
-      >
-        <FontAwesomeIcon
-          icon={faAngleDown}
-          className="accountIcon"
-        ></FontAwesomeIcon>
-      </button>
+      ></FontAwesomeIcon>
+     
     </div>
       {showMenu?
       <div className="DropDown" tabIndex={1}>

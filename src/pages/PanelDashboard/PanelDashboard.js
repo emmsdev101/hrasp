@@ -7,9 +7,9 @@ import CardSecondary from "../../components/dashCardSecondary/CardSecondary";
 import "./dashboard.css";
 import usePanelDashboard from "./usePanelDashboard";
 
-export default function PanelDashboard() {
+export default function PanelDashboard({head, committee}) {
 
-    const {jobPosts} = usePanelDashboard()
+    const {jobPosts} = usePanelDashboard(head,committee)
   return (
     <Container fluid className="p-3 dashboard">
       <Row>

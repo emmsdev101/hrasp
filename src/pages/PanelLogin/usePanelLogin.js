@@ -23,7 +23,8 @@ export default function useAdminLogin() {
           console.log(loginStatus)
           if(loginStatus === "wrong-email")alert("Wrong email")
           else if(loginStatus === "wrong-password")alert("Wrong password")
-          else window.location.href = "/panel"
+
+          else window.location.href = "/"+loginData.userType
         }
     }
   return {username, handleUsername, password, handlePassword, submit}

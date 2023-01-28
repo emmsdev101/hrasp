@@ -23,6 +23,7 @@ export default function useHeader(type) {
     const confirmLogout = async()=>{
       const logoutReq = await axios.post(apiBaseUrl+"/logout")
       console.log(logoutReq)
+      if(!type)return window.location.replace("/login")
       if(logoutReq.data.success)window.location.replace("/"+type+"-login")
     }
   return {

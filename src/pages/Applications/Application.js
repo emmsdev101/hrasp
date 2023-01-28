@@ -7,7 +7,7 @@ import PrequalificationTab from "../../components/PrequalificationTab/Prequalifi
 import TabNavigation from "../../components/tabNavigation/TabNavigation";
 import useTabNavigation from "../../components/tabNavigation/useTabNavigation";
 import "./applications.css";
-export default function Application({panel}) {
+export default function Application({panel,committee, head}) {
   const {tab,gotoTab} = useTabNavigation()
   return (
     <Container fluid className="p-3 applications">
@@ -16,15 +16,15 @@ export default function Application({panel}) {
           <h4 className="pageTitle mt-2 mb-4">Applications</h4>
         </Col>
         <Col>
-          <TabNavigation tab = {tab} gotoTab = {gotoTab}/>
+          <TabNavigation tab = {tab} gotoTab = {gotoTab} committee = {committee}/>
         </Col>
       </Row>
       <Row>
         <Container fluid>
-          {tab === "applicants"?<ApplicantsTab panel = {panel}/>:''}
-          {tab === "for-acceptance"? <AcceptanceTab panel = {panel}/>:''}
-          {tab === "for-prequalification"?<PrequalificationTab panel = {panel}/>:""}
-          {tab === "for-interview"?<ForInterviewTab panel = {panel}/>:''}
+          {tab === "applicants"?<ApplicantsTab panel = {panel} head={head} committee = {committee}/>:''}
+          {tab === "for-acceptance"? <AcceptanceTab panel = {panel} head={head} committee = {committee}/>:''}
+          {tab === "for-prequalification"?<PrequalificationTab panel = {panel} head={head} committee = {committee}/>:""}
+          {tab === "for-interview"?<ForInterviewTab panel = {panel} head={head} committee = {committee}/>:''}
         </Container>
       </Row>
     </Container>

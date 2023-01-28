@@ -7,7 +7,7 @@ import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
 import ApplicationsTableHeader from '../ApplicantionsTableHeader/ApplicationsTableHeader';
 import ApplicantsTable from '../ApplicantsTable/ApplicantsTable';
 
-export default function ApplicantsTab({panel}) {
+export default function ApplicantsTab({panel, head, committee}) {
     const [viewDetails, setViewDetails] = useState(0)
 
  const ApplicationsBox = ()=>{
@@ -23,7 +23,7 @@ export default function ApplicantsTab({panel}) {
             </Row>
             <br></br>
             <div className="applicantsList">
-              <ApplicantsTable status = "all" view={setViewDetails} panel = {panel}/>
+              <ApplicantsTable status = "all" view={setViewDetails} panel = {panel} head={head} committee = {committee}/>
             </div>
           </div>
   )

@@ -9,7 +9,7 @@ import ApplicantsTable from "../ApplicantsTable/ApplicantsTable";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import ConfirmModal from "../././ConfirmModal/ConfirmModal"
 
-export default function ForInterviewTab({panel}) {
+export default function ForInterviewTab({panel, head, committee}) {
   const [applications, setApplications] = useState([]);
   const [viewDetails, setViewDetails] = useState(false);
   const [renderTable, setRenderTable] = useState(true)
@@ -58,7 +58,7 @@ export default function ForInterviewTab({panel}) {
         </Row>
         <br></br>
         <div className="applicantsList">
-          {renderTable?<ApplicantsTable status="for-interview" view={setViewDetails} handleShow = {handleShow} panel = {panel} setSchedule = {setSchedule}  />:""}
+          {renderTable?<ApplicantsTable status="for-interview" view={setViewDetails} handleShow = {handleShow} panel = {panel} setSchedule = {setSchedule} head={head} committee = {committee}  />:""}
         
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function ForInterviewTab({panel}) {
         </Row>
         <br></br>
         <div className="applicantsList">
-          <ApplicantsTable status="to-interview" view={setViewDetails} panel = {panel} resetSchedule = {openResetSchedule}/>
+          <ApplicantsTable status="to-interview" view={setViewDetails} panel = {panel}  resetSchedule = {openResetSchedule} head={head} committee = {committee}/>
         </div>
       </div>
     );
@@ -88,7 +88,7 @@ export default function ForInterviewTab({panel}) {
     <Row className="for-interview-tab">
       <ConfirmModal title={"Reset Schedule?"} message = "Are you sure to reset this schedule?" show={resetSchedule} confirm = {confirmResetSchedule} handleClose = {handleResetSchedule}/>
       <Col md={12}>
-        <ApplicantsBox />
+        {!committee?(<ApplicantsBox />):""}
       </Col>
       <Col md={12}>
         <IncommingInterview />
