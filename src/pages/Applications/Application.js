@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Container, Form, Row, Table } from "react-bootstrap";
 import AcceptanceTab from "../../components/AcceptanceTab/AcceptanceTab";
 import ApplicantsTab from "../../components/applicantsTab/ApplicantsTab";
+import EvaluationTab from "../../components/EvaluationTab/EvaluationTab";
 import ForInterviewTab from "../../components/ForInterviewTab/ForInterviewTab";
 import PrequalificationTab from "../../components/PrequalificationTab/PrequalificationTab";
 import TabNavigation from "../../components/tabNavigation/TabNavigation";
@@ -25,6 +26,7 @@ export default function Application({panel,committee, head}) {
           {tab === "for-acceptance"? <AcceptanceTab panel = {panel} head={head} committee = {committee}/>:''}
           {tab === "for-prequalification"?<PrequalificationTab panel = {panel} head={head} committee = {committee}/>:""}
           {tab === "for-interview"?<ForInterviewTab panel = {panel} head={head} committee = {committee}/>:''}
+          {tab === "evaluation"?<EvaluationTab panel = {panel} head = {head} committee = {committee}/>:''}
         </Container>
       </Row>
     </Container>

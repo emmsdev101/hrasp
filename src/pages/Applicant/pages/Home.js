@@ -37,7 +37,8 @@ export default function Home() {
                       Status:{" "}
                       <span className="status-text">{application.status}</span>
                     </p>
-                    {application.status === "to-interview"?(<Button size = "sm" href="/conference">Join</Button>):""}
+                    {application.status === "to-interview"? interviewDate.status === "starting"?
+                    (<Button size = "sm" href={"/conference/"+interviewDate.room_id} variant="success">Join</Button>):((<Button size = "sm" disabled variant="success">Join</Button>)):""}
                   </Container>
 
                   {application.status === "to-interview" ? (

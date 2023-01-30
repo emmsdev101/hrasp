@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
 import { Col } from "react-bootstrap";
 
-export default function PeerCall({ myStream, own, call, pinCall, pinnedId, myId }) {
+export default function PeerCall({ myStream, own, call, pinCall, pinnedId, myId, setPinnedCall }) {
   const [stream, setStream] = useState(null);
   const [userId, setUserId] = useState(null)
 
@@ -21,6 +21,7 @@ export default function PeerCall({ myStream, own, call, pinCall, pinnedId, myId 
           setStream(userVideoStream);
           console.log("Adding Call");
           setUserId(lastId)
+          setPinnedCall(lastId)
         }
       });
       call.on("close", () => {

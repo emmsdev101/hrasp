@@ -46,9 +46,10 @@ export default function Header({ logged }) {
           </ul>
       </div>
       <div className="accountNav">
+      <Button variant="none" size = "sm" href="/login">Sign in</Button>
+      &nbsp;
+
         <Button className = "btn-primary" size = "sm" href="/signup">Sign up</Button>
-        &nbsp;
-        <Button className = "btn-secondary" size = "sm" href="/login">Sign in</Button>
         </div>
  
     </div>

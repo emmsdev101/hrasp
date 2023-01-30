@@ -21,6 +21,8 @@ import {
   faCalendar,
   faTimes,
   faUniversity,
+  faHandPaper,
+  faBook,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
@@ -79,6 +81,12 @@ export default function Header({ logged }) {
               <a href="/admin/boards" className={isActive("/admin/boards")}>
                 <FontAwesomeIcon icon={faUniversity} className="navIcon" />
                 <span className=" navText">Screening Comittee</span>
+              </a>
+            </li>
+            <li className="navLink">
+              <a href="/admin/evaluations" className={isActive("/admin/evaluations")}>
+                <FontAwesomeIcon icon={faBook} className="navIcon" />
+                <span className=" navText">Evaluation Sheets</span>
               </a>
             </li>
           </ul>

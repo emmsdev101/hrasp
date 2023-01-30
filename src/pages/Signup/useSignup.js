@@ -16,7 +16,8 @@ export default function useSignup() {
     }
   }, [registration, step]);
 
-  const savePrimary = (data) => {
+  const savePrimary = async(data) => {
+    
     setRegistration(data);
     setStep(step + 1);
     console.log(data);
@@ -32,6 +33,16 @@ export default function useSignup() {
     setStep(step - 1);
   };
 
+  const verifyEmail = async() =>{
+    console.log("Verifying Email")
+    const request = await axios.post(apiBaseUrl+"/verifyEmail",{email:registration.email})
+    console.log(request.data)
+  }
+  const verifyCode = async(code) => {
+    const request = await axios.post(apiBaseUrl+"/verifyCode",{code:code, email:registration.email})
+    return request.data
+   
+  }
   const registerRequest = async(userData) => {
     const registration = await axios.post(apiBaseUrl + "/applicant/register", {
       userData,
@@ -51,6 +62,8 @@ export default function useSignup() {
     savePrimary,
     savePassword,
     back,
+    verifyEmail,
+    verifyCode
   };
 }
 

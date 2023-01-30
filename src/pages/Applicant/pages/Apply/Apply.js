@@ -57,11 +57,11 @@ export default function Apply({match}) {
             </Col>
           </Row>
           <Container className="d-flex justify-content-center">
-            <Button variant="secondary" className="m-1">
+            <Button variant="outline-secondary" className="m-1" href="/applicant">
               Cancel
             </Button>
 
-            <Button variant="primary" className="m-1" onClick={submit}>
+            <Button variant="success" className="m-1" onClick={submit}>
               Submit
             </Button>
           </Container>

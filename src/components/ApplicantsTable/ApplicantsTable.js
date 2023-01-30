@@ -72,6 +72,12 @@ export default function ApplicantsTable({
     if (request.data) requestApplications();
     else alert("Error Occured");
   };
+  const startInterview = async(roomId)=>{
+    const interviewReq = await axios.post(apiBaseUrl+"/admin/startInterview",{roomId:roomId},{withCredentials:true})
+    if(interviewReq.data.success){
+      window.location.href = "/conference/"+roomId
+    }
+  }
   const TableRow = ({ data }) => {
     let dateDiff;
     if (status === "to-interview") {
@@ -89,7 +95,7 @@ export default function ApplicantsTable({
         <td>{data.title}</td>
         <td>{data.date + ":" + data.time}</td>
         <td>
-          {!committee?(<Button
+          {!committee && !panel?(<Button
             size="sm"
             className="me-1"
             variant="danger"
@@ -97,12 +103,25 @@ export default function ApplicantsTable({
           >
             <FontAwesomeIcon icon={faCalendarTimes} />
           </Button>):""}
-          {dateDiff < 18000 ? (
-            <Button size="sm" variant="success" className = "me-1" href="/conference">
+          {dateDiff < 18000 ? !committee && !panel? data.status === "starting"?(
+            (
+              <Button size="sm" variant="success" className = "me-1" href={"/conference/"+data.room_id}>
+                <FontAwesomeIcon icon={faVideo} />
+                Join
+              </Button>
+            )
+          ):
+          (
+            <Button size="sm" variant="success" className = "me-1" onClick={()=>startInterview(data.room_id)}>
+              <FontAwesomeIcon icon={faVideo} />
+              Start
+            </Button>
+          ) :(
+            <Button size="sm" variant="success" className = "me-1" href = {"/conference/"+data.room_id}>
               <FontAwesomeIcon icon={faVideo} />
               Join
             </Button>
-          ) : (
+          ): (
             <Button size="sm" variant="success" disabled>
               <FontAwesomeIcon icon={faVideo} className = "me-1" />
               Join

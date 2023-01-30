@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Peer from "peerjs";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import PanelHeader from "../../components/header/PanelHeader";
+import { peerServer, peerServerPort, webSocketServer } from "../../config";
 
 import "./conference.css";
 import PeerCall from "./PeerCall";
@@ -23,12 +25,13 @@ export default function Conference() {
   const [calls, setCalls] = useState([]);
   const [myId, setMyId] = useState("")
   const [pinnedCall, setPinnedCall] = useState("")
+
+  const {roomId} = useParams()
   let socket = null
-  const roomId = 112233
 
   const myPeer = new Peer(undefined, {
-    host: "192.168.254.137",
-    port: "3002",
+    host: peerServer,
+    port: peerServerPort,
     path: "/",
   });
 
@@ -41,7 +44,7 @@ export default function Conference() {
   }, [audio, camera]);
 
   useEffect(() => {
-    if(!socket)socket = io("192.168.254.137:3001");
+    if(!socket)socket = io(webSocketServer);
 
     socket.on('connect',()=>{
       console.log("Self Connected:",socket.id)
@@ -56,7 +59,6 @@ export default function Conference() {
           call:null,
         },
       ]);
-      setPinnedCall(myId)
       let lastId;
 
         myPeer.on("call", (call) => {
@@ -67,6 +69,7 @@ export default function Conference() {
             own:false,
           }])
         });
+        setPinnedCall(myId)
 
         socket.on("user-connected", (userId) => {
           let call = myPeer.call(userId, myStream);
@@ -74,7 +77,6 @@ export default function Conference() {
             call:call,
             own:false,
           }])
-
         });
         socket.on("pin-call", (userId) => {
           setPinnedCall(userId)
@@ -87,6 +89,7 @@ export default function Conference() {
       });
       myPeer.on("open", (id) => {
         socket.emit("join-room", roomId, id);
+        console.log("joining room",roomId)
       });
     
     }
@@ -115,7 +118,7 @@ export default function Conference() {
         className="d-flex flex-direction-row justify-content-center align-items-center"
       >
         {calls.map(({ own, call }, idx) => (
-          <PeerCall own = {own} myId = {myId} myStream={myStream} call = {call} key={idx} pinCall = {pinCall} pinnedId = {pinnedCall} />
+          <PeerCall own = {own} myId = {myId} myStream={myStream} call = {call} key={idx} pinCall = {pinCall} pinnedId = {pinnedCall} setPinnedCall = {setPinnedCall}/>
         ))}
       </Row>
       <Container
@@ -131,7 +134,7 @@ export default function Conference() {
         <Button variant="primary" className="m-1">
           <FontAwesomeIcon icon={faMessage} />
         </Button>
-        <Button variant="danger" className="m-1">
+        <Button variant="danger" className="m-1" href="/admin/applications">
           <FontAwesomeIcon icon={faPhone} />
         </Button>
       </Container>
