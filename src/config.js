@@ -1,5 +1,5 @@
-//exports.apiBaseUrl = "http://18.191.54.215:4000" 
-exports.apiBaseUrl = "http://192.168.254.137:4000"
+exports.apiBaseUrl = "http://18.191.54.215:4000" 
+//exports.apiBaseUrl = "http://192.168.254.137:4000"
 exports.peerServer = "18.191.54.215"
 exports.peerServerPort = "4001"
 exports.webSocketServer = "18.191.54.215:4002" 
