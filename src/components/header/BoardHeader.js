@@ -44,8 +44,8 @@ export default function BoardHeader({profileDetails, page}) {
             </li>
             <li className="navLink">
               <a
-                href={"/"+page+"/applicants"}
-                className={isActive("/"+page+"/applications")}
+                href={"/"+page+"/applicants/applicants"}
+                className={isActive("/"+page+"/applications/applicants")}
               >
                 <FontAwesomeIcon icon={faUserTie} className="navIcon" />
                 <span className=" navText">Applications</span>

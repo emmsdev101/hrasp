@@ -44,7 +44,7 @@ export default function PanelHeader({profileDetails}) {
             </li>
             <li className="navLink">
               <a
-                href="/panel/applicants"
+                href="/panel/applicants/applicants"
                 className={isActive("/panel/applications")}
               >
                 <FontAwesomeIcon icon={faUserTie} className="navIcon" />

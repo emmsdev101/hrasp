@@ -34,7 +34,7 @@ function App() {
         <Route exact path="/panel/*" element = {<Panel/>}/>
         <Route exact path="/committee-member/*" element = {<Board committee = {true}/>}/>
         <Route exact path="/committee-president/*" element = {<Board head = {true}/>}/>
-        <Route exact path="/conference/:roomId" element ={<Conference/>}/>
+        
       </Routes>
     </BrowserRouter>
   );

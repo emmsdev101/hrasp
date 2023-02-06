@@ -7,18 +7,45 @@ import {
   faSave,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { questions } from "./useEvaluation";
 import Question from "./Question";
 import "./style.css";
+import axios from "axios";
+import { apiBaseUrl } from "../../config";
+import { useParams } from "react-router-dom";
 export default function EvaluationSheets() {
-  const [create, setCreate] = useState(false);
+  const { id } = useParams();
+  const [evaluatoinData, setEvaluationData] = useState({});
 
-  const [considiration, setConsideration] = useState("")
+  const [considiration, setConsideration] = useState("");
   const [ratings, setRatings] = useState([]);
 
+  const [training, setTraining] = useState();
+  const [remarks, setRemarks] = useState("");
+
+  const [total, setTotal] = useState("");
+
+  const computeTotal = () => {
+    let sum = 0.0;
+    for (let i = 0; i < ratings.length; i++) {
+      const rate = ratings[i].mainRate;
+      sum += rate;
+    }
+    setTotal(sum);
+  };
+
   useEffect(() => {
+    const getEvaluationData = async () => {
+      const request = await axios.get(
+        apiBaseUrl + "/panel/getEvaluationData/" + id,
+        { withCredentials: true }
+      );
+
+      console.log(request.data);
+      if (request.data) setEvaluationData(request.data[0]);
+    };
     for (let i = 0; i < questions.length; i++) {
       const q = questions[i];
       let rating = {
@@ -31,26 +58,30 @@ export default function EvaluationSheets() {
       }
       setRatings((current) => [...current, rating]);
     }
+    getEvaluationData();
   }, []);
 
-  const submit = () => {
-    console.log("ratings", ratings, considiration);
-  };
-
-  const Information = ({ label, value }) => {
-    return (
-      <Row className="w-100">
-        <Col className=" ">
-          <p className="text textLabel">{label} : </p>
-        </Col>
-        <Col md={8} className=" ">
-          <p className="textInfo"> {value}</p>
-        </Col>
-      </Row>
+  const submit = async () => {
+    const submitReq = await axios.post(
+      apiBaseUrl + "/panel/evaluate",
+      {
+        id,
+        training,
+        remarks,
+        considiration,
+        ratings,
+        total,
+      },
+      { withCredentials: true }
     );
+    console.log("submitting",submitReq.data)
+
+      if(submitReq.data){
+        window.location.href = "../applicants/evaluation"
+      }
   };
 
-  return (
+  return evaluatoinData ? (
     <Row className="pt-3 d-flex justify-content-center pb-5 evaluation">
       <Col md={10} sm={12}>
         <Card>
@@ -63,16 +94,27 @@ export default function EvaluationSheets() {
                 md={8}
                 className="d-flex flex-column justify-content-start align-items-start "
               >
-                <Information label="Name of Applicant" value={"no data"} />
-                <Information label="Interview Date" value={"no data"} />
+                <Information
+                  label="Name of Applicant"
+                  value={evaluatoinData.fullname}
+                />
+                <Information
+                  label="Interview Date"
+                  value={evaluatoinData.date}
+                />
                 <Information
                   label="Line of Training & Experience"
-                  value={
-                    "no dataddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-                  }
+                  toEdit={true}
+                  myval={remarks}
+                  setMyVal={setRemarks}
                 />
-                <Information label="Position" value={"no data"} />
-                <Information label="Remarks" value={"no data"} />
+                <Information label="Position" value={evaluatoinData.title} />
+                <Information
+                  label="Remarks"
+                  toEdit={true}
+                  myval={training}
+                  setMyVal={setTraining}
+                />
               </Col>
               <Col md={4} className="">
                 <p className="textLabel">Recommendation:</p>
@@ -83,8 +125,8 @@ export default function EvaluationSheets() {
                   className=""
                   size="xsm"
                   id="recomendation-1"
-                  onChange={()=>{
-                    setConsideration(1)
+                  onChange={() => {
+                    setConsideration("Unfavorable");
                   }}
                 />
                 <Form.Check
@@ -94,8 +136,8 @@ export default function EvaluationSheets() {
                   className=""
                   size="xsm"
                   id="recomendation-2"
-                  onChange={()=>{
-                    setConsideration(2)
+                  onChange={() => {
+                    setConsideration("Possible further consideration");
                   }}
                 />
                 <Form.Check
@@ -105,13 +147,15 @@ export default function EvaluationSheets() {
                   className=""
                   size="xsm"
                   id="recomendation-3"
-                  onChange={()=>{
-                    setConsideration(3)
+                  onChange={() => {
+                    setConsideration("Definitely to be considered");
                   }}
                 />
 
                 <div className="interviewer d-flex justify-content-center flex-column align-items-center mt-5">
-                  <p className="interviewerLabel"></p>
+                  <p className="interviewerLabel">
+                    {evaluatoinData.interviewer}
+                  </p>
                   <p className="labelText">Interviewer</p>
                 </div>
               </Col>
@@ -126,15 +170,22 @@ export default function EvaluationSheets() {
                     sectionTitle={vals.title}
                     pointLabel={vals.pointLabel}
                     sectionQuestions={vals.questions}
+                    editeble={vals.editeble}
                     setRatings={setRatings}
                     index={idx}
                     ratings={ratings}
+                    computeTotal={computeTotal}
                   />
                 ))
               : ""}
             <div className="d-flex justify-content-center ms-auto ps-5">
               <p className="textLabel ms-3">Total</p>
-              <Form.Control type="number" className="m-0 totalRateInput" />
+              <Form.Control
+                type="number"
+                className="m-0 totalRateInput"
+                value={total}
+                readOnly
+              />
             </div>
           </Card.Body>
         </Card>
@@ -150,5 +201,41 @@ export default function EvaluationSheets() {
         </Container>
       </Col>
     </Row>
+  ) : (
+    ""
   );
 }
+const Information = ({
+  label,
+  value,
+  toEdit,
+  handle,
+  myref,
+  myval,
+  setMyVal,
+}) => {
+  return (
+    <Row className="w-100">
+      <Col className=" ">
+        <p className="text textLabel">{label} : </p>
+      </Col>
+      <Col md={8} className=" ">
+        {toEdit ? (
+          <Form.Control
+            ref={myref}
+            type="text"
+            className="textInfo"
+            value={value}
+            onChange={(e) => {
+              setMyVal(e.target.value);
+            }}
+          />
+        ) : (
+          <p ref={myref} type="text" className="textInfo">
+            {value}
+          </p>
+        )}
+      </Col>
+    </Row>
+  );
+};

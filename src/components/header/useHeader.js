@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { apiBaseUrl } from '../../config';
 
 export default function useHeader(type) {
     const [showMenu, setShowMenu] = useState(false);
     const [logout, setLogout] = useState(false)
+    const {tab} = useParams()
 
 
     const toggleMenu =()=>{
@@ -14,7 +16,11 @@ export default function useHeader(type) {
         setShowMenu(false)
     }
     const isActive =(page)=>{
-        const pathname = window.location.pathname
+        let pathname = window.location.pathname
+
+        if(tab){
+          pathname.replace("/"+tab,"")
+        }
         return pathname === page?"active":""
     }
     const toggleLogout = () => {

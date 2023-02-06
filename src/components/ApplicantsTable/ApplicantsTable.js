@@ -3,6 +3,7 @@ import {
   faCalendar,
   faCalendarPlus,
   faCalendarTimes,
+  faPenToSquare,
   faPlay,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
@@ -41,8 +42,8 @@ export default function ApplicantsTable({
     else if (panel) requestUrl = apiBaseUrl + "/panel/getApplicants/" + status;
     else requestUrl = apiBaseUrl + "/admin/getApplicants/" + status;
 
-    console.log("Request Url",requestUrl)
-    request = await axios(requestUrl, { withCredentials: true });
+    console.log("Request Url", requestUrl);
+    request = await axios.get(requestUrl, { withCredentials: true });
 
     try {
       const reqData = request.data;
@@ -72,12 +73,25 @@ export default function ApplicantsTable({
     if (request.data) requestApplications();
     else alert("Error Occured");
   };
-  const startInterview = async(roomId)=>{
-    const interviewReq = await axios.post(apiBaseUrl+"/admin/startInterview",{roomId:roomId},{withCredentials:true})
-    if(interviewReq.data.success){
-      window.location.href = "/conference/"+roomId
+  const startInterview = async (roomId) => {
+    const interviewReq = await axios.post(
+      apiBaseUrl + "/admin/startInterview",
+      { roomId: roomId },
+      { withCredentials: true }
+    );
+    if (interviewReq.data.success) {
+      window.location.href = "../conference/" + roomId;
     }
+  };
+  const evaluate = async(applicantionsId) => {
+    const reqEvaluation = await axios.post(apiBaseUrl+"/panel/createEvaluation",{applicationId:applicantionsId},{withCredentials:true})
+    const evaluationResult = reqEvaluation.data
+    if(evaluationResult.success)return window.location.href = "../evaluation/"+evaluationResult.evaluationId
+    alert("Something went wrong")
   }
+
+
+
   const TableRow = ({ data }) => {
     let dateDiff;
     if (status === "to-interview") {
@@ -95,38 +109,75 @@ export default function ApplicantsTable({
         <td>{data.title}</td>
         <td>{data.date + ":" + data.time}</td>
         <td>
-          {!committee && !panel?(<Button
-            size="sm"
-            className="me-1"
-            variant="danger"
-            onClick={() => resetSchedule(data.application_id)}
-          >
-            <FontAwesomeIcon icon={faCalendarTimes} />
-          </Button>):""}
-          {dateDiff < 18000 ? !committee && !panel? data.status === "starting"?(
-            (
-              <Button size="sm" variant="success" className = "me-1" href={"/conference/"+data.room_id}>
+          {!committee && !panel ? (
+            <Button
+              size="sm"
+              className="me-1"
+              variant="danger"
+              onClick={() => resetSchedule(data.application_id)}
+            >
+              <FontAwesomeIcon icon={faCalendarTimes} />
+            </Button>
+          ) : (
+            ""
+          )}
+          {dateDiff < 18000 ? (
+            !committee && !panel ? (
+              data.status === "starting" ? (
+                <Button
+                  size="sm"
+                  variant="success"
+                  className="me-1"
+                  href={
+                    "../conference/" + data.room_id + "/" + data.application_id
+                  }
+                >
+                  <FontAwesomeIcon icon={faVideo} />
+                  Join
+                </Button>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="success"
+                  className="me-1"
+                  onClick={() => startInterview(data.room_id)}
+                >
+                  <FontAwesomeIcon icon={faVideo} />
+                  Start
+                </Button>
+              )
+            ) : (
+              <Button
+                size="sm"
+                variant="success"
+                className="me-1"
+                href={"../conference/" + data.room_id + "/" + data.application_id}
+              >
                 <FontAwesomeIcon icon={faVideo} />
                 Join
               </Button>
             )
-          ):
-          (
-            <Button size="sm" variant="success" className = "me-1" onClick={()=>startInterview(data.room_id)}>
-              <FontAwesomeIcon icon={faVideo} />
-              Start
-            </Button>
-          ) :(
-            <Button size="sm" variant="success" className = "me-1" href = {"/conference/"+data.room_id}>
-              <FontAwesomeIcon icon={faVideo} />
-              Join
-            </Button>
-          ): (
+          ) : (
             <Button size="sm" variant="success" disabled>
-              <FontAwesomeIcon icon={faVideo} className = "me-1" />
+              <FontAwesomeIcon icon={faVideo} className="me-1" />
               Join
             </Button>
           )}
+        </td>
+      </tr>
+    ) : status === "for-evaluation" ? (
+      <tr>
+        {console.log(data)}
+        <td>{data.firstname + " " + data.middlename + " " + data.lastname}</td>
+        <td>{data.departmentType}</td>
+        <td>{data.department}</td>
+        <td>{data.title}</td>
+        <td>{data.date + ":" + data.time}</td>
+        <td>
+          <Button size="sm" variant="success" onClick={()=>evaluate(data.application_id)} disabled = {!panel}>
+            <FontAwesomeIcon icon={faPenToSquare} className="me-1" />
+            Evaluate
+          </Button>
         </td>
       </tr>
     ) : (
@@ -223,7 +274,7 @@ export default function ApplicantsTable({
   return (
     <Table hover responsive>
       <thead>
-        {status === "to-interview" ? (
+        {status === "to-interview" || status === "for-evaluation" ? (
           <tr>
             <th>Fullname</th>
             <th>Applying for</th>

@@ -49,7 +49,7 @@ export default function Header({ logged }) {
             </li>
             <li className="navLink">
               <a
-                href="/admin/applications"
+                href="/admin/applications/applicants"
                 className={isActive("/admin/applications")}
               >
                 <FontAwesomeIcon icon={faUserTie} className="navIcon" />

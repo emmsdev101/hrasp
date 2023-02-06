@@ -4,6 +4,7 @@ import { Container, Row } from 'react-bootstrap'
 import { Route, Routes } from 'react-router-dom'
 import PanelHeader from '../../components/header/PanelHeader'
 import { apiBaseUrl } from '../../config'
+import Conference from '../Conference/Conference'
 import PanelDashboard from '../PanelDashboard/PanelDashboard'
 import PanelHiring from '../PanelHiring/PanelHiring'
 import RequestHiring from '../RequestHiring/RequestHiring'
@@ -39,7 +40,8 @@ export default function Panel() {
       <Route exact path='/hiring' element={<PanelHiring/>}/>
       <Route exact path='/request-hiring' element={<RequestHiring/>}/>
       <Route exact path='/edit-hiring/:id' element={<RequestHiring edit = {true}/>}/>
-      <Route exact path="/applicants" element = {<Application panel = {true}/>}/>
+      <Route exact path="/applicants/:tab" element = {<Application panel = {true}/>}/>
+      <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference panel={true}/>}/>
 
     </Routes>
     </Container>
