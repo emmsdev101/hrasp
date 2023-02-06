@@ -6,8 +6,18 @@ import { apiBaseUrl } from '../../config';
 export default function useHeader(type) {
     const [showMenu, setShowMenu] = useState(false);
     const [logout, setLogout] = useState(false)
-    const {tab} = useParams()
+    const [showHeader, setShowHeader] = useState(true)
 
+
+    useEffect(()=>{
+      let pathname = window.location.pathname
+      const newpath = pathname.split("/",3)
+      if(newpath[2] === 'conference'){
+        setShowHeader(false)
+        console.log("hide header")
+      }else setShowHeader(true)
+    },[])
+    const {tab} = useParams()
 
     const toggleMenu =()=>{
         setShowMenu(!showMenu)
@@ -21,6 +31,7 @@ export default function useHeader(type) {
         if(tab){
           pathname.replace("/"+tab,"")
         }
+
         return pathname === page?"active":""
     }
     const toggleLogout = () => {
@@ -39,6 +50,7 @@ export default function useHeader(type) {
     isActive,
     logout,
     confirmLogout,
-    toggleLogout
+    toggleLogout,
+    showHeader
   }
 }

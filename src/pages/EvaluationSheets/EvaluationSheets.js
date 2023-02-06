@@ -16,7 +16,7 @@ import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import { useParams } from "react-router-dom";
 export default function EvaluationSheets() {
-  const { id } = useParams();
+  const { id, applicationId } = useParams();
   const [evaluatoinData, setEvaluationData] = useState({});
 
   const [considiration, setConsideration] = useState("");
@@ -65,6 +65,7 @@ export default function EvaluationSheets() {
     const submitReq = await axios.post(
       apiBaseUrl + "/panel/evaluate",
       {
+        applicationId,
         id,
         training,
         remarks,

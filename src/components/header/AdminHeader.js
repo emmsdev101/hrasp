@@ -28,9 +28,9 @@ import useHeader from "./useHeader";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 export default function Header({ logged }) {
-  const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout } = useHeader("admin");
+  const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout, showHeader } = useHeader("admin");
 
-  return (
+  return showHeader? (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
@@ -138,5 +138,5 @@ export default function Header({ logged }) {
       </div>
     </div>:""}
     </div>
-  );
+  ):'';
 }

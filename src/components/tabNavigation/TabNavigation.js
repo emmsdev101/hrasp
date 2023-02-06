@@ -56,11 +56,11 @@ export default function TabNavigation({tab,gotoTab,committee}) {
               </div>
             </a>
             <a>
-              <div className="tabLink" id={tab === "selection"?"tabActive":""}
-              onClick = {()=>gotoTab("selection")}>
+              <div className="tabLink" id={tab === "evaluation-result"?"tabActive":""}
+              onClick = {()=>gotoTab("evaluation-result")}>
                 {" "}
                 <FontAwesomeIcon icon={faVials} className="tabIcon" />{" "}
-                Selection
+                Evaluation Result
               </div>
             </a>
             <a>

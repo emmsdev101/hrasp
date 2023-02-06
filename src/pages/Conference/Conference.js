@@ -35,11 +35,7 @@ export default function Conference({ panel,admin }) {
   const { roomId, applicantionsId } = useParams();
   let socket = null;
 
-  const myPeer = new Peer(undefined, {
-    host: peerServer,
-    port: peerServerPort,
-    path: "/",
-  });
+  const myPeer = new Peer();
 
   let refPeer = useRef();
   const peers = {};

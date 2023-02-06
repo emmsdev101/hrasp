@@ -86,7 +86,7 @@ export default function ApplicantsTable({
   const evaluate = async(applicantionsId) => {
     const reqEvaluation = await axios.post(apiBaseUrl+"/panel/createEvaluation",{applicationId:applicantionsId},{withCredentials:true})
     const evaluationResult = reqEvaluation.data
-    if(evaluationResult.success)return window.location.href = "../evaluation/"+evaluationResult.evaluationId
+    if(evaluationResult.success)return window.location.href = "../evaluation/"+evaluationResult.evaluationId+"/"+applicantionsId
     alert("Something went wrong")
   }
 

@@ -39,7 +39,7 @@ export default function Panel({head}) {
       <Route exact path="/" element={<PanelDashboard head = {head} committee = {true} />} />
       <Route exact path="/dashboard" element={<PanelDashboard head = {head} committee = {true}/>} />
       <Route exact path="/applicants/:tab" element = {<Application panel={true} head={head} committee = {true} />}/>
-      <Route exact path="/evaluation/:id" element={<EvaluationSheets panel={true} head={head} committee = {true}/>}/>
+      <Route exact path="/evaluation/:id/:applicationId" element={<EvaluationSheets panel={true} head={head} committee = {true}/>}/>
 
     </Routes>
     </Container>

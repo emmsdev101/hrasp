@@ -23,9 +23,9 @@ import {
 import useHeader from "./useHeader";
 
 export default function Header({ logged }) {
-  const {isActive } = useHeader();
+  const {isActive, showHeader } = useHeader();
 
-  return (
+  return showHeader? (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
@@ -53,5 +53,5 @@ export default function Header({ logged }) {
         </div>
  
     </div>
-  );
+  ):'';
 }
