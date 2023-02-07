@@ -44,6 +44,7 @@ export default function Panel() {
       <Route exact path="/applicants/:tab" element = {<Application panel = {true}/>}/>
       <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference panel={true}/>}/>
       <Route exact path="/evaluation/:id/:applicationId" element={<EvaluationSheets panel={true} head={false} committee = {false}/>}/>
+      <Route exact path="/view-evaluation/:id" element = {<EvaluationSheets view = {true} panel = {true}/> }/>
 
 
     </Routes>

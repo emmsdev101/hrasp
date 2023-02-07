@@ -15,7 +15,7 @@ import "./style.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import { useParams } from "react-router-dom";
-export default function EvaluationSheets() {
+export default function EvaluationSheets({ view, panel }) {
   const { id, applicationId } = useParams();
   const [evaluatoinData, setEvaluationData] = useState({});
 
@@ -37,29 +37,44 @@ export default function EvaluationSheets() {
   };
 
   useEffect(() => {
-    const getEvaluationData = async () => {
-      const request = await axios.get(
-        apiBaseUrl + "/panel/getEvaluationData/" + id,
-        { withCredentials: true }
-      );
-
-      console.log(request.data);
-      if (request.data) setEvaluationData(request.data[0]);
-    };
-    for (let i = 0; i < questions.length; i++) {
-      const q = questions[i];
-      let rating = {
-        mainRate: 0,
-        minRates: [],
-      };
-
-      for (let j = 0; j < q.questions.length; j++) {
-        rating.minRates.push(0);
+    const initRatings =()=> {
+      for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        let rating = {
+          mainRate: 0,
+          minRates: [],
+        };
+  
+        for (let j = 0; j < q.questions.length; j++) {
+          rating.minRates.push(0);
+        }
+        setRatings((current) => [...current, rating]);
       }
-      setRatings((current) => [...current, rating]);
     }
+    if(!view)initRatings()
     getEvaluationData();
   }, []);
+
+  const getEvaluationData = async () => {
+    let reqUrl = apiBaseUrl + "/admin/getEvaluationData/" + id;
+    if (panel) reqUrl = apiBaseUrl + "/panel/getEvaluationData/" + id;
+    const request = await axios.get(reqUrl, { withCredentials: true });
+
+    console.log(request.data);
+    const evaluationData = request.data[0];
+    if (request.data) {
+      setEvaluationData(evaluationData);
+      if (view) {
+        setRemarks(evaluationData.remarks);
+        setConsideration(evaluationData.recommendation);
+        setTraining(evaluationData.training);
+
+        const dataRatings = await JSON.parse(evaluationData.ratings);
+        setRatings(dataRatings);
+        setTotal(evaluationData.total);
+      }
+    }
+  };
 
   const submit = async () => {
     const submitReq = await axios.post(
@@ -75,11 +90,11 @@ export default function EvaluationSheets() {
       },
       { withCredentials: true }
     );
-    console.log("submitting",submitReq.data)
+    console.log("submitting", submitReq.data);
 
-      if(submitReq.data){
-        window.location.href = "../applicants/evaluation"
-      }
+    if (submitReq.data) {
+      window.location.href = "../applicants/evaluation";
+    }
   };
 
   return evaluatoinData ? (
@@ -105,15 +120,15 @@ export default function EvaluationSheets() {
                 />
                 <Information
                   label="Line of Training & Experience"
-                  toEdit={true}
-                  myval={remarks}
+                  toEdit={!view}
+                  value={remarks}
                   setMyVal={setRemarks}
                 />
                 <Information label="Position" value={evaluatoinData.title} />
                 <Information
                   label="Remarks"
-                  toEdit={true}
-                  myval={training}
+                  toEdit={!view}
+                  value={training}
                   setMyVal={setTraining}
                 />
               </Col>
@@ -122,6 +137,7 @@ export default function EvaluationSheets() {
                 <Form.Check
                   label="Unfavorable"
                   name="recomendation"
+                  checked={considiration === "Unfavorable"}
                   type="radio"
                   className=""
                   size="xsm"
@@ -129,17 +145,21 @@ export default function EvaluationSheets() {
                   onChange={() => {
                     setConsideration("Unfavorable");
                   }}
+                  disabled = {view}
                 />
                 <Form.Check
                   label="Possible further consideration"
                   name="recomendation"
                   type="radio"
                   className=""
+                  checked={considiration === "Possible further consideration"}
                   size="xsm"
                   id="recomendation-2"
                   onChange={() => {
                     setConsideration("Possible further consideration");
                   }}
+                  disabled = {view}
+
                 />
                 <Form.Check
                   label="Definitely to be considered"
@@ -148,9 +168,12 @@ export default function EvaluationSheets() {
                   className=""
                   size="xsm"
                   id="recomendation-3"
+                  checked={considiration === "Definitely to be considered"}
                   onChange={() => {
                     setConsideration("Definitely to be considered");
                   }}
+                  disabled = {view}
+
                 />
 
                 <div className="interviewer d-flex justify-content-center flex-column align-items-center mt-5">
@@ -176,6 +199,7 @@ export default function EvaluationSheets() {
                     index={idx}
                     ratings={ratings}
                     computeTotal={computeTotal}
+                    view = {view}
                   />
                 ))
               : ""}
@@ -191,14 +215,20 @@ export default function EvaluationSheets() {
           </Card.Body>
         </Card>
         <Container fluid className="d-flex justify-content-center p-3">
-          <Button variant="danger" className="">
-            <FontAwesomeIcon icon={faCancel} className="pe-1" />
-            Cancel
-          </Button>
-          <Button variant="success" className="ms-1" onClick={submit}>
-            <FontAwesomeIcon icon={faCheck} className="pe-1" />
-            Submit
-          </Button>
+          {!view ? (
+            <React.Fragment>
+              <Button variant="danger" className="">
+                <FontAwesomeIcon icon={faCancel} className="pe-1" />
+                Cancel
+              </Button>
+              <Button variant="success" className="ms-1" onClick={submit}>
+                <FontAwesomeIcon icon={faCheck} className="pe-1" />
+                Submit
+              </Button>
+            </React.Fragment>
+          ) : (
+            ""
+          )}
         </Container>
       </Col>
     </Row>
@@ -206,15 +236,7 @@ export default function EvaluationSheets() {
     ""
   );
 }
-const Information = ({
-  label,
-  value,
-  toEdit,
-  handle,
-  myref,
-  myval,
-  setMyVal,
-}) => {
+const Information = ({ label, value, toEdit, handle, myref, setMyVal }) => {
   return (
     <Row className="w-100">
       <Col className=" ">

@@ -45,6 +45,7 @@ export default function AdminPortal() {
       <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference admin = {true}/>}/>
       <Route exact path="/panels" element={<Panel/>}/>
       <Route exact path="/boards" element={<ScreeningComittee />} />
+      <Route exact path="/view-evaluation/:id" element = {<EvaluationSheets view = {true}/> }/>
     </Routes>
     </Container>
 

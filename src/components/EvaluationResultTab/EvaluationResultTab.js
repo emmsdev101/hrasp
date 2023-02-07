@@ -7,21 +7,28 @@ import EvaluationTable from "../EvaluationTable/EvaluationTable";
 import Filter from "../Filter/Filter";
 import "./evaluation.css";
 
-export default function EvaluationResultTab() {
+export default function EvaluationResultTab({ panel, head, committee }) {
+  const [evaluations, setEvaluations] = useState([]);
 
-    const [evaluations, setEvaluations] = useState([])
-
-    const fetchEvaluations = async() => {
-        const evaluationRequest = await axios.get(apiBaseUrl+"/panel/getEvaluationResults",{withCredentials:true})
-        const evaluationData = evaluationRequest.data
-        if(evaluationData){
-            console.log(evaluationData)
-            setEvaluations(evaluationData)
-        }
+  const fetchEvaluations = async () => {
+    let reqUrl = apiBaseUrl + "/admin/getEvaluationResults";
+    if (head)
+      reqUrl = apiBaseUrl + "/panel/getEvaluationResultsForCommitteeHead";
+    else if (committee)
+      reqUrl = apiBaseUrl + "/panel/getEvaluationResultsForCommitteeMember";
+    else if (panel) reqUrl = apiBaseUrl + "/panel/getEvaluationResults";
+    const evaluationRequest = await axios.get(reqUrl, {
+      withCredentials: true,
+    });
+    const evaluationData = evaluationRequest.data;
+    if (evaluationData) {
+      console.log(evaluationData);
+      setEvaluations(evaluationData);
     }
-    useEffect(()=>{
-        fetchEvaluations()
-    },[])
+  };
+  useEffect(() => {
+    fetchEvaluations();
+  }, []);
   return (
     <Row className="w-100 evalduation">
       <Col>
@@ -66,7 +73,7 @@ export default function EvaluationResultTab() {
             </Row>
           </Card.Header>
           <Card.Body className="p-3">
-            <EvaluationTable data={evaluations}/>
+            <EvaluationTable data={evaluations} />
           </Card.Body>
         </Card>
       </Col>

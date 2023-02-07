@@ -11,10 +11,14 @@ const Question = ({
   setRatings,
   computeTotal,
   editeble,
+  view
 }) => {
   let total = 0.0;
   const totalRef = useRef();
 
+  useEffect(()=>{
+    totalRef.current.value = ratings[index].mainRate
+  },[])
   const compute = () => {
     const rates = ratings[index].minRates;
     let sum = 0.0;
@@ -28,6 +32,7 @@ const Question = ({
     ratings[index].mainRate = total;
     computeTotal();
   };
+  
   return (
     <Row className="w-100 p-0 m-0 pb-3 questionBox">
       <Col md={10} className="">
@@ -49,6 +54,7 @@ const Question = ({
             toTotal={compute}
             setRatings={setRatings}
              ratings={ratings}
+             view = {view}
           />
         ))}
       </Col>
@@ -81,8 +87,13 @@ const SectionQuestion = ({
   toTotal,
   setRatings,
   ratings,
+  view
 }) => {
   const [myRate, setMyRate] = useState(0);
+
+  useEffect(()=>{
+    setMyRate(ratings[index1].minRates[index2])
+  },[])
 
   return (
     <div className="pb-3">
@@ -98,6 +109,7 @@ const SectionQuestion = ({
             step={0.25}
             min={0}
             max={data.maxPoint}
+            readOnly = {view}
             type="number"
             onChange={(e) => {
               const input = parseFloat(e.target.value);
