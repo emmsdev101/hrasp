@@ -49,9 +49,15 @@ a{
 .accountNav{
     font-size: small;
     font-weight: 500;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction:row;
+    width: auto;
+}
+.accountNav p{
+    width: 100px;
 }
 .AccountPicture{
     width: 25px;
@@ -98,7 +104,9 @@ a{
 }
 
 .navigation{ 
+    margin-left: auto;
     height: 100%;
+    width: auto;
 }
 .NavBar{
     display: flex;
@@ -120,6 +128,7 @@ a{
 }
 .navLink a{
     display: flex;
+
     justify-content: space-between;
     align-items: center;
     padding: 10px;
@@ -147,3 +156,4 @@ a{
     margin: 0;
     padding: 0;
 }
+

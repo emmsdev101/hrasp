@@ -9,17 +9,9 @@ export default function Home() {
     <Container fluid>
       <div className="top-control">
         <h5 className="m-0">Hiring Positions</h5>
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="form-group searchbox">
-            <input placeholder="Search" type="text" id="searchinput"></input>
-          </div>
-          <Button size="sm" variant="primary">
-            search
-          </Button>
-        </div>
       </div>
       <div className="p-2"></div>
-      <Row className="d-flex justify-content-center">
+      <Row className="w-100 d-flex justify-content-center">
         {application ? (
           <Col md={9}>
             <Container className="mb-5">

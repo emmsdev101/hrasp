@@ -99,7 +99,7 @@ export default function Conference({ panel,admin }) {
   async function startStream() {
     if (audio || camera) {
       console.log("turning off camera or audio");
-      const stream = await navigator.mediaDevices.getUserMedia({
+      const stream = await navigator.mediaDevices?.getUserMedia({
         video: camera,
         audio: audio,
       });

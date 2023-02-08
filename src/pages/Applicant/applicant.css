@@ -1,6 +1,7 @@
 .applicant{ 
      background-color: rgba(0, 175, 102, 0.158);
      min-height: 100vh;
+     width: 100vw;
      display: flex;
      flex-direction: column;
      align-items: center;
@@ -17,10 +18,10 @@
 }
 .searchbox{
     border-radius: 50px;
-    padding: 5px;
-    background-color: white;
+    padding: 5px 15px;
+    background-color: rgb(233, 233, 233);
     margin: 0 10px;
-    width: 500px;
+    width:50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,4 +31,5 @@
     border-bottom: 1px solid rgb(197, 197, 197);
     width: 98%;
     outline: none;
+    background-color: transparent;
 }

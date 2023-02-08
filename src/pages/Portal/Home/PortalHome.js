@@ -19,7 +19,7 @@ export default function PortalHome() {
           </h2>
           <Container className="text-center">
             <h4 className="banner-text">
-              Applicant Screening Portal
+              Applicant Hiring Portal
             </h4>
             <p>
               WVSU Calinog as a center of excellence in agriculture and resource

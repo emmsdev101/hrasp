@@ -1,0 +1,43 @@
+.hiddenMenu p{
+    padding: 0;
+    margin: 0;
+}
+.hiddenMenu{
+    background-color: white;
+    width: 250px;
+    border-radius: 5px;
+    top: 60px;
+    right: 10px;
+    height: 300px;
+    z-index: 1;
+}
+.menuItem{
+    width: 80%;
+    margin: 10px;
+}
+.hiddenMenuWrapper{
+    padding-top: 10px;
+    padding-right: 10px;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.507);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.menuClose{
+    margin-left: auto;
+
+}
+.hiddenMenuClose{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+
+}
