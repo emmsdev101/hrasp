@@ -1,3 +1,9 @@
+
+.Conference{
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
 .loadingBox{
     display: flex;
     flex-direction: column;
@@ -6,3 +12,84 @@
     height: 85vh;
     width: 100vw;
 }
+.vedioDiv{
+    position: relative;
+    margin: 3px;
+    width: 100px;
+    height: 100px;
+}
+.videoBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    flex-wrap: wrap;
+
+}
+.videoCols{
+    margin-top: 10px !important;
+
+}
+
+.pinnedVideoBox{
+    display: flex;
+    width:'100%';
+    height: 70vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.pinnedVideo{
+    padding: 2px;
+    border-radius: 10px;
+    margin: 1px;
+    width:100vw;
+    height: "100%";
+    position: relative;
+    border: 5px solid rgb(129, 183, 253);
+    display: flex;
+    justify-content: center;
+}
+.loading{
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: aliceblue;
+    margin: 0;
+}
+.loading p{
+    margin: 0;
+    padding: 0;
+}
+.buttonsDiv{
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    height: 'auto';
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+
+}
+/* @media only screen and (max-width: 768px) {
+    .vedioDiv
+    {
+     height: 500px; 
+    }
+}
+@media only screen and (max-width: 576px) {
+    .vedioDiv
+    {
+     height: 300px; 
+    }
+}
+@media only screen and (min-width: 386px) {
+    .vedioDiv
+    {
+     height: 200px; 
+    }
+} */

@@ -22,9 +22,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
 export default function BoardHeader({profileDetails, page}) {
-    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout } = useHeader("panel");
+    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout,showHeader } = useHeader("panel");
 
-  return (
+  return showHeader? (
     <div className="header">
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
@@ -90,5 +90,5 @@ export default function BoardHeader({profileDetails, page}) {
       </div>
     </div>:""}
     </div>
-  )
+  ):""
 }

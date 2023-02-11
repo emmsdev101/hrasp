@@ -27,7 +27,7 @@ import useHeader from './useHeader';
 import { HeaderMenu } from './HeaderMenu';
 import './header.css'
 export default function ApplicantHeader() {
-  const { showMenu, toggleMenu, closeMenu, isActive,logout,confirmLogout } = useHeader();
+  const { showMenu, toggleMenu, closeMenu, isActive,logout,confirmLogout,showHeader } = useHeader();
   
   const [showNav, setShowNav] = useState(false)
 
@@ -56,7 +56,7 @@ export default function ApplicantHeader() {
     }
   ];
 
-  return (
+  return showHeader? (
     <div className="header d-flex justify-content-between">
       {showNav?(
         <HeaderMenu items={menuItems} handleClose = {()=>setShowNav(false)} footers = {menuFooters}/>
@@ -127,5 +127,5 @@ export default function ApplicantHeader() {
       </div>
     </div>:""}
     </div>
-  )
+  ):""
 }

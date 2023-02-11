@@ -21,94 +21,147 @@ import {
 
 import "./conference.css";
 import PeerCall from "./PeerCall";
-export default function Conference({ panel,admin }) {
+export default function Conference({ panel, admin }) {
   const [streams, setStreams] = useState([]);
-  const [myStream, setMyStream] = useState(null);
-
+  const [joined, setJoined] = useState(false);
+  const [start, setStartStream] = useState(false);
   const [camera, setCamera] = useState(true);
-  const [audio, setAudio] = useState(true);
+  const [audio, setAudio] = useState(false);
 
   const [calls, setCalls] = useState([]);
   const [myId, setMyId] = useState("");
-  const [pinnedCall, setPinnedCall] = useState("");
+  const [pinnedCall, setPinnedCall] = useState(null);
 
   const { roomId, applicantionsId } = useParams();
-  let socket = null;
 
   const myPeer = new Peer();
 
-  let refPeer = useRef();
+  let socket = useRef();
+  let myStream = useRef();
   const peers = {};
+  let lastId;
 
   useEffect(() => {
     startStream();
     console.log("Camera ", camera ? "On" : "Off");
+  }, []);
+  useEffect(() => {
+    if (myStream.current) {
+      myStream.current.getAudioTracks()[0].enabled = audio;
+      myStream.current.getVideoTracks()[0].enabled = camera;
+    }
   }, [audio, camera]);
 
   useEffect(() => {
-    if (!socket) socket = io(webSocketServer);
+    if (!socket.current) socket.current = io(webSocketServer);
 
-    socket.on("connect", () => {
-      console.log("Self Connected:", socket.id);
-      setMyId(socket.id);
+    socket.current.on("connect", () => {
+      console.log("Self Connected:", socket.current.id);
+      setMyId(socket.current.id);
     });
-    if (myStream) {
-      setCalls((current) => [
+    setStreams([]);
+    if (start) {
+      setStreams((current) => [
         ...[],
         {
+          stream: myStream.current,
           own: true,
-          call: null,
+          userId: myId,
         },
       ]);
-      let lastId;
-
       myPeer.on("call", (call) => {
-        call.answer(myStream);
-
-        setCalls((current) => [
-          ...current,
-          {
-            call: call,
-            own: false,
-          },
-        ]);
+        call.answer(myStream.current);
+        console.log("Connecting to new user");
+        call.on("stream", (userVideoStream) => {
+          if (lastId !== userVideoStream.id) {
+            lastId = userVideoStream.id;
+            if (!pinnedCall) {
+              setPinnedCall({
+                stream: userVideoStream,
+                own: false,
+              });
+            } else {
+              setStreams((current) => [
+                ...current,
+                { stream: userVideoStream, own: false },
+              ]);
+            }
+            console.log("Adding Call");
+          }
+        });
       });
-      setPinnedCall(myId);
+      socket.current.on("user-connected", (userId) => {
+        socket.current.removeAllListeners("user-disconnected");
+        let call = myPeer.call(userId, myStream.current);
 
-      socket.on("user-connected", (userId) => {
-        let call = myPeer.call(userId, myStream);
-        setCalls((current) => [
-          ...current,
-          {
-            call: call,
-            own: false,
-          },
-        ]);
+        console.log("Connecting to new user");
+        call.on("stream", (userVideoStream) => {
+          if (lastId !== userVideoStream.id) {
+            lastId = userVideoStream.id;
+            if (!pinnedCall) {
+              setPinnedCall({
+                stream: userVideoStream,
+                userId: userId,
+                own: false,
+              });
+            } else {
+              setStreams((current) => [
+                ...current,
+                { stream: userVideoStream, userId: userId, own: false },
+              ]);
+            }
+            console.log("Adding Call");
+          }
+        });
       });
-      socket.on("pin-call", (userId) => {
-        setPinnedCall(userId);
-      });
-
-      socket.on("user-disconnected", (userId) => {});
       myPeer.on("open", (id) => {
-        socket.emit("join-room", roomId, id);
+        socket.current.emit("join-room", roomId, id);
         console.log("joining room", roomId);
+        setJoined(true);
       });
     }
-  }, [myStream]);
+  }, [start]);
+
+  useEffect(() => {
+    socket.current.on("user-disconnected", (userId) => {
+      console.log("old streams", streams);
+      const newCalls = streams.filter((data) => data.userId !== userId);
+      console.log("new streams", newCalls);
+      setStreams(newCalls);
+    });
+  }, [streams]);
+
   async function startStream() {
+    setStreams([]);
     if (audio || camera) {
       console.log("turning off camera or audio");
-      const stream = await navigator.mediaDevices?.getUserMedia({
-        video: camera,
-        audio: audio,
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
       });
-      setMyStream(stream);
+      myStream.current = stream;
+      myStream.current.getAudioTracks()[0].enabled = audio;
+      myStream.current.getVideoTracks()[0].enabled = camera;
+      setStartStream(true);
     }
   }
   const pinCall = (userId) => {
-    socket.emit("pinCall", userId);
+    console.log("Pin call", userId);
+    const toPin = streams.find((data) => {
+      console.log("this id", data.userId);
+      console.log("to compare", userId);
+
+      return data.userId == userId;
+    });
+    const unPins = streams.filter((data) => data.userId !== userId);
+    //unPins.push(pinnedCall);
+    console.log("to pin", toPin);
+    console.log("calls", unPins);
+    setPinnedCall(toPin);
+    setStreams(unPins);
   };
+
+  const unpinCall = (userId) => {};
   const endInterview = async () => {
     if (!admin) {
       window.location.href = "../../applicants/for-interview";
@@ -124,28 +177,39 @@ export default function Conference({ panel,admin }) {
       }
     }
   };
-  return (
-    <Container fluid m={0} p={0} className="Main">
-      <Container fluid></Container>
-      <Row className="d-flex flex-direction-row justify-content-center align-items-center">
-        {calls.map(({ own, call }, idx) => (
-          <PeerCall
-            own={own}
-            myId={myId}
-            myStream={myStream}
-            call={call}
-            key={idx}
-            pinCall={pinCall}
-            pinnedId={pinnedCall}
-            setPinnedCall={setPinnedCall}
-          />
-        ))}
+  return joined ? (
+    <Container fluid className="Conference">
+      <Row className="d-flex justify-content-center">
+        <Col md={8}>
+          <div className="pinnedVideoBox">
+            {pinnedCall ? (
+              <PeerCall
+                stream={pinnedCall.stream}
+                userId={pinnedCall.userId}
+                own={pinnedCall.own}
+                pinned={true}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+          <div className="videoBox row">
+            {streams.map(({ own, userId, stream }, idx) => (
+              <PeerCall
+                stream={stream}
+                userId={userId}
+                index={idx}
+                key={idx}
+                own={own}
+                pinCall = {pinCall}
+              />
+            ))}
+          </div>
+        </Col>
       </Row>
-      <Container
-        fluid
-        className="d-flex flex-direction-row justify-content-center align-items-center"
-      >
+      <div fluid className="buttonsDiv">
         <Button
+          size="lg"
           variant={camera ? "light" : "primary"}
           className="m-1"
           onClick={() => setCamera(!camera)}
@@ -153,19 +217,29 @@ export default function Conference({ panel,admin }) {
           <FontAwesomeIcon icon={faVideo} />
         </Button>
         <Button
+          size="lg"
           variant={audio ? "light" : "primary"}
           className="m-1"
           onClick={() => setAudio(!audio)}
         >
           <FontAwesomeIcon icon={faMicrophone} />
         </Button>
-        <Button variant="primary" className="m-1">
+        <Button size="lg" variant="primary" className="m-1">
           <FontAwesomeIcon icon={faMessage} />
         </Button>
-        <Button variant="danger" className="m-1" onClick={endInterview}>
+        <Button
+          size="lg"
+          variant="danger"
+          className="m-1"
+          onClick={endInterview}
+        >
           <FontAwesomeIcon icon={faPhone} />
         </Button>
-      </Container>
+      </div>
     </Container>
+  ) : (
+    <div className="loading">
+      <p>Joining Room...</p>
+    </div>
   );
 }

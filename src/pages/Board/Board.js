@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import BoardHeader from '../../components/header/BoardHeader'
 import PanelHeader from '../../components/header/PanelHeader'
 import { apiBaseUrl } from '../../config'
+import Conference from '../Conference/Conference'
 import EvaluationSheets from '../EvaluationSheets/EvaluationSheets'
 import PanelDashboard from '../PanelDashboard/PanelDashboard'
 import PanelHiring from '../PanelHiring/PanelHiring'
@@ -41,6 +42,7 @@ export default function Panel({head}) {
       <Route exact path="/applicants/:tab" element = {<Application panel={true} head={head} committee = {true} />}/>
       <Route exact path="/evaluation/:id/:applicationId" element={<EvaluationSheets panel={true} head={head} committee = {true}/>}/>
       <Route exact path="/view-evaluation/:id" element = {<EvaluationSheets view = {true} panel = {true}/> }/>
+      <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference head={head} committee = {true} />}/>
 
     </Routes>
     </Container>
