@@ -23,7 +23,7 @@ import PeerCall from "./PeerCall";
 export default function Conference({ panel, admin }) {
   const [streams, setStreams] = useState([]);
   const [joined, setJoined] = useState(false);
-  const [start, setStartStream] = useState(false);
+  const [start, setStartStream] = useState(true);
   const [camera, setCamera] = useState(true);
   const [audio, setAudio] = useState(false);
 
@@ -138,10 +138,11 @@ export default function Conference({ panel, admin }) {
         video: true,
         audio: true,
       });
+      setStartStream(true);
+
       myStream.current = stream;
       myStream.current.getAudioTracks()[0].enabled = audio;
       myStream.current.getVideoTracks()[0].enabled = camera;
-      setStartStream(true);
     }
   }
   const pinCall = (userId) => {
@@ -150,7 +151,7 @@ export default function Conference({ panel, admin }) {
       console.log("this id", data.userId);
       console.log("to compare", userId);
 
-      return data.userId == userId;
+      return data.userId === userId;
     });
     const unPins = streams.filter((data) => data.userId !== userId);
     //unPins.push(pinnedCall);

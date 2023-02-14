@@ -7,9 +7,21 @@ import {
     faVideo,
   } from "@fortawesome/free-solid-svg-icons";
 import useTabNavigation from './useTabNavigation';
-export default function TabNavigation({tab,gotoTab,committee}) {
+export default function TabNavigation({tab,gotoTab,committee,admin}) {
   return (
     <div className="tabContainer">
+          {admin?(
+            <a>
+            <div className="tabLink" id={tab === "registration"?"tabActive":""}
+            onClick = {()=>gotoTab("registration")}>
+              <FontAwesomeIcon
+                icon={faUser}
+                className="tabIcon"
+              ></FontAwesomeIcon>
+              Registration
+            </div>
+          </a>
+          ):""}
             <a>
               <div className="tabLink" id={tab === "applicants"?"tabActive":""}
               onClick = {()=>gotoTab("applicants")}>
@@ -28,16 +40,6 @@ export default function TabNavigation({tab,gotoTab,committee}) {
                   className="tabIcon"
                 ></FontAwesomeIcon>
                 For Acceptance
-              </div>
-            </a>):""}
-            {!committee?(<a>
-              <div className="tabLink" id={tab === "for-prequalification"?"tabActive":""}
-              onClick = {()=>gotoTab("for-prequalification")}>
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="tabIcon"
-                ></FontAwesomeIcon>
-                For Pre Qualification
               </div>
             </a>):""}
             <a>

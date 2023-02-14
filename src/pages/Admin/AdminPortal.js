@@ -39,7 +39,7 @@ export default function AdminPortal() {
     <Routes>
       <Route exact path="/" element={<DashBoard />} />
       <Route exact path="/dashboard" element={<DashBoard />} />
-      <Route exact path="/applications/:tab" element={<Application />} />
+      <Route exact path="/applications/:tab" element={<Application admin = {true}/>} />
       <Route exact path="/applications" element={<Application />} />
       <Route exact path="/hiring" element={<Hiring />} />
       <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference admin = {true}/>}/>
