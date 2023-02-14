@@ -73,14 +73,14 @@ export default function ApplicantsTable({
     if (request.data) requestApplications();
     else alert("Error Occured");
   };
-  const startInterview = async (roomId, applicationId, applicationId) => {
+  const startInterview = async (roomId, applicationId) => {
     const interviewReq = await axios.post(
       apiBaseUrl + "/admin/startInterview",
       { roomId: roomId },
       { withCredentials: true }
     );
     if (interviewReq.data.success) {
-      window.location.href = "../conference/" + roomId+"/"+applicationId+"/"+applicationId;
+      window.location.href = "../conference/" + roomId+"/"+applicationId;
     }
   };
   const evaluate = async(applicantionsId) => {
@@ -140,7 +140,7 @@ export default function ApplicantsTable({
                   size="sm"
                   variant="success"
                   className="me-1"
-                  onClick={() => startInterview(data.room_id, data.application_id,data.application_id)}
+                  onClick={() => startInterview(data.room_id, data.application_id)}
                 >
                   <FontAwesomeIcon icon={faVideo} />
                   Start
