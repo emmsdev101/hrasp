@@ -11,7 +11,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import PanelHeader from "../../components/header/PanelHeader";
 import {
   apiBaseUrl,
   peerServer,
