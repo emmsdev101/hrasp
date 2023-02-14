@@ -35,19 +35,19 @@ export default function FirstStep({next, back}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="firstname">Firstname</Form.Label>
-                <Form.Control type="text" id="firstname" onChange = {handleFirstname} value = {firstname}></Form.Control>
+                <Form.Control type="text" id="firstname" onChange = {handleFirstname} value = {firstname} required></Form.Control>
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="Middle Name">Middlename</Form.Label>
-                <Form.Control type="text" id="Middle Name" onChange = {handleMiddlename} value = {middlename}></Form.Control>
+                <Form.Control type="text" id="Middle Name" onChange = {handleMiddlename} value = {middlename} required></Form.Control>
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="lastname">Lastname</Form.Label>
-                <Form.Control type="text" id="lastname" onChange = {handleLastname} value = {lastname}></Form.Control>
+                <Form.Control type="text" id="lastname" onChange = {handleLastname} value = {lastname} Rrequired></Form.Control>
               </Form.Group>
             </Col>
           </Row>
@@ -65,13 +65,13 @@ export default function FirstStep({next, back}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="age">Age</Form.Label>
-                <Form.Control type="number" id="age" onChange = {handleAge} value = {age}></Form.Control>
+                <Form.Control type="number" id="age" onChange = {handleAge} value = {age} required></Form.Control>
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="lastname">Birthday</Form.Label>
-                <Form.Control type="date" id="lastname" onChange = {handleBirthday} value = {birthday}></Form.Control>
+                <Form.Control type="date" id="lastname" onChange = {handleBirthday} value = {birthday} Rrequired></Form.Control>
               </Form.Group>
             </Col>
           </Row>
@@ -79,13 +79,13 @@ export default function FirstStep({next, back}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="contact">Contact Number</Form.Label>
-                <Form.Control type="tel" id="contact" onChange = {handleContact} value = {contact}></Form.Control>
+                <Form.Control type="tel" placeholder='+639xxxxxxxxx' match = "^\+[1-9]{1}[0-9]{3,14}$" id="contact" onChange = {handleContact} value = {contact} Rrequired></Form.Control>
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="email">Email Address</Form.Label>
-                <Form.Control type="email" id="email" onChange = {handleEmail} value = {email}></Form.Control>
+                <Form.Control type="email" id="email" onChange = {handleEmail} value = {email} Rrequired></Form.Control>
               </Form.Group>
             </Col>
           </Row>
