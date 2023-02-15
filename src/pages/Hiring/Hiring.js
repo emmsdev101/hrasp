@@ -26,10 +26,12 @@ export default function Hiring() {
     <Row>
       <Container fluid>
       <Row className='d-flex justify-content-center'>
-        <Col md = {8}>
+        <Col md = {8} className='d-flex flex-column align-items-center justify-content-center'>
             {jobPosts.map((jobPost, index)=>(
               <JobPostCard data={jobPost} key = {index} admin = {true}/>
             ))}
+            {jobPosts.length === 0?
+            <p>There's no job posting yet.</p>:""}
 
         </Col>
       </Row>

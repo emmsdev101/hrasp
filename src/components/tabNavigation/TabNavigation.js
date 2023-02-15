@@ -49,7 +49,8 @@ export default function TabNavigation({tab,gotoTab,committee,admin}) {
                 For Interview
               </div>
             </a>
-            <a>
+            {!admin?(
+              <a>
               <div className="tabLink" id={tab === "evaluation"?"tabActive":""}
               onClick = {()=>gotoTab("evaluation")}>
                 {" "}
@@ -57,6 +58,7 @@ export default function TabNavigation({tab,gotoTab,committee,admin}) {
                 Evaluation
               </div>
             </a>
+            ):""}
             <a>
               <div className="tabLink" id={tab === "evaluation-result"?"tabActive":""}
               onClick = {()=>gotoTab("evaluation-result")}>

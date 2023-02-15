@@ -15,6 +15,7 @@ import Panel from "./pages/Panel/Panel";
 import Board from './pages/Board/Board'
 import PanelLogin from "./pages/PanelLogin/PanelLogin";
 import Conference from "./pages/Conference/Conference";
+import AccountPending from "./pages/SignIn/AccountPending";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
 
         <Route exact path="/signup/" element={<SignUp />} />
         <Route exact path="/login/" element={<SignIn />} />
+        <Route exact path="/accountnotverified/" element={<AccountPending />} />
+
         <Route exact path="/applicant/*" element={<Applicant />} />
 
         <Route exact path="/panel-login" element = {<PanelLogin/>}/>

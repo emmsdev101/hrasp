@@ -93,7 +93,7 @@ export default function EvaluationSheets({ view, panel }) {
     console.log("submitting", submitReq.data);
 
     if (submitReq.data) {
-      window.location.href = "../applicants/evaluation";
+      window.location.href = "../../applicants/evaluation";
     }
   };
 

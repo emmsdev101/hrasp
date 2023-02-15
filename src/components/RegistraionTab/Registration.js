@@ -71,10 +71,16 @@ export default function RegistrationTab() {
                             selected.current = data.account_id
                         }}>Decline</Button>
                     </React.Fragment>
-                ):(<Button variant="danger" size="sm" onClick={()=>{
-                    setShowDeactivate(true)
+                ):""}
+                {data.status === "active"?
+                (<Button variant="danger" size="sm" onClick={()=>{
+                  setShowDeactivate(true)
+                  selected.current = data.account_id
+                  }}>Deactivate</Button>):
+                  (<Button variant="success" size="sm" onClick={()=>{
+                    setShowAccept(true)
                     selected.current = data.account_id
-                    }}>Deactivate</Button>)}
+                    }}>Activate</Button>)}
             </td>
 
         </tr>

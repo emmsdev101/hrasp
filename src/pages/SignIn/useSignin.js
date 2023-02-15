@@ -19,6 +19,7 @@ export default function useSignin() {
           console.log(loginStatus)
           if(loginStatus === "wrong-email")alert("Wrong email")
           else if(loginStatus === "wrong-password")alert("Wrong password")
+          if(loginStatus === "pending")window.location.href = "/accountnotverified"
           else window.location.href = "/applicant"
         }
     }

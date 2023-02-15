@@ -1,4 +1,4 @@
-import { faSignIn } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faHouse, faSignIn } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
@@ -12,9 +12,9 @@ export default function Registered() {
       <h4 className="mt-4 mb-4 text-center">Registration Complete</h4>
       <Row className = "formRow">
       <Col sm={12} md={12} lg={8} className = "">
-          <p className='alert alert-success'>You can now log in.</p>
+          <p className='alert alert-success'>Please wait for verification of your account. It will be proccessed within 24 hours. We'll let you know when you get verified.</p>
           <Container className = "d-flex flex-direction-row justify-content-center ">
-          <Button variant='light' href='/login'>Login <FontAwesomeIcon icon={faSignIn}/></Button>
+          <Button variant='light' href='/'>Home <FontAwesomeIcon icon={faHome}/></Button>
 
           </Container>
           </Col>

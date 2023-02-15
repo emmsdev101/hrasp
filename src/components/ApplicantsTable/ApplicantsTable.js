@@ -209,7 +209,7 @@ export default function ApplicantsTable({
                 size="sm"
                 className="me-2"
                 variant="success"
-                onClick={() => accept(data, "prequalification")}
+                onClick={() => accept(data, "for-interview")}
               >
                 Accept
               </Button>

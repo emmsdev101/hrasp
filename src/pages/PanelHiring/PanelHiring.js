@@ -34,10 +34,12 @@ export default function PanelHiring() {
       <Row>
         <Container fluid>
           <Row className="d-flex justify-content-center">
-            <Col md={6}>
+            <Col md={6} className="d-flex flex-column align-items-center justify-content-center">
               {jobPosts.map((jobPost, index) => (
                 <JobPostCard data={jobPost} key={index} cancelRequest = {prepareCancel} />
               ))}
+              {jobPosts.length === 0?
+            <p>You have no job posting yet.</p>:""}
             </Col>
           </Row>
         </Container>
