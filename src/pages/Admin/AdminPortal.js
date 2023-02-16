@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Header from "../../components/header/AdminHeader";
 import DashBoard from "../dashboard/DashBoard";
 import Application from "../Applications/Application";
