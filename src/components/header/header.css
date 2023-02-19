@@ -41,23 +41,20 @@ a{
     width:30px;
     height:30px;
     color: inherit;
-    font-size: large;
     display: grid;
     display: -ms-grid;
     place-items: center;
 }
 .accountNav{
-    font-size: small;
-    font-weight: 500;
     width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction:row;
-    width: auto;
 }
 .accountNav p{
-    width: 100px;
+    width: auto;
+    font-size: small;
 }
 .AccountPicture{
     width: 25px;
@@ -99,12 +96,14 @@ a{
     margin-right: 5px;
 }
 
+
 .AccountAction:hover{
     color: white;
 }
 
 .navigation{ 
     margin-left: auto;
+    margin-right: auto;
     height: 100%;
     width: auto;
 }
@@ -128,7 +127,6 @@ a{
 }
 .navLink a{
     display: flex;
-
     justify-content: space-between;
     align-items: center;
     padding: 10px;
@@ -136,7 +134,7 @@ a{
 }
 .navText{
     margin-left: 4px ;
-    font-size: small;
+    font-size:smaller;
 
 }
 

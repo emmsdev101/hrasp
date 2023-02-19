@@ -2,7 +2,7 @@
 //exports.apiBaseUrl = "http://192.168.254.137:4000"
 //exports.apiBaseUrl = "https://ahp-api.onrender.com:4000"
 
-exports.apiBaseUrl = "https://ahp-api.onrender.com"
+exports.apiBaseUrl = "http://192.168.254.103:4000"
 
 exports.peerServer = "192.168.254.103"
 exports.peerServerPort = "4001"

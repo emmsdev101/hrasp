@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import logo from "./../../images/logo/wvsulogotransparent.png";
-
-import "./header.css";
 import { Button, CloseButton, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,6 +24,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
+import './header.css'
 
 export default function Header({ logged }) {
   const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout, showHeader } = useHeader("admin");
@@ -44,7 +43,7 @@ export default function Header({ logged }) {
                 className={isActive("/admin/dashboard")}
               >
                 <FontAwesomeIcon icon={faChartLine} className="navIcon" />
-                <span className=" navText">Dashboard</span>
+                <span className="navText">Dashboard</span>
               </a>
             </li>
             <li className="navLink">
@@ -53,13 +52,13 @@ export default function Header({ logged }) {
                 className={isActive("/admin/applications")}
               >
                 <FontAwesomeIcon icon={faUserTie} className="navIcon" />
-                <span className=" navText">Applications</span>
+                <span className="navText">Applications</span>
               </a>
             </li>
             <li className="navLink">
               <a href="/admin/hiring" className={isActive("/admin/hiring")}>
                 <FontAwesomeIcon icon={faHouseLaptop} className="navIcon" />
-                <span className=" navText">Hiring</span>
+                <span className="navText">Hiring</span>
               </a>
             </li>
             <li className="navLink">
@@ -68,25 +67,25 @@ export default function Header({ logged }) {
                 className={isActive("/admin/shedules")}
               >
                 <FontAwesomeIcon icon={faCalendar} className="navIcon" />
-                <span className=" navText">Schedules</span>
+                <span className="navText">Schedules</span>
               </a>
             </li>
             <li className="navLink">
               <a href="/admin/panels" className={isActive("/admin/panels")}>
                 <FontAwesomeIcon icon={faUserGear} className="navIcon" />
-                <span className=" navText">Departments</span>
+                <span className="navText">Departments</span>
               </a>
             </li>
             <li className="navLink">
               <a href="/admin/boards" className={isActive("/admin/boards")}>
                 <FontAwesomeIcon icon={faUniversity} className="navIcon" />
-                <span className=" navText">Screening Comittee</span>
+                <span className="navText">Screening Comittee</span>
               </a>
             </li>
             <li className="navLink">
               <a href="/admin/evaluations" className={isActive("/admin/evaluations")}>
                 <FontAwesomeIcon icon={faBook} className="navIcon" />
-                <span className=" navText">Evaluation Sheets</span>
+                <span className="navText">Evaluation Sheets</span>
               </a>
             </li>
           </ul>

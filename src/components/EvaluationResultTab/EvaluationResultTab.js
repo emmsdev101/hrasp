@@ -9,6 +9,9 @@ import "./evaluation.css";
 
 export default function EvaluationResultTab({ panel, head, committee }) {
   const [evaluations, setEvaluations] = useState([]);
+  const [viewDetails, setviewDetails] = useState(false)
+
+  
 
   const fetchEvaluations = async () => {
     let reqUrl = apiBaseUrl + "/admin/getEvaluationResults";
@@ -73,7 +76,7 @@ export default function EvaluationResultTab({ panel, head, committee }) {
             </Row>
           </Card.Header>
           <Card.Body className="p-3">
-            <EvaluationTable data={evaluations} />
+            <EvaluationTable data={evaluations} panel = {panel}/>
           </Card.Body>
         </Card>
       </Col>

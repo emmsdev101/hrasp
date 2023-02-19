@@ -247,7 +247,8 @@ const Information = ({ label, value, toEdit, handle, myref, setMyVal }) => {
           <Form.Control
             ref={myref}
             type="text"
-            className="textInfo"
+            className="textInfo edit"
+            placeholder="Type here"
             value={value}
             onChange={(e) => {
               setMyVal(e.target.value);

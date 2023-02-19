@@ -48,6 +48,7 @@ export default function ApplicantsTable({
     try {
       const reqData = request.data;
       setApplications(reqData);
+      console.log(reqData)
     } catch (err) {
       console.log(err);
     }

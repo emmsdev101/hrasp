@@ -92,21 +92,13 @@ export default function ApplicantHeader() {
 
     {!showNav?<Button variant='none' className='d-md-none d-block' onClick={()=>setShowNav(true)}><FontAwesomeIcon icon={faBars} size = "xl"/></Button>:""}
 
-    <div className="accountNav flex-column d-none d-md-block" >
+    <div className="accountNav d-none d-md-flex" onClick={toggleMenu}>
+    <p className="m-1">Applicant</p>
       <FontAwesomeIcon
         icon={faUserCircle}
         className="AccountPicture"
       ></FontAwesomeIcon>
-      <p className="m-0 bg-blue">Applicant</p>
-      <button
-        className="btn bg-transparent btn-sm accountAction"
-        onClick={toggleMenu}
-      >
-        <FontAwesomeIcon
-          icon={faAngleDown}
-          className="accountIcon"
-        ></FontAwesomeIcon>
-      </button>
+
     </div>
       {showMenu?
       <div className="DropDown" tabIndex={1}>
