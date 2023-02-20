@@ -10,14 +10,73 @@ import Filter from "../Filter/Filter";
 import "./evaluation.css";
 
 export default function EvaluationResultTab({ panel, head, committee }) {
-  const [evaluations, setEvaluations] = useState([]);
-  const [detailedEvaluation, setDetailedEvaluation] = useState([])
   const [viewDetails, setviewDetails] = useState(false)
-
+  const viewEvaluation = (data) => {
+    window.location.href = "../view-evaluation/"+data.id
+  }
+  const viewEvaluationResult = (data) =>{
+    setviewDetails(data)
+  }
+  return viewDetails ?(<ViewResult data = {viewDetails}/>):(
+    <Result panel = {panel} head = {head} committee = {committee} viewEvaluation = {viewEvaluation} viewEvaluationResult = {viewEvaluationResult}/>
+  )
+}
   
 
+
+const Result = ({panel,viewEvaluation, viewEvaluationResult, head, committee }) => {
+  const nonTeaching = [
+    "Admin",
+    "Registrar",
+    "Library",
+    "School Farm",
+    "School Clinic",
+    "Cleric",
+    "Security",
+    "Finance",
+    "Job Laborers",
+  ];
+  const teaching = [
+    "COE","COA","CBM","SICT"
+]
+  const [ evaluations, setEvaluations] = useState([])
+  const [departments, setDepartments] = useState(teaching)
+  const [selectedDepartment, setSelectedDepartment] = useState("All")
+  const [type, setType] = useState("All")
+  const [positions, setPositions] = useState([])
+  const [selectedPosition, setSelectedPosition] = useState("All")
+
+
+  const[renderTable, setRenderTable] = useState(false)
+
+  useEffect(()=>{
+    fetchEvaluations()
+  },[selectedDepartment, type, selectedPosition])
+  useEffect(()=>{
+    fetchPositions()
+  },[selectedDepartment])
+
+  const handleTypeFilter = (e) => {
+    const value = e.target.value
+    setType(value)
+    if(value === "Teaching"){
+      setDepartments(teaching)
+    }else setDepartments(nonTeaching)
+  }
+
+  const handleSelecteDepartment = (e) => {
+    const value = e.target.value
+    setSelectedDepartment(value)
+  }
+
+  const handleSelectedPosition = (e)=>{
+    const value = e.target.value
+    setSelectedPosition(value)
+  }
+
   const fetchEvaluations = async () => {
-    let reqUrl = apiBaseUrl + "/admin/getEvaluationResults";
+    setRenderTable(false)
+    let reqUrl = apiBaseUrl + `/admin/getEvaluationResults/${type}/${selectedDepartment}/${selectedPosition}`;
     if (head)
       reqUrl = apiBaseUrl + "/panel/getEvaluationResultsForCommitteeHead";
     else if (committee)
@@ -27,90 +86,66 @@ export default function EvaluationResultTab({ panel, head, committee }) {
       withCredentials: true,
     });
     const evaluationData = evaluationRequest.data;
+    console.log(evaluationData)
     if (evaluationData) {
       setEvaluations(evaluationData);
+      setRenderTable(true)
     }
   };
-  useEffect(() => {
-    fetchEvaluations();
-  }, []);
-
-  useEffect(()=>{
-    if(viewDetails){
-      getPanelEvaluations()
-    }
-  }, [viewDetails])
-
-  const getPanelEvaluations = async()=>{
-    const reqUrl = apiBaseUrl + "/admin/getPanelEvaluations/"+viewDetails.id;
-  const evaluationRequest = await axios.get(reqUrl, {
-    withCredentials: true,
-  });
-  const evaluationData = evaluationRequest.data;
-  if (evaluationData) {
-    setDetailedEvaluation(evaluationData);
+  const fetchPositions = async() =>{
+    const getPositions = await axios.get(apiBaseUrl+`/admin/getJobPositions/${type}/${selectedDepartment}`,{withCredentials:true})
+    const deptPositions = getPositions.data
+    setPositions(deptPositions)
   }
-  }
-
-  const viewEvaluation = (data) => {
-    window.location.href = "../view-evaluation/"+data.id
-  }
-  const viewEvaluationResult = (data) =>{
-    setviewDetails(data)
-  }
-  return viewDetails ?(<ViewResult data = {viewDetails} evaluations = {detailedEvaluation}/>):(
-    <Result evaluations={evaluations} panel = {panel} viewEvaluation = {viewEvaluation} viewEvaluationResult = {viewEvaluationResult}/>
-  )
-}
-  
-
-
-const Result = ({evaluations, panel,viewEvaluation, viewEvaluationResult }) => {
   return(
     <Row className="w-100 evalduation">
       <Col>
         <Card>
           <Card.Header className="p-3 m-3">
-            <Row>
-              <Col>
+            <Row className="d-flex justify-content-between align-items-center">
+              <Col className="col-sm-12 mb-2 col-md-4 ">
                 <div className="d-flex justify-content-between align-items-center">
                   <h5>Evaluation Results</h5>
-                  <div className="d-flex justify-content-end align-items-center">
+                  {/* <div className="d-flex justify-content-end align-items-center">
                     <Form.Label htmlFor="search" className="m-0 me-2">
                       Search
                     </Form.Label>
                     <Form.Control type="text" id="search" size="sm" />
-                  </div>
+                  </div> */}
                 </div>
               </Col>
-              <Col className="d-flex justify-content-end align-items-center">
+              <Col className="d-flex justify-content-end align-items-center mb-2 col-lg-6">
                 <Filter
-                  title="Recommendation"
-                  list={["To be considered"]}
+                  title="Type"
+                  list={["Teaching","Non Teaching"]}
                   id="recommendation"
-                  defaultValue="SICT"
-                  handler={null}
+                  defaultValue={type}
+                  handler={handleTypeFilter}
                 />
 
                 <Filter
-                  title="Recommendation"
-                  list={["To be considered"]}
+                  title="Department"
+                  list={departments}
                   id="recommendation"
-                  defaultValue="SICT"
-                  handler={null}
+                  defaultValue={selectedDepartment}
+                  handler={handleSelecteDepartment}
                 />
                 <Filter
-                  title="Department"
-                  list={["SICT", "SOA", "COE", "BSBA"]}
+                  title="Position"
+                  list={positions}
+                  object = {true}
                   id="filter"
-                  defaultValue="SICT"
-                  handler={null}
+                  defaultValue={selectedPosition}
+                  handler={handleSelectedPosition}
                 />
               </Col>
             </Row>
           </Card.Header>
           <Card.Body className="p-3">
-            <EvaluationTable action = {panel?viewEvaluation:viewEvaluationResult} data={evaluations} panel = {panel}/>
+            {renderTable?(
+                          <EvaluationTable action = {panel?viewEvaluation:viewEvaluationResult} data={evaluations} panel = {panel}/>
+
+            ):""}
           </Card.Body>
         </Card>
       </Col>
@@ -118,7 +153,30 @@ const Result = ({evaluations, panel,viewEvaluation, viewEvaluationResult }) => {
   )
 }
 
-const ViewResult = ({data, evaluations}) =>{
+const ViewResult = ({data}) =>{
+
+  const [filterRecom, setFilterRecom] = useState("All")
+  const [evaluations, setEvaluations] = useState([])
+
+  useEffect(()=>{
+      getPanelEvaluations()
+  }, [filterRecom])
+
+  const getPanelEvaluations = async()=>{
+    const reqUrl = `${apiBaseUrl}/admin/getPanelEvaluations/${data.id}/${filterRecom}`;
+  const evaluationRequest = await axios.get(reqUrl, {
+    withCredentials: true,
+  });
+  const evaluationData = evaluationRequest.data;
+  if (evaluationData) {
+    setEvaluations(evaluationData);
+  }
+  }
+
+  const handleFilterRecom = (e) => {
+    const value = e.target.value
+    setFilterRecom(value)
+  }
   return (
   <Row className="w-100 evalduation">
       <Col>
@@ -128,23 +186,24 @@ const ViewResult = ({data, evaluations}) =>{
             <FontAwesomeIcon icon={faArrowLeft} size="lg" onClick={()=>window.location.href = "../applications/evaluation-result"}/>
 
             <p className="p-2 m-0 me-2 alert alert-info">Applying: {data.title}</p>
-                  <p className="p-2 m-0 me-2 alert alert-info">For: {data.department}</p>
+            <p className="p-2 m-0 me-2 alert alert-info">For: {data.department}</p>
+            <p className="alert alert-danger m-0 p-2 ms-auto w-auto">Total: {data.total}</p>
+
             </Container>
             <Row>
               <Col>
                 <div className="d-flex justify-content-between align-items-center">
-                  <h5 className="p-0 m-0">{data.applicant_name}</h5>
+                  <h5 className="p-0 m-0 ms-3">{data.applicant_name}</h5>
                 </div>
               </Col>
               <Col className="d-flex justify-content-end align-items-center">
                 <Filter
                   title="Filter"
-                  list={["To be considered"]}
+                  list={["Definitely to be considered","Possible further consideration","Unfavorable"]}
                   id="recommendation"
-                  defaultValue="SICT"
-                  handler={null}
+                  defaultValue={filterRecom}
+                  handler={handleFilterRecom}
                 />
-                <p className="alert alert-danger m-0 p-2 w-auto">Total: {data.total}</p>
               </Col>
             </Row>
           </Card.Header>
