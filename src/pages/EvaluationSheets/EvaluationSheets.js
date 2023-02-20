@@ -16,6 +16,9 @@ import "./style.css";
 import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import { useParams } from "react-router-dom";
+
+import JsPDF from 'jspdf';
+
 export default function EvaluationSheets({ view, panel }) {
   const { id, applicationId } = useParams();
   const [evaluatoinData, setEvaluationData] = useState({});
@@ -97,11 +100,18 @@ export default function EvaluationSheets({ view, panel }) {
       window.location.href = "../../applicants/evaluation";
     }
   };
+  const generatePDF = () => {
 
+    const report = new JsPDF('portrait','pt','a4');
+    report.setFontSize(11)
+    report.html(document.querySelector('#report')).then(() => {
+        report.save('report.pdf');
+    });
+  }
   return evaluatoinData ? (
     <Row className="pt-3 d-flex justify-content-center pb-5 evaluation">
       <Col md={10} sm={12}>
-        <Card>
+        <Card id="report">
           <Card.Header className="d-flex flex-column align-items-center justify-content-center p-5 ">
             <div className="d-flex align-items-center">
               <h6 className="m-0 pe-3">INTERVIEW FORM</h6>
@@ -228,8 +238,8 @@ export default function EvaluationSheets({ view, panel }) {
               </Button>
             </React.Fragment>
           ) : (
-            <Button variant="light" className="">
-                <FontAwesomeIcon icon={faDownload} className="pe-1" />
+            <Button variant="light" className="" onClick={generatePDF}>
+                <FontAwesomeIcon icon={faDownload}  className="pe-1" />
                 Download
               </Button>
           )}
