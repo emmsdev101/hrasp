@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { apiBaseUrl } from "../../config";
 
-export default function EvaluationTable({ data, panel, details, action }) {
+export default function EvaluationTable({ data, panel, details, action, tableRef }) {
   
   return (
-    <Table hover responsive>
+    <Table hover responsive ref={tableRef}>
       <thead>
         {details ? (
           <tr>

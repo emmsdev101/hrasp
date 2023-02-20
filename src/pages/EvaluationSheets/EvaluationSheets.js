@@ -1,6 +1,7 @@
 import {
   faCancel,
   faCheck,
+  faDownload,
   faEdit,
   faPen,
   faPlus,
@@ -227,7 +228,10 @@ export default function EvaluationSheets({ view, panel }) {
               </Button>
             </React.Fragment>
           ) : (
-            ""
+            <Button variant="light" className="">
+                <FontAwesomeIcon icon={faDownload} className="pe-1" />
+                Download
+              </Button>
           )}
         </Container>
       </Col>
