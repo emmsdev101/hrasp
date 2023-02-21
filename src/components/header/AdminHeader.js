@@ -82,12 +82,12 @@ export default function Header({ logged }) {
                 <span className="navText">Screening Comittee</span>
               </a>
             </li>
-            <li className="navLink">
+            {/* <li className="navLink">
               <a href="/admin/evaluations" className={isActive("/admin/evaluations")}>
                 <FontAwesomeIcon icon={faBook} className="navIcon" />
                 <span className="navText">Evaluation Sheets</span>
               </a>
-            </li>
+            </li> */}
           </ul>
 
       </div>

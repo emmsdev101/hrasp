@@ -51,12 +51,6 @@ export default function BoardHeader({profileDetails, page}) {
                 <span className=" navText">Applications</span>
               </a>
             </li>
-            <li className="navLink">
-              <a href={"/"+page+"/notification"} className={isActive("/"+page+"/notification")}>
-                <FontAwesomeIcon icon={faBell} className="navIcon" />
-                <span className=" navText">Notification</span>
-              </a>
-            </li>
           </ul>
 
       </div>

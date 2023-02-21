@@ -22,8 +22,8 @@ import "./conference.css";
 import PeerCall from "./PeerCall";
 export default function Conference({ panel, admin }) {
   const [streams, setStreams] = useState([]);
-  const [joined, setJoined] = useState(false);
-  const [start, setStartStream] = useState(false);
+  const [joined, setJoined] = useState(true);
+  const [start, setStartStream] = useState(true);
   const [camera, setCamera] = useState(true);
   const [audio, setAudio] = useState(false);
 
@@ -33,10 +33,7 @@ export default function Conference({ panel, admin }) {
 
   const { roomId, applicantionsId } = useParams();
 
-  const myPeer = new Peer({
-    host:peerServer,
-    port:peerServerPort
-  });
+  const myPeer = new Peer();
 
   let socket = useRef();
   let myStream = useRef();
