@@ -155,3 +155,7 @@ a{
     padding: 0;
 }
 
+.profileAvatar{
+    height: 200px;
+    width: 200px;
+}

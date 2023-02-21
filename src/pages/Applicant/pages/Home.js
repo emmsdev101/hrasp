@@ -2,13 +2,34 @@ import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import JobPost from "../../../components/JobPost/JobPost";
 import useHome from "./useHome";
+import Filter from './../../../components/Filter/Filter'
 
 export default function Home() {
   const { jobPosts, application, interviewDate } = useHome();
   return (
     <Container fluid className="m-0 p-0">
       <div className="top-control">
-        <h5 className="m-0">Hiring Positions</h5>
+        <Row className="w-100 d-flex justify-content-end">
+          <Col className="col-lg-2 col-md-4 col-sm-12 p-2">
+          <h5 className="m-0">Hiring Positions</h5>
+        
+          </Col>
+        <Col className="col-lg-2 col-md-4 col-sm-12 p-2">
+          <Filter title="Type" list = {[]}/>
+        </Col>
+        <Col className="col-lg-2 col-md-4 col-sm-12 p-2">
+          <Filter title="Department" list = {[]}/>
+        </Col>
+        <Col className="col-lg-2 col-md-4 col-sm-12 p-2">
+          <Filter title="Position" list = {[]}/>
+        </Col>
+        <Col className="col-lg-4 col-md-4 col-sm-12 p-2">
+          <div className="form-group searchbox">
+            <input placeholder="Search" type="text" id="searchinput"></input>
+            <Button size="sm" variant="success">Search</Button>
+        </div></Col>
+        </Row>
+        
       </div>
       <div className="p-2"></div>
       <Row className="w-100 m-0 p-0 d-flex justify-content-center">

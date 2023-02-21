@@ -10,6 +10,7 @@ import Apply from "./pages/Apply/Apply";
 import axios from "axios";
 import { apiBaseUrl } from "../../config";
 import Conference from "../Conference/Conference";
+import Profile from "../Profile/Profile";
 
 
 export default function Applicant() {
@@ -32,6 +33,7 @@ export default function Applicant() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/apply/:id/:title" element={<Apply/>}/>
         <Route exact path="/conference/:roomId/" element ={<Conference/>}/>
+        <Route exact path="/profile/" element ={<Profile/>}/>
 
       </Routes>
     </div>

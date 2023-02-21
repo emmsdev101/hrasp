@@ -19,19 +19,38 @@
     z-index: 2;
 }
 .searchbox{
-    border-radius: 50px;
-    padding: 5px 15px;
-    background-color: rgb(233, 233, 233);
-    margin: 0 10px;
-    width:50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 #searchinput{
-    border: none;
-    border-bottom: 1px solid rgb(197, 197, 197);
+    border-radius: 50px;
+    padding: 5px 15px;
+    margin: 0 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 98%;
     outline: none;
-    background-color: transparent;
+    border: 1px solid rgb(201, 201, 201);
+}
+.infoBox{
+    margin-bottom: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px grey;
+
+}
+.devider{
+    margin: 10px;
+    box-shadow: 0px 0px 3px grey;
+    width: 100%;
+    padding: 30px;
+    display: grid;
+    place-items: center;
+
+}
+.lightButton{
+    box-shadow: 0px 0px 3px grey;
+
 }

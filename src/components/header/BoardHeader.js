@@ -19,6 +19,7 @@ import {
   faVials,
   faVideo,
   faCalendar,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
 export default function BoardHeader({profileDetails, page}) {
@@ -49,6 +50,15 @@ export default function BoardHeader({profileDetails, page}) {
               >
                 <FontAwesomeIcon icon={faUserTie} className="navIcon" />
                 <span className=" navText">Applications</span>
+              </a>
+            </li>
+            <li className="navLink">
+              <a
+                href={"/"+page+"/profile"}
+                className={isActive("/"+page+"/profile")}
+              >
+                <FontAwesomeIcon icon={faUser} className="navIcon" />
+                <span className=" navText">Profile</span>
               </a>
             </li>
           </ul>

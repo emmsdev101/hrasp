@@ -9,6 +9,7 @@ import Conference from '../Conference/Conference'
 import EvaluationSheets from '../EvaluationSheets/EvaluationSheets'
 import PanelDashboard from '../PanelDashboard/PanelDashboard'
 import PanelHiring from '../PanelHiring/PanelHiring'
+import Profile from '../Profile/Profile'
 import RequestHiring from '../RequestHiring/RequestHiring'
 
 import Application from './../Applications/Application'
@@ -19,9 +20,9 @@ export default function Panel({head}) {
     const auth = async()=>{
       let authReq
       try{
-        authReq = await axios.get(apiBaseUrl+"/panel",{withCredentials:true});
+        authReq = await axios.get(apiBaseUrl+"/panel/getCommitteeProfileDetails",{withCredentials:true});
         const authData = authReq.data
-        console.log(authData)
+        console.log("committee data",authData)
         setProfileDetails(authData)
 
       }
@@ -39,6 +40,7 @@ export default function Panel({head}) {
     <Routes>
       <Route exact path="/" element={<PanelDashboard head = {head} committee = {true} />} />
       <Route exact path="/dashboard" element={<PanelDashboard head = {head} committee = {true}/>} />
+      <Route exact path="/profile" element={<Profile head = {head} committee = {true}/>} />
       <Route exact path="/applicants/:tab" element = {<Application panel={true} head={head} committee = {true} />}/>
       <Route exact path="/evaluation/:id/:applicationId" element={<EvaluationSheets panel={true} head={head} committee = {true}/>}/>
       <Route exact path="/view-evaluation/:id" element = {<EvaluationSheets view = {true} panel = {true}/> }/>

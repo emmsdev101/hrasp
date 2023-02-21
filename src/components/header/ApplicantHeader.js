@@ -65,9 +65,6 @@ export default function ApplicantHeader() {
         <img src={logo} width={40} className="Logo" alt="logo"></img>
         <h4 className="brandText">AHP</h4>
       </div>
-      <div className="form-group searchbox">
-            <input placeholder="Search" type="text" id="searchinput"></input>
-          </div>
       <div className="navigation d-none d-md-block" >
           <ul className="menuLinks">
             <li className="navLink">
@@ -80,7 +77,7 @@ export default function ApplicantHeader() {
               </a>
             </li>
             <li className="navLink">
-              <a href="/applicant/hiring" className={isActive("/admin/hiring")}>
+              <a href="/applicant/profile" className={isActive("/admin/profile")}>
                 <FontAwesomeIcon icon={faUser} className="navIcon" />
                 <span className=" navText">Profile</span>
               </a>

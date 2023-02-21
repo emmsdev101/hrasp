@@ -19,6 +19,7 @@ import {
   faVials,
   faVideo,
   faCalendar,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
 export default function PanelHeader({profileDetails}) {
@@ -61,9 +62,9 @@ export default function PanelHeader({profileDetails}) {
               </a>
             </li>
             <li className="navLink">
-              <a href="/panel/notification" className={isActive("/panel/notification")}>
-                <FontAwesomeIcon icon={faBell} className="navIcon" />
-                <span className=" navText">Notification</span>
+              <a href="/panel/profile" className={isActive("/panel/profile")}>
+                <FontAwesomeIcon icon={faUser} className="navIcon" />
+                <span className=" navText">Profile</span>
               </a>
             </li>
           </ul>
