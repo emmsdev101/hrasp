@@ -22,11 +22,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
+import ChangePassword from "../../pages/Profile/ChangePassword";
 export default function BoardHeader({profileDetails, page}) {
-    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout,showHeader } = useHeader("panel");
+    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout,showHeader,changePassword,handleChangePassword  } = useHeader("panel");
 
   return showHeader? (
     <div className="header">
+      <ChangePassword show={changePassword} handleClose = {handleChangePassword} panel = {true}/>
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
         <h4 className="brandText">HRASP | HRMPSB - {profileDetails.position}</h4>
@@ -77,13 +79,13 @@ export default function BoardHeader({profileDetails, page}) {
     </div>
       {showMenu?
       <div className="DropDown" tabIndex={1}>
-      <div>
+      <div onClick={handleChangePassword}>
         {" "}
         <FontAwesomeIcon
           icon={faUserCog}
           className="icon"
         ></FontAwesomeIcon>
-        Account Setting
+        Change Password
       </div>
       <div onClick={confirmLogout}>
         <FontAwesomeIcon

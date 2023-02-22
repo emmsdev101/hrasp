@@ -25,12 +25,14 @@ import {
 import useHeader from "./useHeader";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 import './header.css'
+import ChangePassword from "../../pages/Profile/ChangePassword";
 
 export default function Header({ logged }) {
-  const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout, showHeader } = useHeader("admin");
+  const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout, showHeader,changePassword,handleChangePassword } = useHeader("admin");
 
   return showHeader? (
     <div className="header">
+      <ChangePassword show={changePassword} handleClose = {handleChangePassword} admin = {true}/>
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
         <h4 className="brandText">AHP | HRMO</h4>
@@ -111,13 +113,12 @@ export default function Header({ logged }) {
     </div>
       {showMenu?
       <div className="DropDown" tabIndex={1}>
-      <div>
-        {" "}
+      <div onClick={handleChangePassword}>
         <FontAwesomeIcon
           icon={faUserCog}
           className="icon"
         ></FontAwesomeIcon>
-        Account Setting
+        Change Password
       </div>
       <div onClick={confirmLogout}
 >

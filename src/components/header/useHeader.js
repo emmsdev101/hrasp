@@ -7,6 +7,7 @@ export default function useHeader(type) {
     const [showMenu, setShowMenu] = useState(false);
     const [logout, setLogout] = useState(false)
     const [showHeader, setShowHeader] = useState(true)
+    const [changePassword, setChangePassword] = useState(false)
 
 
     useEffect(()=>{
@@ -43,6 +44,10 @@ export default function useHeader(type) {
       if(!type)return window.location.replace("/login")
       if(logoutReq.data.success)window.location.replace("/"+type+"-login")
     }
+    const handleChangePassword = () => {
+      setChangePassword(!changePassword)
+      setShowMenu(!showMenu)
+    }
   return {
     showMenu,
     toggleMenu,
@@ -51,6 +56,8 @@ export default function useHeader(type) {
     logout,
     confirmLogout,
     toggleLogout,
-    showHeader
+    showHeader,
+    handleChangePassword,
+    changePassword
   }
 }

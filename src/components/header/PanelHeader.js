@@ -22,11 +22,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import useHeader from "./useHeader";
+import ChangePassword from "../../pages/Profile/ChangePassword";
 export default function PanelHeader({profileDetails}) {
-    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout } = useHeader("panel");
+    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout,changePassword,handleChangePassword } = useHeader("panel");
 
   return (
     <div className="header">
+      <ChangePassword show={changePassword} handleClose = {handleChangePassword} panel = {true}/>
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
         <h4 className="brandText">HRASP | {profileDetails.department}</h4>
@@ -83,13 +85,13 @@ export default function PanelHeader({profileDetails}) {
     </div>
       {showMenu?
       <div className="DropDown" tabIndex={1}>
-      <div>
+      <div onClick={handleChangePassword}>
         {" "}
         <FontAwesomeIcon
           icon={faUserCog}
           className="icon"
         ></FontAwesomeIcon>
-        Account Setting
+        Change Password
       </div>
       <div onClick={confirmLogout}>
         <FontAwesomeIcon
