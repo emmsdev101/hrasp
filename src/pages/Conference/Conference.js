@@ -22,8 +22,8 @@ import "./conference.css";
 import PeerCall from "./PeerCall";
 export default function Conference({ panel, admin }) {
   const [streams, setStreams] = useState([]);
-  const [joined, setJoined] = useState(true);
-  const [start, setStartStream] = useState(true);
+  const [joined, setJoined] = useState(false);
+  const [start, setStartStream] = useState(false);
   const [camera, setCamera] = useState(true);
   const [audio, setAudio] = useState(false);
 

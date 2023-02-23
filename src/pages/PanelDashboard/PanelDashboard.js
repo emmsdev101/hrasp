@@ -9,7 +9,7 @@ import usePanelDashboard from "./usePanelDashboard";
 
 export default function PanelDashboard({head, committee}) {
 
-    const {jobPosts} = usePanelDashboard(head,committee)
+    const {jobPosts, pending, applicants} = usePanelDashboard(head,committee)
   return (
     <Container fluid className="p-3 dashboard">
       <Row>
@@ -23,7 +23,7 @@ export default function PanelDashboard({head, committee}) {
               className="icon"
             ></FontAwesomeIcon>
             <div className="count-info">
-              <span className="count-numbers">12</span>
+              <span className="count-numbers">{applicants}</span>
               <span className="count-name">Applicants</span>
             </div>
           </div>
@@ -35,12 +35,12 @@ export default function PanelDashboard({head, committee}) {
               className="icon"
             ></FontAwesomeIcon>
             <div className="count-info">
-              <span className="count-numbers">5</span>
-              <span className="count-name">Accepted</span>
+              <span className="count-numbers">{pending}</span>
+              <span className="count-name">Pending</span>
             </div>
           </div>
         </Col>
-        <Col sm={12} md={6} lg={4}>
+        {/* <Col sm={12} md={6} lg={4}>
           <div className="card-counter danger">
             <FontAwesomeIcon
               icon={faCodeFork}
@@ -51,7 +51,7 @@ export default function PanelDashboard({head, committee}) {
               <span className="count-name">Rejected</span>
             </div>
           </div>
-        </Col>
+        </Col> */}
       </Row>
       &nbsp;
       <Container fluid>

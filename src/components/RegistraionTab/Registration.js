@@ -76,11 +76,11 @@ export default function RegistrationTab() {
                 (<Button variant="danger" size="sm" onClick={()=>{
                   setShowDeactivate(true)
                   selected.current = data.account_id
-                  }}>Deactivate</Button>):
+                  }}>Deactivate</Button>): data.status != "pending"?
                   (<Button variant="success" size="sm" onClick={()=>{
                     setShowAccept(true)
                     selected.current = data.account_id
-                    }}>Activate</Button>)}
+                    }}>Activate</Button>):""}
             </td>
 
         </tr>
