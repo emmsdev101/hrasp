@@ -2,9 +2,11 @@
 //exports.apiBaseUrl = "http://192.168.254.137:4000"
 //exports.apiBaseUrl = "https://ahp-api.onrender.com:4000"
 
-exports.apiBaseUrl = "http://192.168.254.106:4000"
-exports.peerServer = "192.168.254.106"
+const newLocal = "192.168.254.146"
+exports.SERVER_IP =newLocal 
+exports.apiBaseUrl = `http://${this.SERVER_IP}:4000`
+exports.peerServer = this.SERVER_IP
 exports.peerServerPort = "4001"
-exports.webSocketServer = "192.168.254.106:3001" 
+exports.webSocketServer = `${this.SERVER_IP}:3001` 
 
 // chrome://flags/#unsafely-treat-insecure-origin-as-secure

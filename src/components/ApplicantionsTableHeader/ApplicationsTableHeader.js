@@ -3,15 +3,15 @@ import { Form } from "react-bootstrap";
 
 export default function ApplicationsTableHeader({ status }) {
   return (
-    <div className="d-flex justify-content-evenly">
-      <div className="sortDiv">
+    <div className="d-flex justify-content-end align-items-center">
+      <div className="sortDiv me-2">
         <Form.Select aria-label="Default select example" size="sm">
           <option>Position</option>
           <option value="1">One</option>
           <option value="2">Two</option>
         </Form.Select>
       </div>
-      <div className="sortDiv">
+      <div className="sortDiv me-2">
         <Form.Select aria-label="Default select example" size="sm">
           <option>Type</option>
           <option value="1">Faculty</option>
@@ -19,7 +19,7 @@ export default function ApplicationsTableHeader({ status }) {
         </Form.Select>
       </div>
       {status === "all" ? (
-        <div className="sortDiv">
+        <div className="sortDiv me-2">
           <Form.Select aria-label="Default select example" size="sm">
             <option>Status</option>
             <option value="1">Accepted</option>
@@ -30,7 +30,7 @@ export default function ApplicationsTableHeader({ status }) {
       ) : (
         ""
       )}
-      <div className="sortDiv">
+      <div className="sortDiv me-2">
         <div className="d-flex justify-content-center align-items-center">
           <Form.Label htmlFor="search">Search</Form.Label>&nbsp;
           <Form.Control

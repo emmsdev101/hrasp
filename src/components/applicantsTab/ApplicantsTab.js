@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React,{useEffect, useState} from 'react'
-import { Col, Container, Form, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Form, FormCheck, Row, Table } from "react-bootstrap";
 import { apiBaseUrl } from '../../config';
 import useApplication from '../../pages/Applications/useApplication';
 import ApplicationDetails from '../ApplicaitonDetails/ApplicationDetails';
@@ -17,8 +17,10 @@ export default function ApplicantsTab({panel, head, committee}) {
               <Col md={4}>
                 <h4 className="cardTtle">Applicants</h4>
               </Col>
-              <Col>
+              <Col className='d-flex flex-column  justify-content-start align-items-end'> 
                 <ApplicationsTableHeader status="all"/>
+                <div className='m-2'>
+                </div>
               </Col>
             </Row>
             <br></br>

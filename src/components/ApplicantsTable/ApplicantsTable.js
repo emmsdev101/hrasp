@@ -3,6 +3,7 @@ import {
   faCalendar,
   faCalendarPlus,
   faCalendarTimes,
+  faHeart,
   faPenToSquare,
   faPlay,
   faVideo,
@@ -90,6 +91,20 @@ export default function ApplicantsTable({
     if(evaluationResult.success)return window.location.href = "../evaluation/"+evaluationResult.evaluationId+"/"+applicantionsId
     alert("Something went wrong")
   }
+  const addFavourite = async(applicantionId, favourite) => {
+    const existed = favourite === "yes"?true:false
+    const addFavouriteUrl = panel?`${apiBaseUrl}/panel/addFavourite`:`${apiBaseUrl}/admin/addFavourite`
+    const addFavouriteReq =  await axios.post(addFavouriteUrl,{
+      applicationId:applicantionId,existed
+    },{withCredentials:true})
+
+    const data = addFavouriteReq.data
+
+    if(data.success){
+      requestApplications()
+    }
+
+  }
 
 
 
@@ -104,6 +119,7 @@ export default function ApplicantsTable({
     return status === "to-interview" ? (
       <tr>
         {console.log(data)}
+        <td><Button variant="light" onClick={()=>addFavourite(data.application_id, data.favourite)}>{data.favourite === "yes"? (<FontAwesomeIcon icon={faHeart}/>):(<FontAwesomeIcon icon={faHeart} color="gray"/>)}</Button> </td>
         <td>{data.firstname + " " + data.middlename + " " + data.lastname}</td>
         <td>{data.departmentType}</td>
         <td>{data.department}</td>
@@ -169,6 +185,7 @@ export default function ApplicantsTable({
     ) : status === "for-evaluation" ? (
       <tr>
         {console.log(data)}
+        <td><Button className="m-0 p-2" variant="light" onClick={()=>addFavourite(data.application_id, data.favourite)}><FontAwesomeIcon icon={faHeart} color={data.favourite === "yes"?"":"gray"}/></Button> </td>
         <td>{data.firstname + " " + data.middlename + " " + data.lastname}</td>
         <td>{data.departmentType}</td>
         <td>{data.department}</td>
@@ -183,6 +200,7 @@ export default function ApplicantsTable({
       </tr>
     ) : (
       <tr key={data.account_id}>
+        <td> <Button className="m-0 p-2" variant="light" onClick={()=>addFavourite(data.application_id, data.favourite)}><FontAwesomeIcon icon={faHeart} color={data.favourite === "yes"?"":"gray"}/></Button> </td>
         <td>
           {data.firstname} {data.middlename} {data.lastname}
         </td>
@@ -277,6 +295,7 @@ export default function ApplicantsTable({
       <thead>
         {status === "to-interview" || status === "for-evaluation" ? (
           <tr>
+            <th><FontAwesomeIcon icon={faHeart}/></th>
             <th>Fullname</th>
             <th>Applying for</th>
             <th>Department</th>
@@ -286,6 +305,7 @@ export default function ApplicantsTable({
           </tr>
         ) : (
           <tr>
+            <th><FontAwesomeIcon icon={faHeart}/></th>
             <th>Fullname</th>
             <th>Applying for</th>
             <th>Department</th>

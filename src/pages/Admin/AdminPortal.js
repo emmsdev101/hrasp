@@ -35,7 +35,7 @@ export default function AdminPortal() {
   return render?(
     <>
     <Header logged = {true} />
-    <Container fluid m={0} p={0} className = "Main">
+    <Container fluid className = "Main p-0 m-0">
     <Routes>
       <Route exact path="/" element={<DashBoard />} />
       <Route exact path="/dashboard" element={<DashBoard />} />

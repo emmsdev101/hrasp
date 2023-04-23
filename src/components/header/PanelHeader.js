@@ -24,14 +24,14 @@ import {
 import useHeader from "./useHeader";
 import ChangePassword from "../../pages/Profile/ChangePassword";
 export default function PanelHeader({profileDetails}) {
-    const { showMenu, toggleMenu, closeMenu, isActive, confirmLogout,changePassword,handleChangePassword } = useHeader("panel");
+    const { showMenu, toggleMenu, closeMenu, isActive, showHeader,confirmLogout,changePassword,handleChangePassword } = useHeader("panel");
 
-  return (
+  return showHeader? (
     <div className="header">
       <ChangePassword show={changePassword} handleClose = {handleChangePassword} panel = {true}/>
       <div className="brand">
         <img src={logo} width={40} className="Logo" alt="logo"></img>
-        <h4 className="brandText">HRASP | {profileDetails.department}</h4>
+        <h4 className="brandText">AHP | {profileDetails.department}</h4>
 
       </div>
       <div className="navigation">
@@ -102,5 +102,5 @@ export default function PanelHeader({profileDetails}) {
       </div>
     </div>:""}
     </div>
-  )
+  ):(<></>)
 }

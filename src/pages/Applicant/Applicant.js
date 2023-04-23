@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
 
@@ -14,11 +14,14 @@ import Profile from "../Profile/Profile";
 
 
 export default function Applicant() {
+  const [profileData, setProfileData] = useState("")
   useEffect(()=>{
     const checkAuth = async()=>{
       try{
-        const authReq = await axios(apiBaseUrl+"/applicant",{withCredentials:true})
-        console.log(authReq.data)
+        const authReq = await axios(apiBaseUrl+"/applicant/getProfileDetails",{withCredentials:true})
+        const authData = await authReq.data
+        console.log("applicant",authData)
+        setProfileData(authData)
       }catch(err){
         window.location.replace("/login")
       }
@@ -27,12 +30,12 @@ export default function Applicant() {
     checkAuth();
   },[])
   return (
-    <div className="applicant">
+    <div className="applicant m-0 p-0">
       <Header />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/apply/:id/:title" element={<Apply/>}/>
-        <Route exact path="/conference/:roomId/" element ={<Conference/>}/>
+        <Route exact path="/conference/:roomId/" element ={<Conference applicant = {true} profileData={profileData}/>} />
         <Route exact path="/profile/" element ={<Profile/>}/>
 
       </Routes>

@@ -36,7 +36,7 @@ export default function Panel({head}) {
   return (
     <>
     <BoardHeader profileDetails = {profileDetails} page = {head?"committee-president":"committee-member"}/>
-    <Container fluid m={0} p={0} className = "Main">
+    <Container fluid m={0} p={0} className = "Main m-0 p-0">
     <Routes>
       <Route exact path="/" element={<PanelDashboard head = {head} committee = {true} />} />
       <Route exact path="/dashboard" element={<PanelDashboard head = {head} committee = {true}/>} />
@@ -44,7 +44,7 @@ export default function Panel({head}) {
       <Route exact path="/applicants/:tab" element = {<Application panel={true} head={head} committee = {true} />}/>
       <Route exact path="/evaluation/:id/:applicationId" element={<EvaluationSheets panel={true} head={head} committee = {true}/>}/>
       <Route exact path="/view-evaluation/:id" element = {<EvaluationSheets view = {true} panel = {true}/> }/>
-      <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference head={head} committee = {true} />}/>
+      <Route exact path="/conference/:roomId/:applicantionsId" element ={<Conference head={head} committee = {true} profileData={profileDetails}/>}/>
 
     </Routes>
     </Container>

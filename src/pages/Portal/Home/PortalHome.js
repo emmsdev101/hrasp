@@ -21,10 +21,10 @@ export default function PortalHome() {
             <h4 className="banner-text">
               Applicant Hiring Portal
             </h4>
-            <p>
+            {/* <p>
               WVSU Calinog as a center of excellence in agriculture and resource
               entrepreneurship
-            </p>
+            </p> */}
           </Container>
         </Container>
       </Container>

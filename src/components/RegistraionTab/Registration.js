@@ -54,7 +54,7 @@ export default function RegistrationTab() {
         <tr>
             <td>{fullname}</td>
             <td>{data.gender}</td>
-            <td>{data.age}</td>
+            {/* <td>{data.age}</td> */}
             <td>{data.birthday}</td>
             <td>{data.contact}</td>
             <td>{data.email}</td>
@@ -145,7 +145,7 @@ export default function RegistrationTab() {
           <tr>
             <th>Fullname</th>
             <th>Gender</th>
-            <th>Age</th>
+            {/* <th>Age</th> */}
             <th>Birthday</th>
             <th>Contact</th>
             <th>Email</th>

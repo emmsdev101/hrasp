@@ -1,5 +1,13 @@
-
+body{
+    margin: 0;
+    padding: 0;
+}
 .Conference{
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
+.chat{
     height: 100vh;
     width: 100vw;
     background-color: black;
@@ -74,6 +82,17 @@
     display: flex;
     justify-content: center;
 
+}
+.topbar{
+    margin: auto;
+    width: 99%;
+    z-index: 10;
+    padding: 10px;
+    background-color: rgb(43, 43, 43);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 /* @media only screen and (max-width: 768px) {
     .vedioDiv
