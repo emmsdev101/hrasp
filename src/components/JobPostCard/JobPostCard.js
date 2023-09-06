@@ -65,8 +65,8 @@ export default function JobPostCard({ data, cancelRequest, admin }) {
         <Card.Text className = "text-muted mt-5 mb-0">Posted on: {data.date}</Card.Text>
       </Card.Body>
       <Card.Footer className="">
-        {status === "approved"?(<Button size="sm" className="me-1" variant="warning">
-          Mark Close
+        {status === "approved"?(<Button size="sm" className="me-1" variant="warning" onClick={()=>cancelRequest(data.id)}>
+          Close
         </Button>):<Button size="sm" variant="danger" className="me-1" onClick={()=>cancelRequest(data.id)}>
           <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon> Cancel 
         </Button>}

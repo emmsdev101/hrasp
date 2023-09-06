@@ -22,10 +22,7 @@ export default function Apply({match}) {
             <Col sm={12} md={6} lg={4} className="form-col">
               <Form.Group>
                 <Form.Label htmlFor="firstname">Application Letter</Form.Label>
-                <Form.Control type="file" accept="application/pdf" id="letter" onChange={handleLetter} multiple></Form.Control>
-                {/* <Form.Text className="text-muted">
-                Should be in a document format with e-signature.
-                </Form.Text> */}
+                <Form.Control type="file" allo accept="application/pdf" id="letter" onChange={handleLetter} multiple></Form.Control>
               </Form.Group>
             </Col>
             <Col sm={12} md={6} lg={4} className="form-col">

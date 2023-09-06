@@ -2,7 +2,7 @@
 //exports.apiBaseUrl = "http://192.168.254.137:4000"
 //exports.apiBaseUrl = "https://ahp-api.onrender.com:4000"
 
-const newLocal = "192.168.254.146"
+const newLocal = "localhost"
 exports.SERVER_IP =newLocal 
 exports.apiBaseUrl = `http://${this.SERVER_IP}:4000`
 exports.peerServer = this.SERVER_IP

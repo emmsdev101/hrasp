@@ -107,7 +107,7 @@ export default function FirstStep({ next, back }) {
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col sm={12} md={6} lg={4} className="form-col">
+              {/* <Col sm={12} md={6} lg={4} className="form-col">
                 <Form.Group>
                   <Form.Label htmlFor="age">Age</Form.Label>
                   <Form.Control
@@ -117,7 +117,7 @@ export default function FirstStep({ next, back }) {
                     value={age}
                   ></Form.Control>
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Col sm={12} md={6} lg={4} className="form-col">
                 <Form.Group>
                   <Form.Label htmlFor="lastname">Birthday</Form.Label>
@@ -129,13 +129,8 @@ export default function FirstStep({ next, back }) {
                   ></Form.Control>
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
+
               <Col sm={12} md={6} lg={4} className="form-col">
-                {/* <Form.Group>
-                <Form.Label htmlFor="contact">Contact Number</Form.Label>
-                <Form.Control type="tel" placeholder='+639xxxxxxxxx' match = "^\+[1-9]{1}[0-9]{3,14}$" id="contact" onChange = {handleContact} value = {contact}></Form.Control>
-              </Form.Group> */}
                 <Form.Label htmlFor="contact">Contact Number</Form.Label>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="phone-number">+63</InputGroup.Text>

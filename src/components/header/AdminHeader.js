@@ -63,7 +63,7 @@ export default function Header({ logged }) {
                 <span className="navText">Hiring</span>
               </a>
             </li>
-            <li className="navLink">
+            {/* <li className="navLink">
               <a
                 href="/admin/schedules"
                 className={isActive("/admin/shedules")}
@@ -71,7 +71,7 @@ export default function Header({ logged }) {
                 <FontAwesomeIcon icon={faCalendar} className="navIcon" />
                 <span className="navText">Schedules</span>
               </a>
-            </li>
+            </li> */}
             <li className="navLink">
               <a href="/admin/panels" className={isActive("/admin/panels")}>
                 <FontAwesomeIcon icon={faUserGear} className="navIcon" />

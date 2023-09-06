@@ -69,6 +69,9 @@ const Question = ({
           readOnly={!editeble}
           onChange={(e) => {
             const input = parseFloat(e.target.value);
+            if(input > 5){
+              return 0
+            }
             let newRates = ratings;
             newRates[index].mainRate = input;
             setRatings(newRates);
@@ -113,6 +116,10 @@ const SectionQuestion = ({
             type="number"
             onChange={(e) => {
               const input = parseFloat(e.target.value);
+
+              if(input > data.maxPoint){
+                return 0
+              }
               let newRates = ratings;
               newRates[index1].minRates[index2] = input;
               setRatings(newRates);

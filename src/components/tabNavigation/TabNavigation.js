@@ -67,13 +67,13 @@ export default function TabNavigation({tab,gotoTab,committee,admin}) {
                 Evaluation Result
               </div>
             </a>
-            <a>
+            {/* <a>
               <div className="tabLink" id={tab === "files"?"tabActive":""}
               onClick = {()=>gotoTab("files")}>
                 {" "}
                 <FontAwesomeIcon icon={faFile} className="tabIcon" /> Files
               </div>
-            </a>
+            </a> */}
           </div>
   )
 }
